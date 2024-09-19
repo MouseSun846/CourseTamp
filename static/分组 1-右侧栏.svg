@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="115" height="648" viewBox="0 0 115 648" fill="none">
+<g filter="url(#filter_18_14)">
+<rect x="56" y="2" width="55" height="640"   fill="#BEE5FC" >
+</rect>
+</g>
+<g filter="url(#filter_18_15)">
+<rect  x="4" y="405" width="105" height="119" rx="10"    fill="#BEE5FC" >
+</rect>
+</g>
+<rect x="61" y="2" width="50" height="640"   fill="#A0DCFE" >
+</rect>
+<rect  x="11" y="411" width="100" height="108" rx="10"    fill="#A0DCFE" >
+</rect>
+<defs>
+<filter id="filter_18_14" x="52" y="0" width="63" height="648" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="feFloodId_18_14"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha_18_14"/>
+<feOffset dx="0" dy="2"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha_18_14" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="feFloodId_18_14" result="dropShadow_1_18_14"/>
+<feBlend mode="normal" in="SourceGraphic" in2="dropShadow_1_18_14" result="shape_18_14"/>
+</filter>
+<filter id="filter_18_15" x="0" y="403" width="113" height="127" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="feFloodId_18_15"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha_18_15"/>
+<feOffset dx="0" dy="2"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha_18_15" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="feFloodId_18_15" result="dropShadow_1_18_15"/>
+<feBlend mode="normal" in="SourceGraphic" in2="dropShadow_1_18_15" result="shape_18_15"/>
+</filter>
+</defs>
+</svg>
