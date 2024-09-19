@@ -12,7 +12,25 @@
 			</view>
 
 		</view>
-		<view class="content"></view>
+		<view class="content">
+			<scroll-view :scroll-top="scrollTop"
+				scroll-y="true" 
+				:show-scrollbar="false"
+				class="scroll-Y" 
+				@scrolltoupper="upper"
+				@scrolltolower="lower" 
+				@scroll="scroll">
+			
+			  <view v-for="(item, index) in items" 
+					:key="index" 
+					class="scroll-view-item" 
+					:class="item.bgColor">
+				{{ item.label }}
+			  </view>
+			</scroll-view>	
+			
+			
+		</view>
 
 		<view class="right-image">
 			<view class="right-image-content-1">
@@ -29,21 +47,7 @@
 
 
 
-		<!-- 		<scroll-view :scroll-top="scrollTop" 
-			scroll-y="true" 
-			:show-scrollbar="false"
-			class="scroll-Y" 
-			@scrolltoupper="upper"
-			@scrolltolower="lower" 
-			@scroll="scroll">
 
-		  <view v-for="(item, index) in items" 
-				:key="index" 
-				class="scroll-view-item" 
-				:class="item.bgColor">
-			{{ item.label }}
-		  </view>
-		</scroll-view>	 -->
 	</view>
 
 </template>
