@@ -13,7 +13,7 @@
 
 		</view>
 		<view class="content">
-			<scroll-view :scroll-top="scrollTop"
+<!-- 			<scroll-view :scroll-top="scrollTop"
 				scroll-y="true" 
 				:show-scrollbar="false"
 				class="scroll-Y" 
@@ -27,7 +27,7 @@
 					:class="item.bgColor">
 				{{ item.label }}
 			  </view>
-			</scroll-view>	
+			</scroll-view>	 -->
 			
 			
 		</view>
