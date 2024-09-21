@@ -156,7 +156,6 @@
 
 	.img-body-1 {
 		height: 50%;
-		min-height: 5rem;
 		width: 5rem;
 	}
 
@@ -169,7 +168,6 @@
 
 	.img-body-2 {
 		height: 100%;
-		left: -0.2rem;
 	}
 
 	.image-content-3 {
@@ -183,7 +181,6 @@
 
 	.img-body-3 {
 		height: 60%;
-		min-height: 2rem;
 		width: 2rem;
 	}
 
@@ -211,15 +208,13 @@
 
 	.right-img-body-1 {
 		height: 100%;
-		min-height: 5rem;
 		width: 5rem;
-		right: -0.2rem;
 	}
 
 	.right-image-content-2 {
 		position: absolute;
 		bottom: 13%;
-		right: 16%;
+		right: 22%;
 		width: 55%;
 		height: 20%;
 		z-index: 2;
@@ -227,7 +222,6 @@
 
 	.right-img-body-2 {
 		height: 50%;
-		min-height: 3rem;
 		width: 3rem;
 	}
 
