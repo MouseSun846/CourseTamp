@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "@dcloudio/uni-ui": "^1.5.6",
-    "@dcloudio/vue-cli-plugin-uni": "^2.0.2-4020420240722003"
+    "@dcloudio/vue-cli-plugin-uni": "^2.0.2-4020420240722003",
+    "mitt": "^3.0.1"
   },
   "devDependencies": {
     "sass": "^1.79.1",

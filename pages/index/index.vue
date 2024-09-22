@@ -13,7 +13,7 @@
 
 		</view>
 		<view class="content">
-<!-- 			<scroll-view :scroll-top="scrollTop"
+			<scroll-view :scroll-top="scrollTop"
 				scroll-y="true" 
 				:show-scrollbar="false"
 				class="scroll-Y" 
@@ -25,9 +25,9 @@
 					:key="index" 
 					class="scroll-view-item" 
 					:class="item.bgColor">
-				{{ item.label }}
+				<level :posIndex="index"></level>
 			  </view>
-			</scroll-view>	 -->
+			</scroll-view>	
 			
 			
 		</view>
@@ -119,7 +119,6 @@
 
 			},
 			scroll: function(e) {
-
 				this.old.scrollTop = e.detail.scrollTop
 			}
 		}
@@ -197,6 +196,14 @@
 	.content {
 		height: 100%;
 
+	}
+	
+	.scroll-Y{
+		height: 100%;
+	}
+	.scroll-view-item {
+		height: 100%;
+		margin-top: -4rpx;
 	}
 
 	.right-image-content-1 {
