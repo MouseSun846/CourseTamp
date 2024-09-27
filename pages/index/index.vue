@@ -21,12 +21,9 @@
 				@scrolltolower="lower" 
 				@scroll="scroll">
 			
-			  <view v-for="(item, index) in items" 
-					:key="index" 
-					class="scroll-view-item" 
-					:class="item.bgColor">
-				<level :posIndex="index"></level>
-			  </view>
+				<view v-for="(group, groupIndex) in chunkArray(levelItem, 4)" class="scroll-view-item">
+					<level :levelItem="group"></level>
+				</view>
 			</scroll-view>	
 			
 			
@@ -53,6 +50,7 @@
 </template>
 
 <script>
+	import LevelType from "@/common/util.js";
 	export default {
 		data() {
 			return {
@@ -60,54 +58,19 @@
 				old: {
 					scrollTop: 0
 				},
-				items: [{
-						label: 'A',
-						bgColor: 'uni-bg-red'
-					},
-					{
-						label: 'B',
-						bgColor: 'uni-bg-green'
-					},
-					{
-						label: 'C',
-						bgColor: 'uni-bg-blue'
-					},
-					{
-						label: 'D',
-						bgColor: 'uni-bg-red'
-					},
-					{
-						label: 'E',
-						bgColor: 'uni-bg-green'
-					},
-					{
-						label: 'F',
-						bgColor: 'uni-bg-blue'
-					},
-					{
-						label: 'G',
-						bgColor: 'uni-bg-red'
-					},
-					{
-						label: 'H',
-						bgColor: 'uni-bg-green'
-					},
-					{
-						label: 'I',
-						bgColor: 'uni-bg-blue'
-					},
-					{
-						label: 'J',
-						bgColor: 'uni-bg-red'
-					},
-					{
-						label: 'K',
-						bgColor: 'uni-bg-green'
-					},
-					{
-						label: 'L',
-						bgColor: 'uni-bg-blue'
-					}
+				levelItem: [
+					{ id: 10, type: LevelType.JOIN_CAMP, name: "名称1"},
+					{ id:100, type: LevelType.FINISH_LEVEL, name: "名称2"},
+					{ id: 999, type: LevelType.JOIN_CAMP_LOCK, name: "名称3"},
+					{ id: 888, type: LevelType.CAMP_LEARNING, name: "名称4"},
+					{ id: 10, type: LevelType.TODAY_GOAL, name: "名称1"},
+					{ id:100, type: LevelType.LOCK_LEVEL, name: "名称2"},
+					{ id: 10, type: LevelType.JOIN_CAMP, name: "名称1"},
+					{ id:100, type: LevelType.FINISH_LEVEL, name: "名称2"},
+					{ id: 999, type: LevelType.JOIN_CAMP_LOCK, name: "名称3"},
+					{ id: 888, type: LevelType.CAMP_LEARNING, name: "名称4"},
+					{ id: 10, type: LevelType.TODAY_GOAL, name: "名称1"},
+					{ id:100, type: LevelType.LOCK_LEVEL, name: "名称2"},
 				]
 			}
 		},
@@ -120,7 +83,19 @@
 			},
 			scroll: function(e) {
 				this.old.scrollTop = e.detail.scrollTop
+			},
+		  chunkArray: function(arr, chunkSize) {
+			let result = [];
+			let remain = arr.length > 0 ? arr.length%4 === 0 ? 0 : 4 - arr.length%4 : 0;
+			for(let i = 0; i < remain; i++) {
+				arr.push({ id:-1, type: LevelType.EMPTY, name: ""})
 			}
+			for (let i = 0; i < arr.length; i += chunkSize) {
+			  result.push(arr.slice(i, i + chunkSize));
+			}
+		
+			return result;
+		  }
 		}
 	}
 </script>

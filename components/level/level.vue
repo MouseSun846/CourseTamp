@@ -16,12 +16,7 @@
 	  name: "train-level",
 	  data() {
 			return {
-			  levelItem: [
-				{ x: 0, y: 0, id: 10, type: LevelType.JOIN_CAMP, name: "名称1"},
-				{ x: 0, y: 0, id:100, type: LevelType.FINISH_LEVEL, name: "名称2"},
-				{ x: 0, y: 0, id: 999, type: LevelType.EMPTY, name: "名称3"},
-				{ x: 0, y: 0, id: 888, type: LevelType.FINISH_LEVEL, name: "名称4"}
-			  ],
+		
 		  }
 		},
 		props: {
@@ -29,10 +24,13 @@
 				type: String,
 				default: ""
 			},
-			posIndex: {
-				type: Number,
-				required: true
-			}
+			levelItem: {
+				type: Array,
+				default: []
+			},
+		},
+		created() {
+			this.initPos()
 		},
 		mounted(){
 			this.updatePos()
@@ -46,6 +44,7 @@
 						items.push(item) 
 					}
 				});
+				console.log(items)
 				return items.map((item, index) => {
 				  if( item.type === LevelType.JOIN_CAMP) {
 					  return this.getJoinCampIcon(item)
@@ -79,7 +78,7 @@
 					viewBox="0 0 40.449951171875 37.3255615234375" 
 					fill="none"
 					 x="${item.x}" 
-					 y="${item.y}">				>
+					 y="${item.y}">
 					<g filter="url(#filter_32_21)">
 					<path d="M9.69622 28.6498C9.50601 28.6498 9.34937 28.4918 9.34937 28.2999L9.34937 5.34486C9.34937 5.15296 9.50601 4.99492 9.69622 4.99492L13.6906 4.99492L13.6906 0.699673C13.6906 0.50777 13.8472 0.349731 14.0375 0.349731L30.3171 0.349731C30.5073 0.349731 30.664 0.50777 30.664 0.699673L30.664 28.3055C30.664 28.4974 30.5073 28.6555 30.3171 28.6555L9.69622 28.6555L9.69622 28.6498Z"   fill="url(#linear_fill_32_23)" >
 					</path>
@@ -211,7 +210,7 @@
 				viewBox="0 0 40.449951171875 37.3255615234375" 
 				fill="none"
 				x="${item.x}"
-				y="${item.y}">		>
+				y="${item.y}">
 					<g filter="url(#filter_32_144)">
 					<path d="M9.69622 28.6498C9.50601 28.6498 9.34937 28.4918 9.34937 28.2999L9.34937 5.34486C9.34937 5.15296 9.50601 4.99492 9.69622 4.99492L13.6906 4.99492L13.6906 0.699673C13.6906 0.50777 13.8472 0.349731 14.0375 0.349731L30.3171 0.349731C30.5073 0.349731 30.664 0.50777 30.664 0.699673L30.664 28.3055C30.664 28.4974 30.5073 28.6555 30.3171 28.6555L9.69622 28.6555L9.69622 28.6498Z"   fill="url(#linear_fill_32_146)" >
 					</path>
@@ -377,7 +376,7 @@
 					viewBox="0 0 36 49" 
 					fill="none"
 					 x="${item.x}" 
-					 y="${item.y}">		>
+					 y="${item.y}"
 					<circle cx="18" cy="21" r="18"   fill="#CBD3F9" >
 					</circle>
 					<circle cx="18" cy="18" r="18"   fill="#F5F6FA" >
@@ -456,16 +455,21 @@
 				</path>
 				<path   fill="rgba(212, 212, 212, 1)"  d="M18.3669 37.1987L18.3669 36.5919L18.6585 36.5919L18.6585 37.1987L18.3669 37.1987ZM18.5127 37.6987C18.4322 37.6987 18.3669 37.4749 18.3669 37.1987C18.3669 36.9226 18.4322 36.6987 18.5127 36.6987C18.5932 36.6987 18.6585 36.9226 18.6585 37.1987C18.6585 37.4749 18.5932 37.6987 18.5127 37.6987ZM18.5127 37.0919C18.4322 37.0919 18.3669 36.8681 18.3669 36.5919C18.3669 36.3158 18.4322 36.0919 18.5127 36.0919C18.5932 36.0919 18.6585 36.3158 18.6585 36.5919C18.6585 36.8681 18.5932 37.0919 18.5127 37.0919Z">
 				</path>
-				</svg>
-`;
+				</svg>`;
 			},
-			updatePos() {
+			initPos() {
+				for(let index = 0;index<this.levelItem.length;index++) {
+					this.levelItem[index].x = 0;
+					this.levelItem[index].y = 0;
+				}
+			},
+			updatePos () {
 				const path = document.getElementById('s-curve');
 				const rect = path.getBoundingClientRect();
 				const pathLength = path.getTotalLength();
-				const count = levelItem.filter(item => item.type !== LevelType.EMPTY).length;
-				for(let index = 0;index<count;index++) {
-					const point = path.getPointAtLength(index * pathLength/count + pathLength/count);
+				console.log(this.levelItem.length)
+				for(let index = 0;index<this.levelItem.length;index++) {
+					const point = path.getPointAtLength(pathLength-index * pathLength/this.levelItem.length - pathLength/(this.levelItem.length*2));
 					this.levelItem[index].x = point.x;
 					this.levelItem[index].y = point.y;
 				}
