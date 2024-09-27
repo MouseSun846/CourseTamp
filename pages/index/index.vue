@@ -10,10 +10,11 @@
 					<image class="img-body-3" mode="heightFix" src="/static/13.svg" :draggable="false"></image>
 				</view>
 			</view>
-
+		<button type="primary" @click="goToTodayGoal" style="z-index: 10;">button</button>
 		</view>
 		<view class="content">
-			<scroll-view :scroll-top="scrollTop"
+			<scroll-view 
+				:scroll-top="scrollTop"
 				scroll-y="true" 
 				:show-scrollbar="false"
 				class="scroll-Y" 
@@ -55,26 +56,33 @@
 		data() {
 			return {
 				scrollTop: 0,
-				old: {
-					scrollTop: 0
-				},
+				scrollHeight: 0,
 				levelItem: [
 					{ id: 10, type: LevelType.JOIN_CAMP, name: "名称1"},
 					{ id:100, type: LevelType.FINISH_LEVEL, name: "名称2"},
-					{ id: 999, type: LevelType.JOIN_CAMP_LOCK, name: "名称3"},
+					{ id: 999, type: LevelType.LOCK_LEVEL, name: "名称3"},
 					{ id: 888, type: LevelType.CAMP_LEARNING, name: "名称4"},
-					{ id: 10, type: LevelType.TODAY_GOAL, name: "名称1"},
+					{ id: 10, type: LevelType.LOCK_LEVEL, name: "名称1"},
 					{ id:100, type: LevelType.LOCK_LEVEL, name: "名称2"},
 					{ id: 10, type: LevelType.JOIN_CAMP, name: "名称1"},
 					{ id:100, type: LevelType.FINISH_LEVEL, name: "名称2"},
 					{ id: 999, type: LevelType.JOIN_CAMP_LOCK, name: "名称3"},
 					{ id: 888, type: LevelType.CAMP_LEARNING, name: "名称4"},
-					{ id: 10, type: LevelType.TODAY_GOAL, name: "名称1"},
-					{ id:100, type: LevelType.LOCK_LEVEL, name: "名称2"},
+					{ id: 10, type: LevelType.LOCK_LEVEL, name: "名称1"},
+					{ id:100, type: LevelType.TODAY_GOAL, name: "名称2"},
 				]
 			}
 		},
+		mounted() {
+			this.goToTodayGoal()
+		},
 		methods: {
+			// 跳转到今日学习目标
+			goToTodayGoal: function(e) {
+				const scorllElement = document.querySelector(".scroll-Y")
+				const pageInfo = this.getPageInfo();
+				this.scrollTop = scorllElement.clientHeight*(pageInfo.current-1);
+			},
 			upper: function(e) {
 
 			},
@@ -82,19 +90,32 @@
 
 			},
 			scroll: function(e) {
-				this.old.scrollTop = e.detail.scrollTop
+				this.scrollHeight = e.detail.scrollHeight
+				this.scrollTop = e.detail.scrollTop
 			},
-		  chunkArray: function(arr, chunkSize) {
-			let result = [];
-			let remain = arr.length > 0 ? arr.length%4 === 0 ? 0 : 4 - arr.length%4 : 0;
-			for(let i = 0; i < remain; i++) {
-				arr.push({ id:-1, type: LevelType.EMPTY, name: ""})
-			}
-			for (let i = 0; i < arr.length; i += chunkSize) {
-			  result.push(arr.slice(i, i + chunkSize));
-			}
-		
-			return result;
+			chunkArray: function(arr, chunkSize) {
+				let result = [];
+				let remain = arr.length > 0 ? arr.length%4 === 0 ? 0 : 4 - arr.length%4 : 0;
+				for(let i = 0; i < remain; i++) {
+					arr.push({ id:-1, type: LevelType.EMPTY, name: ""})
+				}
+				for (let i = 0; i < arr.length; i += chunkSize) {
+				  result.push(arr.slice(i, i + chunkSize));
+				}
+
+				return result;
+			},
+		  getPageInfo: function() {
+			  let result = [];
+			  let index = 0;
+			  let remain = this.levelItem.length > 0 ? this.levelItem.length%4 === 0 ? 0 : 4 - this.levelItem.length%4 : 0;
+			  for (let i = 0; i < this.levelItem.length; i ++) {
+				  index++;
+			    if(this.levelItem[i].type === LevelType.TODAY_GOAL) {
+					break;
+				}
+			  }
+			  return {current:Math.round(index/4), total:(this.levelItem.length+remain)/4 };
 		  }
 		}
 	}

@@ -44,7 +44,6 @@
 						items.push(item) 
 					}
 				});
-				console.log(items)
 				return items.map((item, index) => {
 				  if( item.type === LevelType.JOIN_CAMP) {
 					  return this.getJoinCampIcon(item)
