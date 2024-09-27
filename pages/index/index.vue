@@ -138,6 +138,7 @@
 		height: 100%;
 		display: flex;
 		flex-direction: column;
+		pointer-events: none;
 	}
 
 	.image-content-1 {
@@ -187,6 +188,7 @@
 		height: 100%;
 		display: flex;
 		flex-direction: row-reverse;
+		pointer-events: none;
 	}
 
 	.content {
