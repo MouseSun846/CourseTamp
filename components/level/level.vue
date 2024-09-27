@@ -92,9 +92,6 @@
 					if(item.type === LevelType.LOCK_LEVEL) {
 						return getLocklevelIcon(item)
 					}
-					if(item.type === LevelType.LEVEL_CURSOR) {
-						return getCursorLevelIcon(item)
-					}
 					if(item.type === LevelType.CAMP_LEARNING) {
 						return getCampLearningIcon(item)
 					}
@@ -104,7 +101,6 @@
 		},
 		methods: {
 			initPos() {
-				this.cursorSvg.content = getCursorLevelIcon(this.cursorSvg.position)
 				for(let index = 0;index<this.levelItem.length;index++) {
 					this.levelItem[index].x = 0;
 					this.levelItem[index].y = 0;

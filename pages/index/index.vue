@@ -10,7 +10,6 @@
 					<image class="img-body-3" mode="heightFix" src="/static/13.svg" :draggable="false"></image>
 				</view>
 			</view>
-		<button type="primary" @click="goToTodayGoal" style="z-index: 10;">button</button>
 		</view>
 		<view class="content">
 			<scroll-view 
@@ -66,7 +65,7 @@
 					{ id: 6, type: LevelType.EXAM_LEVEL, name: "名称1"},
 					{ id: 7, type: LevelType.HOT_LEVEL, name: "名称1"},
 					{ id: 8, type: LevelType.REVIEW_LEVEL, name: "名称1"},
-					{ id: 10, type: LevelType.LEVEL_CURSOR, name: "名称1"},
+					{ id: 9, type: LevelType.LOCK_LEVEL, name: "名称1"},
 					{ id: 11, type: LevelType.CAMP_LEARNING, name: "名称1"},
 					{ id: 12, type: LevelType.JOIN_CAMP_LOCK, name: "名称1"},
 				]
