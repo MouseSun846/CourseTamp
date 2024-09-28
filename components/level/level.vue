@@ -3,7 +3,8 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 300 641.8597412109375">
             <!-- 定义S曲线 -->
             <path id="s-curve" stroke="rgba(255, 255, 255, 1)" stroke-width="5" fill="none" transform="translate(120, 0)"
-                d="M17.8285 641.376C-48.2092 306.372 127.286 293.372 17.8285 0"></path>		
+                d="M17.8285 641.376C-48.2092 306.372 127.286 293.372 17.8285 0"></path>			
+				 
 			<svg  v-for="(svg, index) in Levels" :key="index" v-html="svg"></svg>
 			
 			<svg v-html="cursorSvg.content" v-show="cursorSvg.isShowCursor"></svg>

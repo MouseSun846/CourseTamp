@@ -48,17 +48,65 @@
 				scrollTop: 0,
 				scrollHeight: 0,
 				levelItem: [
-					{ id: 1, type: LevelType.JOIN_CAMP, name: "名称1"},
-					{ id: 2, type: LevelType.FINISH_LEVEL, name: "名称1"},
+					
+					
 					{ id: 3, type: LevelType.TODAY_GOAL, name: "名称1"},
-					{ id: 4, type: LevelType.FINISH_CAMP, name: "名称1"},
-					{ id: 5, type: LevelType.CAMP_EXAM, name: "名称1"},
-					{ id: 6, type: LevelType.EXAM_LEVEL, name: "名称1"},
-					{ id: 7, type: LevelType.HOT_LEVEL, name: "名称1"},
-					{ id: 8, type: LevelType.REVIEW_LEVEL, name: "名称1"},
-					{ id: 9, type: LevelType.LOCK_LEVEL, name: "名称1"},
-					{ id: 11, type: LevelType.CAMP_LEARNING, name: "名称1"},
+					
 					{ id: 12, type: LevelType.JOIN_CAMP_LOCK, name: "名称1"},
+					
+					
+					
+					{ id: 11, type: LevelType.CAMP_LEARNING, name: "名称1"},
+					
+					
+					{ id: 9, type: LevelType.LOCK_LEVEL, name: "名称1"},
+					
+					
+					
+					{ id: 9, type: LevelType.LOCK_LEVEL, name: "名称1"},
+					
+					
+					
+					{ id: 9, type: LevelType.LOCK_LEVEL, name: "名称1"},
+					
+					
+					{ id: 9, type: LevelType.LOCK_LEVEL, name: "名称1"},
+					
+					
+					
+					
+					{ id: 4, type: LevelType.FINISH_CAMP, name: "名称1"},
+					
+					
+					
+					
+					
+					{ id: 5, type: LevelType.CAMP_EXAM, name: "名称1"},
+					
+					
+									
+					{ id: 6, type: LevelType.EXAM_LEVEL, name: "名称1"},
+					
+					
+					{ id: 8, type: LevelType.REVIEW_LEVEL, name: "名称1"},
+
+
+					
+					{ id: 7, type: LevelType.HOT_LEVEL, name: "名称1"},
+
+
+
+					{ id: 2, type: LevelType.FINISH_LEVEL, name: "名称1"},
+					
+					
+					
+					{ id: 9, type: LevelType.LOCK_LEVEL, name: "名称1"},
+					
+					
+					
+					{ id: 1, type: LevelType.JOIN_CAMP, name: "名称1"},
+					
+					
 				]
 			}
 		},
@@ -69,8 +117,8 @@
 			// 跳转到今日学习目标
 			goToTodayGoal: function(e) {
 				const scorllElement = document.querySelector(".scroll-Y")
-				const pageInfo = this.getPageInfo();
-				this.scrollTop = scorllElement.clientHeight*(pageInfo.current-1);
+				const pageIndex = this.getPageInfo();
+				this.scrollTop = scorllElement.clientHeight*(pageIndex-1);
 			},
 			upper: function(e) {
 
@@ -81,6 +129,7 @@
 			scroll: function(e) {
 				this.scrollHeight = e.detail.scrollHeight
 				this.scrollTop = e.detail.scrollTop
+				console.log(this.scrollTop)
 			},
 			chunkArray: function(arr, chunkSize) {
 				let result = [];
@@ -104,7 +153,7 @@
 					break;
 				}
 			  }
-			  return {current:Math.round(index/4), total:(this.levelItem.length+remain)/4 };
+			  return index%4===0?index/4:(index-index%4)/4+1;
 		  }
 		}
 	}
@@ -166,7 +215,8 @@
 	}
 	.scroll-view-item {
 		height: 100%;
-		margin-top: -4rpx;
+		max-height: 641px;
+		margin: -2rpx;
 	}
 
 	.right-image-content-1 {
