@@ -49,60 +49,54 @@
 				scrollHeight: 0,
 				levelItem: [
 					
+
 					
-					{ id: 3, type: LevelType.TODAY_GOAL, name: "名称1"},
-					
-					{ id: 12, type: LevelType.JOIN_CAMP_LOCK, name: "名称1"},
-					
-					
-					
-					{ id: 11, type: LevelType.CAMP_LEARNING, name: "名称1"},
+					{ id: 13, type: LevelType.LOCK_LEVEL, name: "名称1"},
+					{ id: 12, type: LevelType.LOCK_LEVEL, name: "名称1"},
+						
 					
 					
-					{ id: 9, type: LevelType.LOCK_LEVEL, name: "名称1"},
+					{ id: 11, type: LevelType.LOCK_LEVEL, name: "名称1"},
 					
 					
+
 					
-					{ id: 9, type: LevelType.LOCK_LEVEL, name: "名称1"},
-					
-					
-					
-					{ id: 9, type: LevelType.LOCK_LEVEL, name: "名称1"},
-					
-					
-					{ id: 9, type: LevelType.LOCK_LEVEL, name: "名称1"},
+					{ id: 10, type: LevelType.LOCK_LEVEL, name: "名称1"},
+				
+	
 					
 					
+					{ id: 9, type: LevelType.FINISH_CAMP, name: "名称1"},
 					
 					
-					{ id: 4, type: LevelType.FINISH_CAMP, name: "名称1"},
+				
+		
 					
 					
-					
-					
-					
-					{ id: 5, type: LevelType.CAMP_EXAM, name: "名称1"},
+					{ id: 8, type: LevelType.CAMP_EXAM, name: "名称1"},
 					
 					
 									
-					{ id: 6, type: LevelType.EXAM_LEVEL, name: "名称1"},
+					{ id: 7, type: LevelType.EXAM_LEVEL, name: "名称1"},
 					
 					
-					{ id: 8, type: LevelType.REVIEW_LEVEL, name: "名称1"},
+					{ id: 6, type: LevelType.REVIEW_LEVEL, name: "名称1"},
 
 
 					
-					{ id: 7, type: LevelType.HOT_LEVEL, name: "名称1"},
+					{ id: 5, type: LevelType.HOT_LEVEL, name: "名称1"},
 
 
 
-					{ id: 2, type: LevelType.FINISH_LEVEL, name: "名称1"},
+					{ id: 4, type: LevelType.FINISH_LEVEL, name: "名称1"},
 					
 					
 					
-					{ id: 9, type: LevelType.LOCK_LEVEL, name: "名称1"},
+				
 					
-					
+				{ id: 3, type: LevelType.TODAY_GOAL, name: "行政处罚问题"},
+			
+					{ id: 2, type: LevelType.CAMP_LEARNING, name: "数量-几何问题"},
 					
 					{ id: 1, type: LevelType.JOIN_CAMP, name: "名称1"},
 					
@@ -135,7 +129,7 @@
 				let result = [];
 				let remain = arr.length > 0 ? arr.length%4 === 0 ? 0 : 4 - arr.length%4 : 0;
 				for(let i = 0; i < remain; i++) {
-					arr.push({ id:-1, type: LevelType.EMPTY, name: ""})
+					 arr.unshift({ id: -1, type: LevelType.EMPTY, name: "" });
 				}
 				for (let i = 0; i < arr.length; i += chunkSize) {
 				  result.push(arr.slice(i, i + chunkSize));

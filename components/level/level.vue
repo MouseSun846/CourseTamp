@@ -8,6 +8,10 @@
 			<svg  v-for="(svg, index) in Levels" :key="index" v-html="svg"></svg>
 			
 			<svg v-html="cursorSvg.content" v-show="cursorSvg.isShowCursor"></svg>
+			
+			<svg  v-for="(svg, index) in LevelContents" :key="index" v-html="svg"></svg>
+	
+			
         </svg>
 
 	</view>
@@ -26,7 +30,8 @@
 			getReviewLevelIcon,
 			getCampLearningIcon,
 			getCursorLevelIcon,
-			getLocklevelIcon} from "@/common/icon.js";
+			getLocklevelIcon,
+			getLevelTipIcon} from "@/common/icon.js";
 	export default {
 	  name: "train-level",
 	  data() {
@@ -35,7 +40,7 @@
 					content:'',
 					position:{x:0, y:0},
 					isShowCursor: false
-				},
+				}
 			}
 		},
 		props: {
@@ -55,7 +60,19 @@
 			this.updatePos()
 		},
 		computed: {
-
+			LevelContents() {
+				// 显示关卡名称
+				let items = [];
+				this.levelItem.map((item, index)=> {
+					if( item.type === LevelType.FINISH_LEVEL || 
+					item.type === LevelType.LOCK_LEVEL || 
+					item.type === LevelType.CAMP_LEARNING ) {
+						items.push(getLevelTipIcon({x: item.x-100, y:item.y},  item.name.length < 7 ? item.name : item.name.slice(0, 7) + '...')) 
+					}
+				});
+				console.log("LevelContents: "+items.length)
+				return items;
+			},
 			Levels() {
 				let items = [];
 				this.levelItem.map((item, index)=> {
@@ -63,6 +80,7 @@
 						items.push(item) 
 					}
 				});
+				console.log("levelItem: "+items.length)
 				return items.map((item, index) => {
 				  if(item.type === LevelType.JOIN_CAMP) {
 					  return getJoinCampIcon(item)
@@ -107,6 +125,7 @@
 					this.levelItem[index].y = 0;
 				}
 				
+				
 			},
 			updatePos () {
 				const path = document.getElementById('s-curve');
@@ -128,6 +147,7 @@
 						console.log(point, this.cursorSvg.position)
 						this.cursorSvg.content = getCursorLevelIcon(this.cursorSvg.position)
 					}
+					
 				}
 			}
 		}
