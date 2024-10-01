@@ -2,29 +2,43 @@ const LevelType = {
 	// 空
 	EMPTY: -1,
     // 入营
-    JOIN_CAMP: 0, 
-    // 完成关卡
-    FINISH_LEVEL: 1,
-    // 今日目标
-    TODAY_GOAL: 2,
-    // 结营关卡
-    FINISH_CAMP: 3,
-    // 结营模考
-    CAMP_EXAM: 4,
-    // 测试关卡
-    EXAM_LEVEL: 5,
+    CAMP_LEVEL_LOCK: 1, 
+    CAMP_LEVEL_LEARNING: 2,
+    CAMP_LEVEL_FINISH: 3,
+    // 普通关关卡
+    GENERAL_LEVEL_LOCK: 4,
+    GENERAL_LEVEL_LEARNING: 5,
+    GENERAL_LEVEL_FINISH: 6,
+    // 目标关卡
+    GOAL_LEVEL_LOCK: 7,
+    GOAL_LEVEL_LEARNING: 8,
+    GOAL_LEVEL_FINISH: 9,
     // 热点关卡
-    HOT_LEVEL: 6,
+    HOT_LEVEL_LOCK: 10,
+    HOT_LEVEL_LEARNING: 11,
+    HOT_LEVEL_FINISH: 12,
+    // 热点目标关卡
+    HOT_GOAL_LEVEL_LOCK: 13,
+    HOT_GOAL_LEVEL_LEARNING: 14,
+    HOT_GOAL_LEVEL_FINISH: 15,
     // 复习关卡
-    REVIEW_LEVEL: 7,
-    // 未解锁关卡
-    LOCK_LEVEL: 8,
+    REVIEW_LEVEL_LOCK: 16,
+    REVIEW_LEVEL_LEARNING: 17,
+    REVIEW_LEVEL_FINISH: 18,
+    // 测验关卡
+    EXAM_LEVEL_LOCK: 19,
+    EXAM_LEVEL_LEARNING: 20,
+    EXAM_LEVEL_FINISH: 21,
+    // 结营模考关卡
+    END_EXAM_LEVEL_LOCK: 22,
+    END_EXAM_LEVEL_LEARNING: 23,
+    END_EXAM_LEVEL_FINISH: 24,
+	
+	// 结营
+	END_EXAM_LEVEL: 25,
+    
     // 当前关卡游标
-    LEVEL_CURSOR: 9,
-    // 入营未解锁
-    JOIN_CAMP_LOCK: 10, 
-	// 学习中
-	CAMP_LEARNING: 11 
+    LEVEL_CURSOR: 26
     
 };
 
