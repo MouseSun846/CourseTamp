@@ -115,6 +115,7 @@
 					{ id: 23, type: LevelType.CAMP_LEVEL, status: LevelStatus.FINISH, name: "名称22", levelNumber: 1},
 					{ id: 24, type: LevelType.CAMP_LEVEL, status: LevelStatus.LEARNING, name: "名称23", levelNumber: 1},
 					{ id: 25, type: LevelType.CAMP_LEVEL, status: LevelStatus.LOCK, name: "名称24", levelNumber: 1},
+					{ id: 25, type: LevelType.EMPTY, status: LevelStatus.LOCK, name: "名称24", levelNumber: 1},
 
 					]
 				}
