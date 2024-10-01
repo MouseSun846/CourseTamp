@@ -226,7 +226,7 @@
 	}
 	.scroll-view-item {
 		height: 100%;
-		max-height: 641px;
+
 		margin: -2rpx;
 	}
 
