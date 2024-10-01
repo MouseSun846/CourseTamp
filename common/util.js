@@ -1,45 +1,38 @@
+// 关卡类型
 const LevelType = {
 	// 空
 	EMPTY: -1,
     // 入营
-    CAMP_LEVEL_LOCK: 1, 
-    CAMP_LEVEL_LEARNING: 2,
-    CAMP_LEVEL_FINISH: 3,
-    // 普通关关卡
-    GENERAL_LEVEL_LOCK: 4,
-    GENERAL_LEVEL_LEARNING: 5,
-    GENERAL_LEVEL_FINISH: 6,
-    // 目标关卡
-    GOAL_LEVEL_LOCK: 7,
-    GOAL_LEVEL_LEARNING: 8,
-    GOAL_LEVEL_FINISH: 9,
+    CAMP_LEVEL: 1, 
+    // 普通关卡
+    GENERAL_LEVEL: 2,
+    // 今日目标
+    GOAL_LEVEL: 3,
     // 热点关卡
-    HOT_LEVEL_LOCK: 10,
-    HOT_LEVEL_LEARNING: 11,
-    HOT_LEVEL_FINISH: 12,
+    HOT_LEVEL: 4,
     // 热点目标关卡
-    HOT_GOAL_LEVEL_LOCK: 13,
-    HOT_GOAL_LEVEL_LEARNING: 14,
-    HOT_GOAL_LEVEL_FINISH: 15,
+    HOT_GOAL_LEVEL: 5,
     // 复习关卡
-    REVIEW_LEVEL_LOCK: 16,
-    REVIEW_LEVEL_LEARNING: 17,
-    REVIEW_LEVEL_FINISH: 18,
+    REVIEW_LEVEL: 6,
     // 测验关卡
-    EXAM_LEVEL_LOCK: 19,
-    EXAM_LEVEL_LEARNING: 20,
-    EXAM_LEVEL_FINISH: 21,
+    EXAM_LEVEL: 7,
     // 结营模考关卡
-    END_EXAM_LEVEL_LOCK: 22,
-    END_EXAM_LEVEL_LEARNING: 23,
-    END_EXAM_LEVEL_FINISH: 24,
-	
+    END_EXAM_LEVEL: 8,	
 	// 结营
-	END_EXAM_LEVEL: 25,
-    
+	END_EXAM: 25,
     // 当前关卡游标
     LEVEL_CURSOR: 26
     
 };
 
-export default LevelType;
+// 关卡状态
+const LevelStatus = {
+    EMPTY: -1,
+	LOCK: 1,
+	LEARNING: 2,
+	FINISH: 3
+}
+export {
+    LevelType,
+    LevelStatus
+};

@@ -41,7 +41,7 @@
 </template>
 
 <script>
-	import LevelType from "@/common/util.js";
+	import {LevelType, LevelStatus} from "@/common/util.js";
 	export default {
 		data() {
 			return {
@@ -55,34 +55,56 @@
 					levelItem: [
 				    // id 为主键
 					// type 关卡类型
+					// status 关卡状态
 					// name 关卡名称
 					// levelNumber 关卡号
+					{ id: 1, type: LevelType.END_EXAM, status: LevelStatus.EMPTY, name: "名称25", levelNumber: 1},
+					{ id: 4, type: LevelType.END_EXAM_LEVEL, status: LevelStatus.FINISH, name: "名称3", levelNumber: 4},
 					
-					{ id: 1, type: LevelType.END_EXAM_LEVEL, name: "名称25", levelNumber: 1},
-					{ id: 2, type: LevelType.END_EXAM_LEVEL_FINISH, name: "名称1", levelNumber: 2},
-					{ id: 3, type: LevelType.END_EXAM_LEVEL_LEARNING, name: "名称2", levelNumber: 3},					
-					{ id: 4, type: LevelType.END_EXAM_LEVEL_LOCK, name: "名称3", levelNumber: 4},
-					{ id: 5, type: LevelType.EXAM_LEVEL_FINISH, name: "名称4", levelNumber: 5},
-					{ id: 6, type: LevelType.EXAM_LEVEL_LEARNING, name: "名称5", levelNumber: 6},
-					{ id: 7, type: LevelType.EXAM_LEVEL_LOCK, name: "名称6", levelNumber: 7},
-					{ id: 8, type: LevelType.REVIEW_LEVEL_FINISH, name: "名称7", levelNumber: 8},
-					{ id: 9, type: LevelType.REVIEW_LEVEL_LEARNING, name: "名称8", levelNumber: 9},
-					{ id: 10, type: LevelType.REVIEW_LEVEL_LOCK, name: "名称9", levelNumber: 10},
-					{ id: 11, type: LevelType.HOT_GOAL_LEVEL_FINISH, name: "名称10", levelNumber: 11},
-					{ id: 12, type: LevelType.HOT_GOAL_LEVEL_LEARNING, name: "名称11", levelNumber: 12},
-					{ id: 13, type: LevelType.HOT_GOAL_LEVEL_LOCK, name: "名称12", levelNumber: 13},
-					{ id: 14, type: LevelType.HOT_LEVEL_FINISH, name: "名称13", levelNumber: 14},
-					{ id: 15, type: LevelType.HOT_LEVEL_LEARNING, name: "名称14", levelNumber: 15},
-					{ id: 16, type: LevelType.HOT_LEVEL_LOCK, name: "名称15", levelNumber: 16},
-					{ id: 17, type: LevelType.GOAL_LEVEL_FINISH, name: "名称16", levelNumber: 17},
-					{ id: 18, type: LevelType.GOAL_LEVEL_LEARNING, name: "名称17", levelNumber: 18},
-					{ id: 19, type: LevelType.GOAL_LEVEL_LOCK, name: "名称18", levelNumber: 19},
-					{ id: 10, type: LevelType.GENERAL_LEVEL_FINISH, name: "名称19", levelNumber: 10},
-					{ id: 21, type: LevelType.GENERAL_LEVEL_LEARNING, name: "名称20", levelNumber: 21},
-					{ id: 22, type: LevelType.GENERAL_LEVEL_LOCK, name: "名称21", levelNumber: 22},
-					{ id: 23, type: LevelType.CAMP_LEVEL_FINISH, name: "名称22", levelNumber: 23},
-					{ id: 24, type: LevelType.CAMP_LEVEL_LEARNING, name: "名称23", levelNumber: 24},
-					{ id: 25, type: LevelType.CAMP_LEVEL_LOCK, name: "名称24", levelNumber: 25},
+					{ id: 2, type: LevelType.END_EXAM_LEVEL, status: LevelStatus.LOCK, name: "名称1", levelNumber: 2},
+					{ id: 3, type: LevelType.END_EXAM_LEVEL, status: LevelStatus.LEARNING, name: "名称2", levelNumber: 3},		
+					
+
+					{ id: 5, type: LevelType.EXAM_LEVEL, status: LevelStatus.FINISH, name: "名称4", levelNumber: 5},
+					{ id: 6, type: LevelType.EXAM_LEVEL, status: LevelStatus.LEARNING, name: "名称5", levelNumber: 6},
+					{ id: 7, type: LevelType.EXAM_LEVEL, status: LevelStatus.LOCK, name: "名称6", levelNumber: 7},
+
+					{ id: 8, type: LevelType.REVIEW_LEVEL, status: LevelStatus.FINISH, name: "名称7", levelNumber: 6},
+					{ id: 9, type: LevelType.REVIEW_LEVEL, status: LevelStatus.LEARNING, name: "名称8", levelNumber: 6},
+					{ id: 10, type: LevelType.REVIEW_LEVEL, status: LevelStatus.LOCK, name: "名称9", levelNumber: 6},
+
+					{ id: 11, type: LevelType.HOT_GOAL_LEVEL, status: LevelStatus.FINISH, name: "名称10", levelNumber: 5},
+					{ id: 12, type: LevelType.HOT_GOAL_LEVEL, status: LevelStatus.LEARNING, name: "名称11", levelNumber: 5},
+					{ id: 13, type: LevelType.HOT_GOAL_LEVEL, status: LevelStatus.LOCK, name: "名称12", levelNumber: 5},
+
+					
+					{ id: 14, type: LevelType.HOT_LEVEL, status: LevelStatus.FINISH, name: "名称13", levelNumber: 4},
+					{ id: 15, type: LevelType.HOT_LEVEL, status: LevelStatus.LEARNING, name: "名称14", levelNumber: 4},
+					{ id: 16, type: LevelType.HOT_LEVEL, status: LevelStatus.LOCK, name: "名称15", levelNumber: 4},
+
+					{ id: 17, type: LevelType.GOAL_LEVEL, status: LevelStatus.FINISH, name: "名称16", levelNumber: 3},
+					{ id: 18, type: LevelType.GOAL_LEVEL, status: LevelStatus.LEARNING, name: "名称17", levelNumber: 3},
+					{ id: 19, type: LevelType.GOAL_LEVEL, status: LevelStatus.LOCK, name: "名称18", levelNumber: 3},
+
+					{ id: 10, type: LevelType.GENERAL_LEVEL, status: LevelStatus.FINISH, name: "名称19", levelNumber: 2},
+					{ id: 21, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LEARNING, name: "名称20", levelNumber: 2},
+					{ id: 22, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LOCK, name: "名称21", levelNumber: 2},
+
+					
+					{ id: 10, type: LevelType.GENERAL_LEVEL, status: LevelStatus.FINISH, name: "名称19", levelNumber: 2},
+					{ id: 21, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LEARNING, name: "名称20", levelNumber: 2},
+					{ id: 22, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LOCK, name: "名称21", levelNumber: 2},
+
+					{ id: 10, type: LevelType.GENERAL_LEVEL, status: LevelStatus.FINISH, name: "名称19", levelNumber: 2},
+					{ id: 21, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LEARNING, name: "名称20", levelNumber: 2},
+					{ id: 22, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LOCK, name: "名称21", levelNumber: 2},
+					{ id: 22, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LOCK, name: "名称21", levelNumber: 2},
+					{ id: 22, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LOCK, name: "名称21", levelNumber: 2},
+					
+
+					{ id: 23, type: LevelType.CAMP_LEVEL, status: LevelStatus.FINISH, name: "名称22", levelNumber: 1},
+					{ id: 24, type: LevelType.CAMP_LEVEL, status: LevelStatus.LEARNING, name: "名称23", levelNumber: 1},
+					{ id: 25, type: LevelType.CAMP_LEVEL, status: LevelStatus.LOCK, name: "名称24", levelNumber: 1},
 
 					]
 				}
@@ -123,7 +145,6 @@
 				return result;
 			},
 		  getPageInfo: function() {
-			  let result = [];
 			  let index = 0;
 			  let remain = this.campInfo.levelItem.filter((item) => {return item.type !== LevelType.EMPTY}).length;
 			  for (let i = 0; i < this.campInfo.levelItem.length; i ++) {
@@ -132,7 +153,6 @@
 					break;
 				}
 			  }
-			  console.log("remain:", remain, this.campInfo.levelItem.length%4, this.campInfo.levelItem.length)
 			  return {currentPage: index%4===0?index/4:(index-index%4)/4+1, remain: (this.campInfo.levelItem.length-remain)/4};
 		  }
 		}

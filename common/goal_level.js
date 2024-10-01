@@ -1,7 +1,7 @@
 // 目标关卡
 function getGoalLevelLockIcon(item) {
 return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="53" height="53.3399658203125" viewBox="0 0 53 53.3399658203125" fill="none"
-x="${item.x}"
+x="${item.x-2}"
 y="${item.y}">
 <circle cx="23" cy="23.33331298828125" r="20"   fill="#CBD3F9" >
 </circle>
@@ -33,13 +33,16 @@ y="${item.y}">
 </path>
 <path   fill="rgba(161, 173, 195, 1)"  d="M46.3286 34.3241L46.3286 33.5439L46.7036 33.5439L46.7036 34.3241L46.3286 34.3241ZM46.5161 34.8241C46.4126 34.8241 46.3286 34.6002 46.3286 34.3241C46.3286 34.0479 46.4126 33.8241 46.5161 33.8241C46.6197 33.8241 46.7036 34.0479 46.7036 34.3241C46.7036 34.6002 46.6197 34.8241 46.5161 34.8241ZM46.5161 34.0439C46.4126 34.0439 46.3286 33.82 46.3286 33.5439C46.3286 33.2677 46.4126 33.0439 46.5161 33.0439C46.6197 33.0439 46.7036 33.2677 46.7036 33.5439C46.7036 33.82 46.6197 34.0439 46.5161 34.0439Z">
 </path>
+<text x="22" y="21" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="15" style="font-family: 'Arial', sans-serif;">
+		${item.levelNumber} <!-- 这里是要显示的数字 -->
+</text>
 </svg>
 `
 }
 
 function getGoalLevelLearningIcon(item) {
 return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="53" height="53" viewBox="0 0 53 53" fill="none"
-x="${item.x}"
+x="${item.x-1}"
 y="${item.y}">
 <circle cx="23" cy="23.33331298828125" r="20"   fill="#CBD3F9" >
 </circle>
@@ -67,6 +70,9 @@ y="${item.y}">
 </path>
 <path   fill="rgba(255, 179, 79, 1)"  d="M50.75 32.5C50.75 34.8472 48.8472 36.75 46.5 36.75L46.5 36.25L46.5 36.75C44.1528 36.75 42.25 34.8472 42.25 32.5L42.75 32.5L42.25 32.5C42.25 30.1528 44.1528 28.25 46.5 28.25L46.5 28.75L46.5 28.25C48.8472 28.25 50.75 30.1528 50.75 32.5L50.25 32.5L50.75 32.5ZM49.75 32.5L49.75 32.5C49.75 30.7051 48.2949 29.25 46.5 29.25L46.5 29.25C44.7051 29.25 43.25 30.7051 43.25 32.5L43.25 32.5C43.25 34.2949 44.7051 35.75 46.5 35.75L46.5 35.75C48.2949 35.75 49.75 34.2949 49.75 32.5ZM47 30.625L47 32.5L46.5 32.5L46.6581 32.0257L47.7831 32.4007L47.4669 33.3493L46.3419 32.9743L46 32.5L46 30.625L47 30.625ZM46 32.5L46.5 32.5L46.3419 32.9743L46 32.8604L46 32.5ZM46.5 31.125C46.2239 31.125 46 30.9011 46 30.625C46 30.3489 46.2239 30.125 46.5 30.125C46.7761 30.125 47 30.3489 47 30.625C47 30.9011 46.7761 31.125 46.5 31.125ZM47.625 33.375C47.3489 33.375 47.125 33.1511 47.125 32.875C47.125 32.5989 47.3489 32.375 47.625 32.375C47.9011 32.375 48.125 32.5989 48.125 32.875C48.125 33.1511 47.9011 33.375 47.625 33.375Z">
 </path>
+<text x="22" y="21" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="15" style="font-family: 'Arial', sans-serif;">
+		${item.levelNumber} <!-- 这里是要显示的数字 -->
+</text>
 </svg>
 
 `
@@ -74,7 +80,7 @@ y="${item.y}">
 
 function getGoalLevelFinishIcon(item) {
 return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55" height="53" viewBox="0 0 55 53" fill="none"
-x="${item.x}"
+x="${item.x-2}"
 y="${item.y}">
 <circle cx="23" cy="23.33331298828125" r="20"   fill="#CBD3F9" >
 </circle>
@@ -100,6 +106,9 @@ y="${item.y}">
 </ellipse>
 <path    stroke="rgba(113, 210, 94, 1)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"  d="M42.9583 33.2083L45.0833 35.3333L50.0416 30.375">
 </path>
+<text x="22" y="21" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="15" style="font-family: 'Arial', sans-serif;">
+		${item.levelNumber} <!-- 这里是要显示的数字 -->
+</text>
 </svg>
 
 `
