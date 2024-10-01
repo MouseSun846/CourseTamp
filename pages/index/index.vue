@@ -18,9 +18,19 @@
 				<view v-for="(group, groupIndex) in chunkArray(campInfo.levelItem, 4)" class="scroll-view-item">
 					<level :levelItem="group"></level>
 				</view>
-			</scroll-view>	
-			
-			
+			</scroll-view>				
+		</view>
+
+		<view class="camp-menu-container">
+			<view class="camp-menu-container-bg">
+				<image class="camp-menu-bg" mode="scaleToFill" src="/static/menu.svg" :draggable="false"></image>
+				<view class="camp-menu">
+					<image class="camp-menu-icon" mode="scaleToFill" src="/static/course.svg" :draggable="false"></image>
+					<image class="camp-menu-icon" mode="scaleToFill" src="/static/sign.svg" :draggable="false"></image>
+					<image class="camp-menu-icon" mode="scaleToFill" src="/static/content.svg" :draggable="false"></image>
+				</view>
+			</view>
+				
 		</view>
 
 		<view class="right-image">
@@ -236,4 +246,39 @@
 		height: 100%;
 		background-color: #85b3f2c7;
 	}
+
+	.camp-menu-container{
+		position: absolute;
+		bottom: 20px;
+		width: 100%;
+		height: 100px;
+		z-index: 10;
+	}
+	.camp-menu-container-bg {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100px;
+	}
+	.camp-menu-bg {
+		height: 70px;
+	}
+
+	.camp-menu {
+		position: absolute;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-evenly;
+		align-items: center;
+
+		width: 300px;
+		height: 60px;
+	}
+	.camp-menu-icon{
+		width: 30px;
+	}
+
 </style>
