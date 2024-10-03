@@ -30,7 +30,6 @@
 	import { getReviewLevelLockIcon, getReviewLevelLearningIcon, getReviewLevelFinishIcon} from "@/common/review_level.js";
 
 	export default {
-	  name: "train-level",
 	  data() {
 			return {
 				cursorSvg: {

@@ -351,7 +351,7 @@
 					maxWidth: '960px',
 					paddingBottom: this.safeAreaInsets + 'px',
 					backgroundColor: this.bg,
-					borderRadius: '50px 50px 0px 0px;'
+					borderRadius: '35px 35px 0px 0px;'
 				}
 				// TODO 兼容 type 属性 ，后续会废弃
 				if (type) return
@@ -446,7 +446,7 @@
 			display: block;
 			/* #endif */
 			position: relative;
-			border-radius: 50px 50px 0px 0px;
+			border-radius: 35px 35px 0px 0px;
 			/* iphonex 等安全区设置，底部安全区适配 */
 			/* #ifndef APP-NVUE */
 			// padding-bottom: constant(safe-area-inset-bottom);

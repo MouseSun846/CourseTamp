@@ -1,8 +1,6 @@
 <template>
 	<view class="container">
-		<uni-popup ref="inputDialog" type="bottom" background-color="#2A3B57">
-				<view :style="'height: 400px;'"></view>
-		</uni-popup>
+		<coursePopup></coursePopup>
 		<view class="left-image">
 			<view class="image-content-2">
 				<image class="img-body-2" mode="heightFix" src="/static/分组 12.svg" :draggable="false"></image>
@@ -44,26 +42,13 @@
 
 		</view>
 
-
-
-		<view>
-			<!-- 输入框示例 -->
-			<!-- <uni-popup ref="inputDialog" type="bottom">
-				<uni-popup-dialog ref="inputClose"  mode="input" title="输入内容" value="对话框预置提示内容!"
-					placeholder="请输入内容">
-					</uni-popup-dialog>
-			</uni-popup> -->
-
-		</view>
-
-
-
 	</view>
 
 </template>
 
 <script>
 	import {LevelType, LevelStatus} from "@/common/util.js";
+	import eventBus from "@/common/eventbus.js";
 	export default {
 		data() {
 			return {
@@ -141,8 +126,8 @@
 
 		},
 		methods: {
-			showCourseDialog: function() {
-				this.$refs.inputDialog.open()
+			showCourseDialog: function(e) {
+				eventBus.emit("show-course-popup", true)
 			},
 			// 跳转到今日学习目标
 			goToTodayGoal: function(e) {
@@ -302,5 +287,5 @@
 		z-index: 1;
 	}
 
-
+	
 </style>
