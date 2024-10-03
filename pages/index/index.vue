@@ -1,5 +1,8 @@
 <template>
 	<view class="container">
+		<uni-popup ref="inputDialog" type="bottom" background-color="#2A3B57">
+				<view :style="'height: 400px;'"></view>
+		</uni-popup>
 		<view class="left-image">
 			<view class="image-content-2">
 				<image class="img-body-2" mode="heightFix" src="/static/分组 12.svg" :draggable="false"></image>
@@ -25,9 +28,10 @@
 			<view class="camp-menu-container-bg">
 				<image class="camp-menu-bg" mode="scaleToFill" src="/static/menu.svg" :draggable="false"></image>
 				<view class="camp-menu">
-					<image class="camp-menu-icon" mode="scaleToFill" src="/static/course.svg" :draggable="false"></image>
+					<image class="camp-menu-icon" mode="scaleToFill" src="/static/course.svg" :draggable="false" @click="showCourseDialog"></image>
 					<image class="camp-menu-icon" mode="scaleToFill" src="/static/sign.svg" :draggable="false"></image>
 					<image class="camp-menu-icon" mode="scaleToFill" src="/static/content.svg" :draggable="false"></image>
+					<image class="camp-menu-icon" mode="scaleToFill" src="/static/user.svg" :draggable="false"></image>
 				</view>
 			</view>
 				
@@ -42,7 +46,15 @@
 
 
 
+		<view>
+			<!-- 输入框示例 -->
+			<!-- <uni-popup ref="inputDialog" type="bottom">
+				<uni-popup-dialog ref="inputClose"  mode="input" title="输入内容" value="对话框预置提示内容!"
+					placeholder="请输入内容">
+					</uni-popup-dialog>
+			</uni-popup> -->
 
+		</view>
 
 
 
@@ -57,6 +69,8 @@
 			return {
 				scrollTop: 0,
 				scrollHeight: 0,
+				scrollWidth: 0,
+				popStyle: '',
 				campInfo: {
 					// campId 训练营Id
 					// sessionId 训练营 期数
@@ -123,8 +137,13 @@
 		},
 		mounted() {
 			this.goToTodayGoal()
+
+
 		},
 		methods: {
+			showCourseDialog: function() {
+				this.$refs.inputDialog.open()
+			},
 			// 跳转到今日学习目标
 			goToTodayGoal: function(e) {
 				const scorllElement = document.querySelector(".scroll-Y")
@@ -170,7 +189,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.container {
 		position: absolute;
 		width: 100%;
@@ -253,7 +272,7 @@
 		bottom: 20px;
 		width: 100%;
 		height: 100px;
-		z-index: 10;
+		z-index: 1;
 	}
 	.camp-menu-container-bg {
 		display: flex;
@@ -280,6 +299,8 @@
 	}
 	.camp-menu-icon{
 		width: 30px;
+		z-index: 1;
 	}
+
 
 </style>
