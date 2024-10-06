@@ -286,6 +286,5 @@
 		width: 30px;
 		z-index: 1;
 	}
-
 	
 </style>
