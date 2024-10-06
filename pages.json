@@ -5,6 +5,14 @@
 			"navigationBarTitleText": "课程训练营",
 			"navigationStyle": "custom"
 		}
+	},
+	{
+		"path" : "pages/level-detail/level-detail",
+		"style" : 
+		{
+			"navigationBarTitleText" : "",
+			"navigationStyle": "custom"
+		}
 	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

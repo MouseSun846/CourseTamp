@@ -87,6 +87,7 @@
 		flex-direction: row-reverse;
 		width: 100%;
 		height: 42px;
+		cursor: pointer;
 		
 	}
 	.close-btn {

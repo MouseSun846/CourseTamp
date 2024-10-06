@@ -5,7 +5,7 @@
             <path id="s-curve" stroke="rgba(255, 255, 255, 1)" stroke-width="5" fill="none" transform="translate(120, 0)"
                 d="M17.8285 641.376C-48.2092 306.372 127.286 293.372 17.8285 0"></path>			
 				 
-			<svg  v-for="(svg, index) in Levels" :key="index" v-html="svg"></svg>
+			<svg  v-for="(content, index) in Levels" :key="index" v-html="content.icon" @click="onLevelItemClick(index, content.item)"></svg>
 			
 			<svg v-html="cursorSvg.content" v-show="cursorSvg.isShowCursor"></svg>
 			
@@ -79,104 +79,104 @@
 				return items.map((item, index) => {
 				  if(item.type === LevelType.CAMP_LEVEL) {
 					if(item.status === LevelStatus.LEARNING) {
-						return getCampLevelLearningIcon(item)
+						return {icon:getCampLevelLearningIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.LOCK) {
-						return getCampLevelLockIcon(item)
+						return {icon:getCampLevelLockIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.FINISH) {
-						return getCampLevelFinishIcon(item)
+						return {icon:getCampLevelFinishIcon(item), item: item}
 					}
 				  }
 
 				  if(item.type === LevelType.GENERAL_LEVEL) {
 					if(item.status === LevelStatus.LEARNING) {
-						return getGeneralLevelLearningIcon(item)
+						return {icon:getGeneralLevelLearningIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.LOCK) {
-						return getGeneralLevelLockIcon(item)
+						return {icon:getGeneralLevelLockIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.FINISH) {
-						return getGeneralLevelFinishIcon(item)
+						return {icon:getGeneralLevelFinishIcon(item), item: item}
 					}
 				  }
 			
 				  if(item.type === LevelType.GOAL_LEVEL) {
 					if(item.status === LevelStatus.LEARNING) {
-						return getGoalLevelLearningIcon(item)
+						return {icon:getGoalLevelLearningIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.LOCK) {
-						return getGoalLevelLockIcon(item)
+						return {icon:getGoalLevelLockIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.FINISH) {
-						return getGoalLevelFinishIcon(item)
+						return {icon:getGoalLevelFinishIcon(item), item: item}
 					}
 				  }
 				  
 				  
 				  if(item.type === LevelType.HOT_LEVEL) {
 					if(item.status === LevelStatus.LEARNING) {
-						return getHotLevelLearningIcon(item)
+						return {icon:getHotLevelLearningIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.LOCK) {
-						return getHotLevelLockIcon(item)
+						return {icon:getHotLevelLockIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.FINISH) {
-						return getHotLevelFinishIcon(item)
+						return {icon:getHotLevelFinishIcon(item), item: item}
 					}
 				  }
 
 				  if(item.type === LevelType.HOT_GOAL_LEVEL) {
 					if(item.status === LevelStatus.LEARNING) {
-						return getGoalHotLevelLearningIcon(item)
+						return {icon:getGoalHotLevelLearningIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.LOCK) {
-						return getGoalHotLevelLockIcon(item)
+						return {icon:getGoalHotLevelLockIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.FINISH) {
-						return getGoalHotLevelFinishIcon(item)
+						return {icon:getGoalHotLevelFinishIcon(item), item: item}
 					}
 				  }
 
 				  if(item.type === LevelType.REVIEW_LEVEL) {
 					if(item.status === LevelStatus.LEARNING) {
-						return getReviewLevelLearningIcon(item)
+						return {icon:getReviewLevelLearningIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.LOCK) {
-						return getReviewLevelLockIcon(item)
+						return {icon:getReviewLevelLockIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.FINISH) {
-						return getReviewLevelFinishIcon(item)
+						return {icon:getReviewLevelFinishIcon(item), item: item}
 					}
 				  }
 
 				  if(item.type === LevelType.EXAM_LEVEL) {
 					if(item.status === LevelStatus.LEARNING) {
-						return getExamLevelLearningIcon(item)
+						return {icon:getExamLevelLearningIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.LOCK) {
-						return getExamLevelLockIcon(item)
+						return {icon:getExamLevelLockIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.FINISH) {
-						return getExamLevelFinishIcon(item)
+						return {icon:getExamLevelFinishIcon(item), item: item}
 					}
 				  }
 
 				  if(item.type === LevelType.END_EXAM_LEVEL) {
 					if(item.status === LevelStatus.LOCK) {
-						return getEndExamLevelLockIcon(item)
+						return {icon:getEndExamLevelLockIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.LEARNING) {
-						return getEndExamLevelLearningIcon(item)
+						return {icon:getEndExamLevelLearningIcon(item), item: item}
 					}
 					if(item.status === LevelStatus.FINISH) {
-						return getEndExamLevelFinishIcon(item)
+						return {icon:getEndExamLevelFinishIcon(item), item: item}
 					}
 					
 				  }
 				  
-				  if(item.type === LevelType.END_EXAM_LEVEL) {
-					return getEndExamLevelIcon(item)
+				  if(item.type === LevelType.END_EXAM) {
+					return {icon:getEndExamLevelIcon(item), item: item}
 				  }
 														  
 				});
@@ -209,6 +209,19 @@
 					}
 					
 				}
+			},
+			onLevelItemClick(index, levelItem) {
+				console.log(index, levelItem)
+				uni.navigateTo({
+					url: '/pages/level-detail/level-detail',
+					success: function(res) {
+						// 通过eventChannel向被打开页面传送数据
+						res.eventChannel.emit('onLevelItemClickEvent', { data: levelItem })
+					},
+					fail: function(err) {
+						console.log(err)
+					}
+				});
 			}
 		}
 	}
