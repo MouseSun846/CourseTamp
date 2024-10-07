@@ -17,7 +17,7 @@
 		},
 		methods: {
 			onBackBtnClick() {
-				uni.navigateBack({delta: 1})
+				uni.redirectTo({url: "/pages/index/index"})
 			}
 		}
 	}
