@@ -285,6 +285,7 @@
 	.camp-menu-icon{
 		width: 30px;
 		z-index: 1;
+		cursor: pointer;
 	}
 	
 </style>

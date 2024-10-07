@@ -5,7 +5,7 @@
             <path id="s-curve" stroke="rgba(255, 255, 255, 1)" stroke-width="5" fill="none" transform="translate(120, 0)"
                 d="M17.8285 641.376C-48.2092 306.372 127.286 293.372 17.8285 0"></path>			
 				 
-			<svg  v-for="(content, index) in Levels" :key="index" v-html="content.icon" @click="onLevelItemClick(index, content.item)"></svg>
+			<svg  v-for="(content, index) in Levels" :key="index" v-html="content.icon" @click="onLevelItemClick(index, content.item)" style="cursor: pointer;"></svg>
 			
 			<svg v-html="cursorSvg.content" v-show="cursorSvg.isShowCursor"></svg>
 			
