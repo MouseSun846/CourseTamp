@@ -1,4 +1,4 @@
-// F:/code/feiniaoyun/CourseTamp/node_modules/mitt/dist/mitt.mjs
+// ../../../../../Code/CourseTamp/node_modules/mitt/dist/mitt.mjs
 function mitt_default(n) {
   return { all: n = n || /* @__PURE__ */ new Map(), on: function(t, e) {
     var i = n.get(t);

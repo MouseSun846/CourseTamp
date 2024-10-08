@@ -37,7 +37,6 @@
 	font-size: larger;
 	font-weight: bold;
 	height: 88rpx;
-	line-height: 88rpx;
 	color: #ffffff;
 	box-sizing: border-box;
 	font-family: system-ui;
