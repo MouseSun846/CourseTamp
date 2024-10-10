@@ -9,15 +9,19 @@
 			@scroll="scroll">
 			
 			<view class="step-content">
-				<view class="step-content-body">
+				<view class="step-content-body step-content-body-unlock">
+					<view class="summary-title">
+						<image class="summary-icon" mode="heightFix" src="/static/summary.svg" :draggable="false"></image>
+						<uni-title type="h2" title="概要总结" ></uni-title>
+					</view>
 					
-
 				</view>
+				
 			</view>
 			
 			
 			<view class="step-content" v-for="(level, index) in levelDetail.stepList" :key="level.stepId">
-				<view class="step-content-body">
+				<view :class="getStepContentClass(level.isLocked)">
 					<svg v-html="getStepIcon(level.stepId, level.isLocked)"></svg>
 				<image 
 					class="lock-bg" 
@@ -43,10 +47,10 @@
 					// levelName 关卡名称
 					// levelDetail 关卡详情 content: 关卡内容 url: 关卡链接
 					// isLocked 是否锁定 					
-					{stepId:1, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: false},
-					{stepId:2, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
+					{stepId:1, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
+					{stepId:2, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: false},
 					{stepId:3, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
-					{stepId:4, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
+					{stepId:4, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: false},
 					{stepId:5, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
 					{stepId:6, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true}
 				]
@@ -62,6 +66,9 @@
 			})
 		},
 		methods: {
+		   getStepContentClass(isLocked) {
+			  return isLocked ? 'step-content-body step-content-body-lock' : 'step-content-body step-content-body-unlock';
+			},
 			getStepIcon: function(number, isLocked) {
 				if(isLocked) {
 					return this.getLockStepIcon(number)
@@ -127,10 +134,30 @@
 		right: 7%;
 		width: 40px;
 	}
+	
 	.step-content-body {
 		width: 90%;
 		height: 100%;
-		background-color: #ffffff;
 		border-radius: 10px;
+		
+		.summary-icon {
+			width: 32px;
+			height: 32px;
+			top: 10px;
+			left: 10px;
+			margin-right: 20px;
+		}
+	}
+	.step-content-body-lock {
+		background-color: #dfdfdf;
+	}
+	.step-content-body-unlock {
+		background-color: #ffffff;
+	}
+	.summary-title {
+		display: flex;
+		flex-direction: row;
+		align-items: baseline;
+		justify-content: center;
 	}
 </style>
