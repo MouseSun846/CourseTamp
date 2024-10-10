@@ -8,6 +8,13 @@
 			class="scroll-Y" 
 			@scroll="scroll">
 			
+			<view class="step-content">
+				<view class="step-content-body">
+					
+
+				</view>
+			</view>
+			
 			
 			<view class="step-content" v-for="(level, index) in levelDetail.stepList" :key="level.stepId">
 				<view class="step-content-body">
@@ -35,8 +42,7 @@
 					stepList: [
 					// levelName 关卡名称
 					// levelDetail 关卡详情 content: 关卡内容 url: 关卡链接
-					// isLocked 是否锁定 
-					
+					// isLocked 是否锁定 					
 					{stepId:1, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: false},
 					{stepId:2, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
 					{stepId:3, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
