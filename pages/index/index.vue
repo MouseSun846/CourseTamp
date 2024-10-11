@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
 		<coursePopup></coursePopup>
+		<content-popup></content-popup>
 		<view class="left-image">
 			<view class="image-content-2">
 				<image class="img-body-2" mode="heightFix" src="/static/分组 12.svg" :draggable="false"></image>
@@ -28,7 +29,7 @@
 				<view class="camp-menu">
 					<image class="camp-menu-icon" mode="scaleToFill" src="/static/course.svg" :draggable="false" @click="showCourseDialog"></image>
 					<image class="camp-menu-icon" mode="scaleToFill" src="/static/sign.svg" :draggable="false"></image>
-					<image class="camp-menu-icon" mode="scaleToFill" src="/static/content.svg" :draggable="false"></image>
+					<image class="camp-menu-icon" mode="scaleToFill" src="/static/content.svg" :draggable="false"  @click="showContentDialog"></image>
 					<image class="camp-menu-icon" mode="scaleToFill" src="/static/user.svg" :draggable="false"></image>
 				</view>
 			</view>
@@ -128,6 +129,9 @@
 		methods: {
 			showCourseDialog: function(e) {
 				eventBus.emit("show-course-popup", true)
+			},
+			showContentDialog: function(e) {
+				eventBus.emit("show-content-popup", true)
 			},
 			// 跳转到今日学习目标
 			goToTodayGoal: function(e) {
