@@ -1,5 +1,5 @@
 <template>
-	<uni-popup ref="coursePopup" type="bottom" background-color="#202125"  :mask-click="false">
+	<uni-popup ref="coursePopup" type="bottom" background-color="rgb(173 192 255)"  :mask-click="false">
 			<view class="course-body">
 				<uni-title type="h1" title="课程" color="#ffffff" align="center" style="margin-top: 0px;"></uni-title>
 				<view class="close-btn-box">
@@ -105,7 +105,7 @@
 	}
 	
 	::v-deep .uni-list-item__container {
-		background-color: #202125;
+		background-color: rgb(173 192 255);
 		height: 45px;
 		padding: 5px;
 	}

@@ -1,5 +1,5 @@
 <template>
-	<uni-popup ref="contentPopup" type="bottom" background-color="rgb(207, 218, 254)"  :mask-click="false">
+	<uni-popup ref="contentPopup" type="bottom" background-color="rgb(173 192 255)"  :mask-click="false">
 			<view class="content-body">
 				<uni-title type="h1" title="目录" color="#ffffff" align="center" style="margin-top: 0px;"></uni-title>
 				<view class="close-btn-box">
@@ -126,7 +126,7 @@
 	}
 	
 	::v-deep .uni-list-item__container {
-		background:radial-gradient(at 96.49283077073736% 42.87202481763821%, hsla(211.03448275862067, 56.862745098039284%, 90%, 1) 0%, hsla(211.03448275862067, 56.862745098039284%, 90%, 0) 100%), radial-gradient(at 21.072147853117418% 8.332825325753301%, hsla(251.99999999999994, 38.46153846153849%, 94.90196078431372%, 1) 0%, hsla(251.99999999999994, 38.46153846153849%, 94.90196078431372%, 0) 100%), radial-gradient(at 78.47940016751653% 87.55551599150111%, hsla(211.03448275862067, 56.862745098039284%, 90%, 1) 0%, hsla(211.03448275862067, 56.862745098039284%, 90%, 0) 100%), radial-gradient(at 66.39976667942473% 94.72660681024504%, hsla(251.99999999999994, 38.46153846153849%, 94.90196078431372%, 1) 0%, hsla(251.99999999999994, 38.46153846153849%, 94.90196078431372%, 0) 100%);
+		background: rgb(173 192 255);
 		height: 45px;
 		padding: 5px;
 	}
@@ -168,7 +168,7 @@
         margin: 0 auto;
         padding: 10px;
         box-sizing: border-box;
-        background: linear-gradient(#cdd9fe, #e2e9fd);
+        background: rgb(173 192 255);
         position: relative;
 		height: 100%;
       }
