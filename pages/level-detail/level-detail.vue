@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<page-head :title="levelDetail.levelName"></page-head>
+		<page-head></page-head>
 		<scroll-view
 			:scroll-top="scrollTop"
 			scroll-y="true" 
@@ -12,10 +12,15 @@
 				<view class="step-content-body step-content-body-unlock">
 					<view class="summary-title">
 						<image class="summary-icon" mode="heightFix" src="/static/summary.svg" :draggable="false"></image>
-						<uni-title type="h2" title="概要总结" ></uni-title>
+						<uni-title type="h1" title="概要总结" ></uni-title>
 					</view>
-					
+					<view class="level-card first-level-card">
+						<level-card :levelItem="levelDetail.summary">
+						</level-card>
+					</view>
+						
 				</view>
+	
 				
 			</view>
 			
@@ -23,13 +28,10 @@
 			<view class="step-content" v-for="(level, index) in levelDetail.stepList" :key="level.stepId">
 				<view :class="getStepContentClass(level.isLocked)">
 					<svg v-html="getStepIcon(level.stepId, level.isLocked)"></svg>
-				<image 
-					class="lock-bg" 
-					mode="aspectFit" 
-					v-if="level.isLocked" 
-					src="/static/lock.svg" 
-					:draggable="false">
-				</image>
+				<view class="level-card level-card-step">
+					<level-card :levelItem="level">
+					</level-card>
+				</view>
 				</view>
 			</view>
 		</scroll-view>	
@@ -37,24 +39,26 @@
 </template>
 
 <script>
+	import eventBus from '@/common/eventbus.js'
 	export default {
 		data() {
 			return {
 				scrollTop: 0,
 				levelDetail: {
 					levelName: '第01关',
+					summary: {stepId:0, levelDetail: {content:'资料分析主讲', url:'https://www.baidu.com'}, isLocked: false},
 					stepList: [
-					// levelName 关卡名称
-					// levelDetail 关卡详情 content: 关卡内容 url: 关卡链接
-					// isLocked 是否锁定 					
-					{stepId:1, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
-					{stepId:2, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: false},
-					{stepId:3, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
-					{stepId:4, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: false},
-					{stepId:5, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
-					{stepId:6, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true}
-				]
-				}
+						// levelName 关卡名称
+						// levelDetail 关卡详情 content: 关卡内容 url: 关卡链接
+						// isLocked 是否锁定 					
+						{stepId:1, levelDetail: {content:'知识考点', url:'https://www.baidu.com'}, isLocked: true},
+						{stepId:2, levelDetail: {content:'特训练习', url:'https://www.baidu.com'}, isLocked: false},
+						{stepId:3, levelDetail: {content:'老师点评', url:'https://www.baidu.com'}, isLocked: true},
+						{stepId:4, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: false},
+						{stepId:5, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
+						{stepId:6, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true}
+					]
+				},
 			};
 		},
 		onLoad: function(option) {
@@ -62,7 +66,8 @@
 			const eventChannel = this.getOpenerEventChannel();
 			// 监听levelItem事件，获取上一页面通过eventChannel传送到当前页面的数据
 			eventChannel.on('onLevelItemClickEvent', function(data) {
-				console.log(data)
+				eventBus.emit("titleUpdate", {title: data.data.name})
+				
 			})
 		},
 		methods: {
@@ -124,15 +129,9 @@
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		height: 200px;
+		height: 240px;
 		margin-top: 20px;
 		position: relative;
-	}
-	
-	.lock-bg {
-		position: absolute;
-		right: 7%;
-		width: 40px;
 	}
 	
 	.step-content-body {
@@ -149,7 +148,7 @@
 		}
 	}
 	.step-content-body-lock {
-		background-color: #dfdfdf;
+		background-color: #f0f0f0;
 	}
 	.step-content-body-unlock {
 		background-color: #ffffff;
@@ -159,5 +158,18 @@
 		flex-direction: row;
 		align-items: baseline;
 		justify-content: center;
+	}
+	.level-card {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		justify-content: center;
+	}
+	.first-level-card {
+		margin-top: 8px;
+	}
+	.level-card-step {
+		position: relative;
+		top: -45%;
 	}
 </style>

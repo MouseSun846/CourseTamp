@@ -7,13 +7,17 @@
 	</view>
 </template>
 <script>
+	import eventBus from '@/common/eventbus.js'
 	export default {
 		name: "page-head",
-		props: {
-			title: {
-				type: String,
-				default: ""
-			}
+		data() {
+			return {title: ''}
+		},
+		mounted() {
+			eventBus.on("titleUpdate", (e) => {
+				console.log(e)
+				this.title = e.title
+			})
 		},
 		methods: {
 			onBackBtnClick() {
