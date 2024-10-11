@@ -181,6 +181,8 @@
 		height: 100%;
 		display: flex;
 		flex-direction: row;
+		flex: 1;
+		overflow: hidden;
 	}
 
 	.left-image {

@@ -1,11 +1,13 @@
 <template>
 	<view class="container">
 		<page-head></page-head>
-		<scroll-view
+		
+		<view class="scroll-box" >
+			<scroll-view
 			:scroll-top="scrollTop"
 			scroll-y="true" 
 			:show-scrollbar="false"
-			class="scroll-Y" 
+			class="scroll-Y"
 			@scroll="scroll">
 			
 			<view class="step-content">
@@ -35,6 +37,8 @@
 				</view>
 			</view>
 		</scroll-view>	
+		</view>
+		
 	</view>
 </template>
 
@@ -111,16 +115,22 @@
 
 <style lang="scss" scoped>
 	.container {
+		position: absolute;
 		width: 100%;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
 		background: linear-gradient(145deg, #55a6ff 15%, rgb(60 130 242 / 67%) 46%, #4083edd1 100%);
+		flex: 1;
+		overflow: hidden;
+	}
+	.scroll-box {
+		width: 100%;
+		height: 93%;
 	}
 	.scroll-Y{
-		height: 800px;
 		width: 100%;
-		margin-bottom: 100px;
+		height: 100%;
 	}
 	
 	.step-content {

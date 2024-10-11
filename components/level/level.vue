@@ -211,7 +211,6 @@
 				}
 			},
 			onLevelItemClick(index, levelItem) {
-				console.log(index, levelItem)
 				uni.navigateTo({
 					url: '/pages/level-detail/level-detail',
 					success: function(res) {

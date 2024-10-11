@@ -1,4 +1,4 @@
-<template name="page-head">
+<template>
 	<view class="common-page-head">
 		<image class="head-background-music-left" mode="aspectFit" src="/static/music.svg" :draggable="false"></image>
 		<image class="back-btn" mode="aspectFit" src="/static/back.svg" :draggable="false" @click="onBackBtnClick"></image>
@@ -15,7 +15,6 @@
 		},
 		mounted() {
 			eventBus.on("titleUpdate", (e) => {
-				console.log(e)
 				this.title = e.title
 			})
 		},
@@ -32,7 +31,8 @@
 .common-page-head{
 	text-align: center;
 	width: 100%;
-	height: 70px;
+	height: 100%;
+	min-height: 70px;
 	background: linear-gradient(214deg, rgb(0 98 255 / 64%) 15%, rgb(60 130 242 / 63%) 46%, #4486edd4 100%);
 }
 .common-page-head-title {
