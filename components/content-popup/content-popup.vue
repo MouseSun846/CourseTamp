@@ -8,11 +8,13 @@
 				
 				<view class="wrap">
 					<view class="tabs">
-						<view class="tab active">标签1</view>
+						<view v-for="(tab, index) in tabs" :key="index" class="tab" :class="{ active: activeIndex == index }" @click="onTabClick(index)">
+							{{ tab }}
+						</view>
 					</view>
 					<view class="content-wrap">
 
-						<view class="content-box">
+						<!-- <view class="content-box">
 							<scroll-view
 								:scroll-top="scrollTop"
 								scroll-y="true" 
@@ -33,7 +35,7 @@
 
 							</scroll-view>	
 
-						</view>
+						</view> -->
 					</view>
 				</view>
 
@@ -65,6 +67,7 @@
 						'列表文字5'
 					],
 					activeIndex: 0,
+					tabs: ['普通关卡', '热点关卡'] // Tab内容数组
 			}
 		},
 		mounted() {
@@ -163,80 +166,67 @@
 	}
 
 	.wrap {
-        background-color: #eee;
-        width: 100%;
-        margin: 0 auto;
-        padding: 10px;
-        box-sizing: border-box;
-        background: rgb(173 192 255);
-        position: relative;
-		height: 100%;
-      }
- 
-      .tabs {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        overflow: hidden;
-        border-radius: 8px 8px 0 0;
-      }
-      .wrap .btn {
-        width: 130px;
-        height: 90px;
-        background: pink;
-        text-align: center;
-        line-height: 50px;
-        border-radius: 20px 20px 0px 0px;
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        z-index: 0;
-      }
-      .tab {
-        flex: 0 0 200px;
-        height: 50px;
-        cursor: pointer;
-        position: relative;
-        text-align: center;
-        line-height: 50px;
-      }
- 
-      .tab.active {
-        background-color: #fff;
-        color: #4185ef;
-      }
- 
-      .tab.active:after {
-        content: "";
-        position: absolute;
-        top: 0.5px;
-        right: -49.5px;
-        height: 100%;
-        width: 50px;
-        z-index: 2;
-        background-color: #fff;
-        clip-path: path("M 0,0 C 25,0 25,50 50,50 L 0, 50 Z");
-      }
- 
-      .content-wrap {
-        height: 100%;
-        background: #fff;
-        border-radius: 0px 20px 0px 0px;
-        position: relative;
-        z-index: 1;
-		overflow: hidden;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-      }
+      width: 90%;
+      margin: 0 auto;
+      padding: 10px;
+    }
 
-	  .content-box {
-		width: 100%;
-		height: 100%;
-		margin-top: 20px;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-	  }
+    .tabs {
+      display: flex;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 8px 8px 0 0;
+      background: linear-gradient(#cdd9fe, #e2e9fd);
+    }
+
+    .tab {
+      flex: 0 0 50%;
+      height: 50px;
+      cursor: pointer;
+      position: relative;
+      text-align: center;
+      line-height: 50px;
+	  font-family: system-ui;
+	  font-size: 18px;
+	  font-weight: bolder;
+	  color: rgb(80 120 254);
+    }
+
+    .tab.active {
+      background-color: #fff;
+      color: #4185ef;
+    }
+
+    .tab.active:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -50px;
+      height: 100%;
+      width: 50px;
+      z-index: 2;
+      background-color: #fff;
+      clip-path: path('M 0,50 C 25,50 25,0 50,0 L 50, 50 Z');
+    }
+
+    .tab.active:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -50px;
+      height: 100%;
+      width: 50px;
+      z-index: 2;
+      background-color: #fff;
+      clip-path: path('M 0,0 C 25,0 25,50 50,50 L 0, 50 Z');
+    }
+
+    .content-wrap {
+      min-height: 260px;
+      background-color: #fff;
+	  border-radius: 0px 0px 10px 10px;
+    }
+
+
 
 </style>
