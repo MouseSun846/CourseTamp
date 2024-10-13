@@ -1,5 +1,5 @@
 <template>
-	<uni-popup ref="contentPopup" type="bottom" background-color="rgb(173 192 255)"  :mask-click="false">
+	<uni-popup ref="contentPopup" type="bottom" background-color="rgb(125 172 235)"  :mask-click="false">
 			<view class="content-body">
 				<uni-title type="h1" title="目录" color="#ffffff" align="center" style="margin-top: 0px;"></uni-title>
 				<view class="close-btn-box">
@@ -129,7 +129,7 @@
 	}
 	
 	::v-deep .uni-list-item__container {
-		background: rgb(173 192 255);
+		background: rgb(125 172 235);
 		height: 45px;
 		padding: 5px;
 	}
@@ -166,9 +166,8 @@
 	}
 
 	.wrap {
-      width: 90%;
-      margin: 0 auto;
-      padding: 10px;
+      width: 95%;
+      margin: 10px auto;
     }
 
     .tabs {
@@ -176,7 +175,7 @@
       width: 100%;
       overflow: hidden;
       border-radius: 8px 8px 0 0;
-      background: linear-gradient(#cdd9fe, #e2e9fd);
+      background: linear-gradient(#e3e9f2, #ddebff);
     }
 
     .tab {
@@ -187,7 +186,7 @@
       text-align: center;
       line-height: 50px;
 	  font-family: system-ui;
-	  font-size: 18px;
+	  font-size: 16px;
 	  font-weight: bolder;
 	  color: rgb(80 120 254);
     }
