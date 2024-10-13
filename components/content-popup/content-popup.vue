@@ -315,6 +315,7 @@
 		font-family: 'system-ui';
 		font-weight: bolder;
 		font-size: 16px;
+		color: rgb(0 0 0 / 80%);
 	}
 	.level-number-box {
 		width: 25px;
@@ -357,5 +358,6 @@
 		flex-direction: row;
 		flex-wrap: wrap;
 		margin-right: 30px;
+		color: rgb(0 0 0 / 70%);
 	}
 </style>

@@ -1,29 +1,42 @@
 <template>
 	<uni-popup ref="coursePopup" type="bottom" background-color="rgb(125 172 235)"  :mask-click="false">
 			<view class="course-body">
-				<uni-title type="h1" title="课程" color="#ffffff" align="center" style="margin-top: 0px;"></uni-title>
 				<view class="close-btn-box">
 					<image class="close-btn" mode="heightFix" src="/static/close.svg" :draggable="false" @click="closeCoursePopup"></image>
 				</view>
-				<scroll-view
-					:scroll-top="scrollTop"
-					scroll-y="true" 
-					:show-scrollbar="false"
-					class="scroll-Y" 
-					@scroll="scroll">
-					<uni-list-item
-							v-for="(item, index) in courseList"
-							:key="index"
-							@click="onItemClick(item, index)"
-							:class="{ 'selected': selectedIndex === index }"
-							:clickable="true">
-							<template v-slot:body>
-								<image class="item-choosing" mode="heightFix" src="/static/choosing.svg" :draggable="false" v-if="selectedIndex === index"></image>
-								<text class="slot-box slot-text">{{item}}</text>
-							</template>
-						</uni-list-item>
+				<view class="wrap">
+					<view class="tabs">
+						<view class="tab active">
+							课程
+						</view>
+					</view>
+					<view class="content-wrap">
+						<view class="content-box">
+							<scroll-view
+								:scroll-top="scrollTop"
+								scroll-y="true" 
+								:show-scrollbar="false"
+								class="scroll-Y" 
+								@scroll="scroll">
+								<view class="course-box">
+									<view class="course-item"
+										v-for="(item, index) in courseList"
+										:key="index"
+										@click="onItemClick(item, index)"
+										:class="{ 'selected': selectedIndex === index }"
+										:clickable="true">
+											<text class="slot-box slot-text">{{item}}</text>
+											<view class="item-choosing-box">
+												<image class="item-choosing" mode="heightFix" src="/static/choosing.svg" :draggable="false" v-if="selectedIndex === index"></image>
+											</view>
+									</view>
+								</view>
+								
 
-				</scroll-view>	
+							</scroll-view>	
+						</view>
+					</view>
+				</view>
 
 
 			</view>
@@ -38,7 +51,7 @@
 					scrollTop: 0,
 					selectedIndex: null, 
 					courseList:[
-						'列表文字列表文字1列表文字列表文字',
+						'列表文字列表文字112345678987456321字1列表文字列表文字',
 						'列表文字2',
 						'列表文字3',
 						'列表文字4',
@@ -78,7 +91,7 @@
 
 <style scoped>
 	.course-body {
-		height: 370px;
+		height: 360px;
 	}
 	.close-btn-box {
 		position: fixed;
@@ -101,11 +114,12 @@
 	
 	.scroll-Y{
 		position: absolute;
-		height: 300px;
+		height: 280px;
+		width: 90%;
+		margin-top: 10px;
 	}
 	
 	::v-deep .uni-list-item__container {
-		background-color: rgb(125 172 235);
 		height: 45px;
 		padding: 5px;
 	}
@@ -113,32 +127,121 @@
 		color: #ffffff;
 	}
 	.slot-box { 
-		height: 40px;
+		height: auto;
+		min-height: 40px;
 		width: 100%;
-		border: 2px solid transparent; /* 默认透明边框 */
-		border-radius: 10px;
+
 		margin-top: 0px;
 		margin-bottom: 0px;
 	}
 
-	.uni-list-item.selected .slot-box { 
+	.course-box {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.course-item {
+		width: 90%;
+		display: flex;
+		flex-direction: row;
+		border: 2px solid transparent; /* 默认透明边框 */
+		border-radius: 10px;
+	}
+
+	.course-item.selected { 
 		border-color: #0055FF; /* 选中时的边框颜色 */
 	}
 
 	.slot-text {
 		display: flex;
 		flex-direction: row;
+		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
-		color: #ffffff;
 		font-size: 18px;
+		font-family: 'system-ui';
+		font-weight: bolder;
+		color: rgb(0 0 0 / 80%);		
+	}
+	.item-choosing-box {
+		width: 20px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;		
 	}
 	.item-choosing {
-		position: absolute;
-		right: 5px;
 		width: 20px;
 		height: 20px;
 		border-radius: 7px; 
+	}
+
+
+	.wrap {
+      width: 95%;
+      margin: 20px auto;
+    }
+
+    .tabs {
+      display: flex;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .tab {
+      flex: 0 0 50%;
+      height: 50px;
+      cursor: pointer;
+      position: relative;
+      text-align: center;
+      line-height: 50px;
+	  font-family: system-ui;
+	  font-size: 16px;
+	  font-weight: bolder;
+	  color: rgb(80 120 254);
+    }
+
+    .tab.active {
+      background-color: #fff;
+      color: #4185ef;
+    }
+
+    .tab.active:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -50px;
+      height: 100%;
+      width: 50px;
+      z-index: 2;
+      background-color: #fff;
+      clip-path: path('M 0,50 C 25,50 25,0 50,0 L 50, 50 Z');
+    }
+
+    .tab.active:after {
+      content: '';
+      position: absolute;
+      top: 0.1px;
+      right: -48.8px;
+      height: 100%;
+      width: 50px;
+      z-index: 2;
+      background-color: #fff;
+      clip-path: path('M 0,0 C 25,0 25,50 50,50 L 0, 50 Z');
+    }
+
+    .content-wrap {
+      min-height: 300px;
+      background-color: #fff;
+	  border-radius: 0px 10px 10px 10px;
+	  margin-top: -1px;
+    }
+
+	.content-box {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
 	}
 
 </style>
