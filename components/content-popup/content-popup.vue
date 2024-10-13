@@ -36,13 +36,20 @@
 											<view class="content-text-box">
 												<view class="content-text"
 													v-for="(levelItem, levelIndex) in contentItem.levelInfoList"
-													:key="levelIndex">
-														<view class="level-number-box"> 
-															<view class="level-number"> 
-																<text class="level-number-text">{{ levelItem.levelNumber }}</text>
+													:key="levelIndex"
+													:class="{ 'selected': selectedIndex === levelItem.levelNumber }"
+													@click="onItemClick(levelItem, levelItem.levelNumber)">
+														<view class="number-title-box">
+															<view class="level-number-box"> 
+																<view class="level-number"> 
+																	<text class="level-number-text">{{ levelItem.levelNumber }}</text>
+																</view>
 															</view>
+															<text class="content-text-wrapper">{{ levelItem.levelTitle }}</text>
 														</view>
-														<text class="content-text-wrapper">{{ levelItem.levelTitle }}</text>
+														<view class="item-choosing-box">
+															<image class="item-choosing" mode="heightFix" src="/static/choosing.svg" :draggable="false" v-if="selectedIndex === levelItem.levelNumber"></image>
+														</view>
 													</view>
 											</view>
 
@@ -85,26 +92,11 @@
 						{
 							title: "文件领学2：思想理论教育和价值引领",
 							levelInfoList:[ 
-								{levelNumber: 1, levelTitle: "16号令_《关于进一步加强和改进大学生思想政治教育的意见》"},
-								{levelNumber: 2, levelTitle: "《习近平总书记在全国高校思想政治工作会议上的讲话》"},
-								{levelNumber: 3, levelTitle: "31号令_《关于加强和改进新形势下高校思想政治工作的意见》"},
-								{levelNumber:4, levelTitle: "62号令_《高校思想政治工作质量提升工程实施纲要》"}
-							]
-						},
-						{
-							title: "文件领学1：辅导员的定义与工作职责",
-							levelInfoList:[ 
-								{levelNumber: 1, levelTitle: "43号令_《普通高等学校辅导员队伍建设规定》"},
-								{levelNumber: 2, levelTitle: "2号令_《高等学校辅导员队伍建设规定》"},
-								{levelNumber: 3, levelTitle: "3号令_《高等学校辅导员队伍建设规定》"},
-							]
-						},
-						{
-							title: "文件领学1：辅导员的定义与工作职责",
-							levelInfoList:[ 
-								{levelNumber: 1, levelTitle: "43号令_《普通高等学校辅导员队伍建设规定》"},
-								{levelNumber: 2, levelTitle: "2号令_《高等学校辅导员队伍建设规定》"},
-								{levelNumber: 3, levelTitle: "3号令_《高等学校辅导员队伍建设规定》"},
+								{levelNumber: 4, levelTitle: "16号令_《关于进一步加强和改进大学生思想政治教育的意见》"},
+								{levelNumber: 5, levelTitle: "《习近平总书记在全国高校思想政治工作会议上的讲话》"},
+								{levelNumber: 6, levelTitle: "31号令_《关于加强和改进新形势下高校思想政治工作的意见》"},
+								{levelNumber:7, levelTitle: "62号令_《高校思想政治工作质量提升工程实施纲要》"},
+								{levelNumber:8, levelTitle: "63号令"}
 							]
 						}
 					],
@@ -120,10 +112,10 @@
 							{
 								title: "文件领学2：思想理论教育和价值引领",
 								levelInfoList:[ 
-									{levelNumber: 1, levelTitle: "16号令_《关于进一步加强和改进大学生思想政治教育的意见》"},
-									{levelNumber: 2, levelTitle: "《习近平总书记在全国高校思想政治工作会议上的讲话》"},
-									{levelNumber: 3, levelTitle: "31号令_《关于加强和改进新形势下高校思想政治工作的意见》"},
-									{levelNumber:4, levelTitle: "62号令_《高校思想政治工作质量提升工程实施纲要》"}
+									{levelNumber: 4, levelTitle: "16号令_《关于进一步加强和改进大学生思想政治教育的意见》"},
+									{levelNumber: 5, levelTitle: "《习近平总书记在全国高校思想政治工作会议上的讲话》"},
+									{levelNumber: 6, levelTitle: "31号令_《关于加强和改进新形势下高校思想政治工作的意见》"},
+									{levelNumber:7, levelTitle: "62号令_《高校思想政治工作质量提升工程实施纲要》"}
 								]
 							},
 						]
@@ -158,6 +150,7 @@
 			
 			onTabClick(index) {
 				this.activeIndex = index
+				this.selectedIndex = 0
 				if(this.activeIndex === 0) {
 					// 普通关卡
 					this.contentList = this.contents.commonLevel
@@ -228,13 +221,18 @@
 		color: #ffffff;
 		font-size: 18px;
 	}
+	.item-choosing-box {
+		width: 20px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;		
+	}
 	.item-choosing {
-		position: absolute;
-		right: 5px;
 		width: 20px;
 		height: 20px;
 		border-radius: 7px; 
 	}
+
 
 	.wrap {
       width: 95%;
@@ -317,6 +315,11 @@
 		font-size: 16px;
 		color: rgb(0 0 0 / 80%);
 	}
+	.number-title-box {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
 	.level-number-box {
 		width: 25px;
 		height: 25px;
@@ -340,7 +343,7 @@
 	.content-text-box {
 		display: flex;
 		flex-direction: column;
-		width: 100%;
+		width: 85%;
 	}
 	.content-text {
 		margin-left: 20px;
@@ -352,6 +355,12 @@
 		flex-direction: row;
 		align-items: center;
 		width: 100%;
+		border: 2px solid transparent; /* 默认透明边框 */
+		border-radius: 10px;
+		justify-content: space-between;
+	}
+	.content-text.selected { 
+		border-color: #0055FF; /* 选中时的边框颜色 */
 	}
 	.content-text-wrapper {
 		display: flex;

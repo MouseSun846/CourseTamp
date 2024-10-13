@@ -147,6 +147,7 @@
 		flex-direction: row;
 		border: 2px solid transparent; /* 默认透明边框 */
 		border-radius: 10px;
+		align-items: center;
 	}
 
 	.course-item.selected { 
@@ -169,6 +170,7 @@
 		height: 100%;
 		display: flex;
 		flex-direction: column;		
+		margin-right: 10px;
 	}
 	.item-choosing {
 		width: 20px;
