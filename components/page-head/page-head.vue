@@ -40,10 +40,10 @@
 	padding: 30rpx 40rpx;
 	font-size: larger;
 	font-weight: bold;
-	height: 88rpx;
 	color: #ffffff;
 	box-sizing: border-box;
 	font-family: system-ui;
+	padding-top: 25px;
 }
 
 .head-background-music-left {

@@ -30,7 +30,7 @@
 					<image class="camp-menu-icon" mode="scaleToFill" src="/static/course.svg" :draggable="false" @click="showCourseDialog"></image>
 					<image class="camp-menu-icon" mode="scaleToFill" src="/static/sign.svg" :draggable="false"></image>
 					<image class="camp-menu-icon" mode="scaleToFill" src="/static/content.svg" :draggable="false"  @click="showContentDialog"></image>
-					<image class="camp-menu-icon" mode="scaleToFill" src="/static/user.svg" :draggable="false"></image>
+					<image class="camp-menu-icon" mode="scaleToFill" src="/static/user.svg" :draggable="false" @click="goToUserCenterPage"></image>
 				</view>
 			</view>
 				
@@ -173,6 +173,12 @@
 				}
 			  }
 			  return {currentPage: index%4===0?index/4:(index-index%4)/4+1, remain: (this.campInfo.levelItem.length-remain)/4};
+		  },
+		  // 跳转到用户中心
+		  goToUserCenterPage() {
+			  uni.navigateTo({
+			  	url: '/pages/user-center/user-center'
+			  });
 		  }
 		}
 	}

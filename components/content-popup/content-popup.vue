@@ -269,7 +269,7 @@
       content: '';
       position: absolute;
       top: 0;
-      left: -50px;
+      left: -49.5px;
       height: 100%;
       width: 50px;
       z-index: 2;

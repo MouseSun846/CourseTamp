@@ -13,6 +13,14 @@
 			"navigationBarTitleText" : "",
 			"navigationStyle": "custom"
 		}
+	},	
+	{
+		"path" : "pages/user-center/user-center",
+		"style" : 
+		{
+			"navigationBarTitleText" : "",
+			"navigationStyle": "custom"
+		}
 	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
