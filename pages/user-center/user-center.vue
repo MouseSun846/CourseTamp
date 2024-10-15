@@ -43,9 +43,11 @@
 								</view>
 							</uni-section>
 							<uni-section title="今日目标" type="square" padding>
+								<view class="book-box book-box-view">
+										<svg t="1729001256170" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4755" width="32" height="32" style="margin-left: 10px; margin-right: 20px;"><path d="M85.930667 590.762667H78.762667a78.762667 78.762667 0 1 1 0-157.525334h7.168a433.664 433.664 0 0 1 347.306666-347.306666V78.762667a78.762667 78.762667 0 1 1 157.525334 0v7.168a433.664 433.664 0 0 1 347.306666 347.306666h7.168a78.762667 78.762667 0 1 1 0 157.525334h-7.168a433.664 433.664 0 0 1-347.306666 347.306666v7.168a78.762667 78.762667 0 1 1-157.525334 0v-7.168a433.664 433.664 0 0 1-347.306666-347.306666zM512 748.373333a236.373333 236.373333 0 1 0 0-472.576 236.373333 236.373333 0 0 0 0 472.576z m0-78.762666a157.525333 157.525333 0 1 1 0-315.050667 157.525333 157.525333 0 0 1 0 315.050667z" fill="#8492A6" p-id="4756"></path></svg>
+										<text class="book-text">{{ goalNumber||'未设置' }}</text>
+									</view>
 								<view class="book-box">
-									<svg t="1729001256170" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4755" width="32" height="32" style="margin-left: 10px; margin-right: 20px;"><path d="M85.930667 590.762667H78.762667a78.762667 78.762667 0 1 1 0-157.525334h7.168a433.664 433.664 0 0 1 347.306666-347.306666V78.762667a78.762667 78.762667 0 1 1 157.525334 0v7.168a433.664 433.664 0 0 1 347.306666 347.306666h7.168a78.762667 78.762667 0 1 1 0 157.525334h-7.168a433.664 433.664 0 0 1-347.306666 347.306666v7.168a78.762667 78.762667 0 1 1-157.525334 0v-7.168a433.664 433.664 0 0 1-347.306666-347.306666zM512 748.373333a236.373333 236.373333 0 1 0 0-472.576 236.373333 236.373333 0 0 0 0 472.576z m0-78.762666a157.525333 157.525333 0 1 1 0-315.050667 157.525333 157.525333 0 0 1 0 315.050667z" fill="#8492A6" p-id="4756"></path></svg>
-									<text class="book-text">{{ goalNumber||'未设置' }}</text>
 									<uni-number-box :min="1" :max="100" :value="goalNumberValue" class="book-input-number" @change="onGoalNumberChange" />
 									<view class="book-btn" @click="onGoalSetting">
 										<button type="primary" style="font-size: 13px;">确定</button>
@@ -158,7 +160,7 @@
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		height: 310px;
+		height: 390px;
 		margin-top: 20px;
 		position: relative;
 	}
@@ -213,7 +215,7 @@
 	}
 	.book-input {
 		width: 200px;
-		height: 35px;
+		height: 40px;
 		font-size: 16px;
 	}
 	.book-text {
@@ -223,7 +225,7 @@
 	}
 	.book-btn {
 		width: 60px;
-		height: 30px;
+		height: 35px;
 		font-size: 16px;
 		margin-left: 20px;
 		display: flex;
@@ -232,6 +234,5 @@
 	}
 	.book-input-number {
 		width: 100px;
-		margin-left: 100px;
 	}
 </style>
