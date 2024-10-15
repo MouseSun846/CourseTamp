@@ -13,8 +13,17 @@
 			<view class="step-content">
 				<view class="step-content-body step-content-body-unlock">
 					<view class="level-card">
-						<uni-section title="书籍绑定" type="line" padding>
-							<uni-easyinput class="uni-mt-5" trim="all" v-model="bookNumber" placeholder="请输入书籍编码" @input="onbookNumberIuput"></uni-easyinput>
+						<uni-section title="书籍绑定" type="line" padding :titleFontSize="'18px'">
+							<view class="book-box book-box-view">
+								<svg t="1728999818523" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1572" width="32" height="32" style="margin-left: 10px; margin-right: 20px;"><path d="M661.76 65.28c-64 0-119.04 38.4-149.76 94.72-30.08-56.32-85.76-94.72-149.76-94.72H65.92v835.84h272.64c51.2 0 135.68 17.28 149.12 57.6 12.8 0 19.84 0.64 49.28 0v-0.64c13.44-40.32 97.92-57.536 148.48-57.536h272.64V65.28h-296.32zM338.56 843.52H115.84V122.88h247.68c46.72 0 94.08 27.52 113.92 70.4v679.872c-30.208-29.248-95.424-30.784-138.88-29.632z m570.24-0.64h-223.36c-43.456-1.152-110.144 0.512-139.456 30.528V193.28h1.216c19.84-42.88 67.2-70.4 113.92-70.4h247.68v720z" fill="#8492a6" p-id="1573"></path></svg>
+								<text class="book-text">{{ bookNumber||'未绑定' }}</text>
+							</view>
+							<view class="book-box">
+								<uni-easyinput class="book-input" trim="all" v-model="bookNumberValue" placeholder="请输入书籍编码" @input="onbookNumberIuput"></uni-easyinput>
+								<view class="book-btn" @click="onBookNumberBind">
+									<button type="primary" style="font-size: 13px;">确定</button>
+								</view>
+							</view>
 						</uni-section>
 
 
@@ -26,13 +35,25 @@
 			<view class="step-content">
 				<view class="step-content-body step-content-body-unlock">
 					<view class="level-card">
-						<uni-section title="目标设置" type="line" padding>
-							<uni-number-box :min="1" :max="100" :value="55" />
+						<uni-section title="目标设置" type="line" padding :titleFontSize="'18px'">
+							<uni-section title="预计完成时间" type="square" padding>
+								<view class="book-box book-box-view">
+									<svg t="1729001633682" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9748" width="32" height="32" style="margin-left: 10px; margin-right: 20px;"><path d="M512 0a512 512 0 1 1 0 1024A512 512 0 0 1 512 0z m-34.133333 218.453333a54.613333 54.613333 0 0 0-54.613334 54.613334v273.066666l0.597334 8.106667a54.613333 54.613333 0 0 0 54.016 46.506667h273.066666l8.106667-0.597334A54.613333 54.613333 0 0 0 805.546667 546.133333l-0.597334-8.106666A54.613333 54.613333 0 0 0 750.933333 491.52H532.48V273.066667l-0.597333-8.106667A54.613333 54.613333 0 0 0 477.866667 218.453333z" fill="#8492a6" p-id="9749"></path></svg>
+									<text class="book-text">{{ finishTime||'未知' }}</text>
+								</view>
+							</uni-section>
+							<uni-section title="今日目标" type="square" padding>
+								<view class="book-box">
+									<svg t="1729001256170" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4755" width="32" height="32" style="margin-left: 10px; margin-right: 20px;"><path d="M85.930667 590.762667H78.762667a78.762667 78.762667 0 1 1 0-157.525334h7.168a433.664 433.664 0 0 1 347.306666-347.306666V78.762667a78.762667 78.762667 0 1 1 157.525334 0v7.168a433.664 433.664 0 0 1 347.306666 347.306666h7.168a78.762667 78.762667 0 1 1 0 157.525334h-7.168a433.664 433.664 0 0 1-347.306666 347.306666v7.168a78.762667 78.762667 0 1 1-157.525334 0v-7.168a433.664 433.664 0 0 1-347.306666-347.306666zM512 748.373333a236.373333 236.373333 0 1 0 0-472.576 236.373333 236.373333 0 0 0 0 472.576z m0-78.762666a157.525333 157.525333 0 1 1 0-315.050667 157.525333 157.525333 0 0 1 0 315.050667z" fill="#8492A6" p-id="4756"></path></svg>
+									<text class="book-text">{{ goalNumber||'未设置' }}</text>
+									<uni-number-box :min="1" :max="100" :value="goalNumberValue" class="book-input-number" @change="onGoalNumberChange" />
+									<view class="book-btn" @click="onGoalSetting">
+										<button type="primary" style="font-size: 13px;">确定</button>
+									</view>
+								</view>
+							</uni-section>
 						</uni-section>
 
-						<uni-section title="预期完成时间" type="line" padding>
-							<uni-number-box :min="1" :max="100" :value="55" />
-						</uni-section>
 
 					</view>
 				</view>	
@@ -72,13 +93,27 @@
 						number: 3,
 						predictGoal: 30
 					},
-					bookNumber:123456
+					bookNumber: '',
+					bookNumberValue: '',
+					goalNumber: 0,
+					goalNumberValue: 0,
+					finishTime: '2024-10-15'
 			};
 		},
 		mounted() {
 			eventBus.emit("titleUpdate", {title: "个人中心"})
 		},
 		methods: {
+			onGoalNumberChange(e) {
+				this.goalNumberValue = e
+			},
+			onGoalSetting() {
+				console.log(this.goalNumberValue)
+				this.goalNumber = this.goalNumberValue
+			},
+			onBookNumberBind() {
+				this.bookNumber = this.bookNumberValue
+			},
 		   getStepContentClass(isLocked) {
 			  return isLocked ? 'step-content-body step-content-body-lock' : 'step-content-body step-content-body-unlock';
 			},
@@ -123,12 +158,13 @@
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		height: 200px;
+		height: 310px;
 		margin-top: 20px;
 		position: relative;
 	}
+
 	.step-content:first-child {
-		height: 150px;
+		height: 200px;
 	}
 	
 	.step-content-body {
@@ -162,5 +198,40 @@
 		height: 100%;
 		flex-direction: column;
 		justify-content: center;
+	}
+	.book-box {
+		display: flex;
+		width: 100%;
+		flex-direction: row;
+		align-items: center;
+	}
+	.book-box-view {
+		height: 50px;
+		border-radius: 10px;
+		background-color: rgb(243 244 246);
+		margin-bottom: 20px
+	}
+	.book-input {
+		width: 200px;
+		height: 35px;
+		font-size: 16px;
+	}
+	.book-text {
+		color: rgb(31 41 55);
+		font-weight: bolder;
+		font-size: 17px;
+	}
+	.book-btn {
+		width: 60px;
+		height: 30px;
+		font-size: 16px;
+		margin-left: 20px;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+	.book-input-number {
+		width: 100px;
+		margin-left: 100px;
 	}
 </style>
