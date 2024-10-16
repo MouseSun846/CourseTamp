@@ -48,11 +48,12 @@
 										<text class="book-text">{{ goalNumber||'未设置' }}</text>
 									</view>
 								<view class="book-box">
-									<uni-number-box :min="1" :max="100" :value="goalNumberValue" class="book-input-number" @change="onGoalNumberChange" />
+									<uni-easyinput type="number"  class="book-input" trim="all" v-model="goalNumberValue" placeholder="请输入书籍编码" @input="onGoalNumberChange"></uni-easyinput>
 									<view class="book-btn" @click="onGoalSetting">
 										<button type="primary" style="font-size: 13px;">确定</button>
 									</view>
 								</view>
+								
 							</uni-section>
 						</uni-section>
 
@@ -231,8 +232,5 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
-	}
-	.book-input-number {
-		width: 100px;
 	}
 </style>
