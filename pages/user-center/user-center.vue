@@ -14,9 +14,26 @@
 				<view class="step-content-body step-content-body-unlock">
 					<view class="level-card">
 						<uni-section title="书籍绑定" type="line" padding :titleFontSize="'18px'">
-							<view class="book-box book-box-view">
-								<svg t="1728999818523" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1572" width="32" height="32" style="margin-left: 10px; margin-right: 20px;"><path d="M661.76 65.28c-64 0-119.04 38.4-149.76 94.72-30.08-56.32-85.76-94.72-149.76-94.72H65.92v835.84h272.64c51.2 0 135.68 17.28 149.12 57.6 12.8 0 19.84 0.64 49.28 0v-0.64c13.44-40.32 97.92-57.536 148.48-57.536h272.64V65.28h-296.32zM338.56 843.52H115.84V122.88h247.68c46.72 0 94.08 27.52 113.92 70.4v679.872c-30.208-29.248-95.424-30.784-138.88-29.632z m570.24-0.64h-223.36c-43.456-1.152-110.144 0.512-139.456 30.528V193.28h1.216c19.84-42.88 67.2-70.4 113.92-70.4h247.68v720z" fill="#8492a6" p-id="1573"></path></svg>
-								<text class="book-text">{{ bookNumber||'未绑定' }}</text>
+							<view class="book-box book-box-view book-box-view-bg" v-if="bookList.length === 0">
+								<view class="no-bind-book">
+									<svg t="1728999818523" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1572" width="32" height="32" style="margin-left: 10px; margin-right: 20px;"><path d="M661.76 65.28c-64 0-119.04 38.4-149.76 94.72-30.08-56.32-85.76-94.72-149.76-94.72H65.92v835.84h272.64c51.2 0 135.68 17.28 149.12 57.6 12.8 0 19.84 0.64 49.28 0v-0.64c13.44-40.32 97.92-57.536 148.48-57.536h272.64V65.28h-296.32zM338.56 843.52H115.84V122.88h247.68c46.72 0 94.08 27.52 113.92 70.4v679.872c-30.208-29.248-95.424-30.784-138.88-29.632z m570.24-0.64h-223.36c-43.456-1.152-110.144 0.512-139.456 30.528V193.28h1.216c19.84-42.88 67.2-70.4 113.92-70.4h247.68v720z" fill="#8492a6" p-id="1573"></path></svg>
+									<text class="book-text">{{ bookNumber||'未绑定' }}</text>
+								</view>
+							</view>
+	
+							<view class="book-box book-box-view" v-if="bookList.length">
+								<view class="book-box-body">
+									<view class="book-box-body-content">
+										<view class="book-box-body-number">
+											No.123456
+										</view>
+									</view>
+									<view class="book-box-body-title-container">
+										<view class="book-box-body-title">
+											书籍编号
+										</view>
+									</view>
+								</view>
 							</view>
 							<view class="book-box">
 								<uni-easyinput class="book-input" trim="all" v-model="bookNumberValue" placeholder="请输入书籍编码" @input="onbookNumberIuput"></uni-easyinput>
@@ -48,7 +65,7 @@
 										<text class="book-text">{{ goalNumber||'未设置' }}</text>
 									</view>
 								<view class="book-box">
-									<uni-easyinput type="number"  class="book-input" trim="all" v-model="goalNumberValue" placeholder="请输入书籍编码" @input="onGoalNumberChange"></uni-easyinput>
+									<uni-easyinput  class="book-input" trim="all" v-model="goalNumberValue" placeholder="请输入书籍编码" @input="onGoalNumberChange"></uni-easyinput>
 									<view class="book-btn" @click="onGoalSetting">
 										<button type="primary" style="font-size: 13px;">确定</button>
 									</view>
@@ -96,6 +113,7 @@
 						number: 3,
 						predictGoal: 30
 					},
+					bookList: ["123456"],
 					bookNumber: '',
 					bookNumberValue: '',
 					goalNumber: 0,
@@ -209,10 +227,19 @@
 		align-items: center;
 	}
 	.book-box-view {
-		height: 50px;
+		height: auto;
+		min-height: 50px;
 		border-radius: 10px;
-		background-color: rgb(243 244 246);
 		margin-bottom: 20px
+	}
+	.book-box-view-bg {
+		background-color: rgb(243 244 246);
+	}
+	.no-bind-book {
+		display: flex;
+		width: 100%;
+		flex-direction: row;
+		align-items: center;
 	}
 	.book-input {
 		width: 200px;
@@ -224,6 +251,45 @@
 		font-weight: bolder;
 		font-size: 17px;
 	}
+	.book-box-body {
+		width: 100px;
+		height: 100px;
+		background: #55a6ff;
+		border-radius: 20px;
+		display: flex;
+		flex-direction: column;
+	}
+	.book-box-body-content{
+		flex: 6;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+	.book-box-body-title-container {
+		flex: 4;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+	.book-box-body-title {
+		width: 70px;
+		height: 30px;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		border-radius: 10px;
+		background-color: #ff731d;
+		align-items: center;
+		color: #ffffff;
+	}
+
+	.book-box-body-number {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		width: 100%;
+	}
+
 	.book-btn {
 		width: 60px;
 		height: 35px;
