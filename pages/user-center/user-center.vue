@@ -22,15 +22,15 @@
 							</view>
 	
 							<view class="book-box book-box-view" v-if="bookList.length">
-								<view class="book-box-body">
+								<view class="book-box-body" v-for="(item, index) in bookList" :key="index">
 									<view class="book-box-body-content">
 										<view class="book-box-body-number">
-											No.123456
+											<svg t="1729172555273" class="icon" viewBox="0 0 1068 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4494" width="32" height="32"><path d="M999.513043 44.521739h-489.73913l-48.973913 48.973913v881.530435l48.973913 48.973913h489.73913l48.973914-48.973913V93.495652L999.513043 44.521739zM558.747826 142.469565h146.921739v783.582609h-146.921739V142.469565z m391.791304 783.582609h-146.921739V142.469565h146.921739v783.582609z" fill="#f2ff7f" p-id="4495"></path><path d="M158.052174 20.034783l-53.426087 44.521739L20.034783 950.53913l44.521739 53.426087 258.226087 20.034783 53.426087-44.521739 86.817391-885.982609-44.521739-53.426087L158.052174 20.034783z m124.660869 901.565217l-160.27826-13.356522L198.121739 122.434783l160.278261 11.130434-75.686957 788.034783z m545.391305-656.695652h97.947826v171.408695h-97.947826z m-244.869565 0h97.947826v171.408695h-97.947826z" fill="#f2ff7f" p-id="4496"></path></svg>
 										</view>
 									</view>
 									<view class="book-box-body-title-container">
 										<view class="book-box-body-title">
-											书籍编号
+											{{ item }}
 										</view>
 									</view>
 								</view>
@@ -79,6 +79,9 @@
 				</view>	
 			</view>
 
+			<view style="width: 100%;height: 100px;">
+
+			</view>
 			
 
 			
@@ -113,7 +116,7 @@
 						number: 3,
 						predictGoal: 30
 					},
-					bookList: ["123456"],
+					bookList: ["No.123456", "No.123456" , "No.123456" , "No.123456" , "No.1234562222222222", "No.123456", "No.123456" , "No.123456" , "No.123456" , "No.1234562222222222"],
 					bookNumber: '',
 					bookNumberValue: '',
 					goalNumber: 0,
@@ -179,20 +182,17 @@
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		height: 390px;
+		min-height: 200px;
+		height: auto;
 		margin-top: 20px;
 		position: relative;
 	}
 
-	.step-content:first-child {
-		height: 200px;
-	}
-	
 	.step-content-body {
-		width: 90%;
+		width: 85%;
 		height: 100%;
 		border-radius: 10px;
-		
+		padding: 15px;
 		.summary-icon {
 			width: 32px;
 			height: 32px;
@@ -225,6 +225,7 @@
 		width: 100%;
 		flex-direction: row;
 		align-items: center;
+		flex-wrap: wrap;
 	}
 	.book-box-view {
 		height: auto;
@@ -252,35 +253,35 @@
 		font-size: 17px;
 	}
 	.book-box-body {
-		width: 100px;
-		height: 100px;
-		background: #55a6ff;
+		width: 88px;
+		height: 88px;
+		background:  #63cafe;
 		border-radius: 20px;
 		display: flex;
 		flex-direction: column;
+		margin-left: 10px;
+		margin-top: 10px;
 	}
 	.book-box-body-content{
-		flex: 6;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-	}
-	.book-box-body-title-container {
 		flex: 4;
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
 	}
-	.book-box-body-title {
-		width: 70px;
-		height: 30px;
+	.book-box-body-title-container {
+		flex: 6;
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
-		border-radius: 10px;
-		background-color: #ff731d;
-		align-items: center;
+	}
+	.book-box-body-title {
+		width: 90%;
+		height: 100%;
 		color: #ffffff;
+		word-wrap: break-word; /* 确保长单词可以换行 */
+		overflow-wrap: break-word; /* 兼容性更好 */
+		text-align: center;
+		padding-top: 10px;
 	}
 
 	.book-box-body-number {
@@ -288,6 +289,7 @@
 		flex-direction: row;
 		justify-content: center;
 		width: 100%;
+		padding-top: 3px;
 	}
 
 	.book-btn {
