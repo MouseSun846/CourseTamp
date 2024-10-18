@@ -59,8 +59,7 @@
 						<uni-section title="目标设置" type="line" padding :titleFontSize="'18px'">
 							<uni-section title="预计完成时间" type="square" padding>
 								<view class="book-box book-box-view">
-									<svg t="1729001633682" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9748" width="32" height="32" style="margin-left: 10px; margin-right: 20px;"><path d="M512 0a512 512 0 1 1 0 1024A512 512 0 0 1 512 0z m-34.133333 218.453333a54.613333 54.613333 0 0 0-54.613334 54.613334v273.066666l0.597334 8.106667a54.613333 54.613333 0 0 0 54.016 46.506667h273.066666l8.106667-0.597334A54.613333 54.613333 0 0 0 805.546667 546.133333l-0.597334-8.106666A54.613333 54.613333 0 0 0 750.933333 491.52H532.48V273.066667l-0.597333-8.106667A54.613333 54.613333 0 0 0 477.866667 218.453333z" fill="#8492a6" p-id="9749"></path></svg>
-									<text class="book-text">{{ finishTime||'未知' }}</text>
+									<uni-datetime-picker type="date" :clear-icon="false" v-model="finishTime" @change="onFinishTimeClick" return-type="timestamp" />
 								</view>
 							</uni-section>
 							<uni-section title="今日目标" type="square" padding>
@@ -131,7 +130,7 @@
 					bookNumberValue: '',
 					goalNumber: 0,
 					goalNumberValue: 0,
-					finishTime: '2024-10-15'
+					finishTime: ''
 			};
 		},
 		mounted() {
@@ -140,6 +139,9 @@
 		methods: {
 			onGoalNumberChange(e) {
 				this.goalNumberValue = e
+			},
+			onFinishTimeClick(e){
+				console.log('maskClick事件:', e);
 			},
 			onGoalSetting() {
 				console.log(this.goalNumberValue)
