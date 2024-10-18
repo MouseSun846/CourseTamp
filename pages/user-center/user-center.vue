@@ -148,8 +148,10 @@
 				this.goalNumber = this.goalNumberValue
 			},
 			onBookNumberBind() {
-				this.goalNumberValue=''
-				this.bookList.push(this.bookNumberValue)
+				if(this.bookNumberValue) {
+					this.bookList.push(this.bookNumberValue)
+					this.bookNumberValue=''
+				}
 			},
 		   getStepContentClass(isLocked) {
 			  return isLocked ? 'step-content-body step-content-body-lock' : 'step-content-body step-content-body-unlock';
@@ -248,6 +250,7 @@
 		flex-direction: row;
 		align-items: center;
 		flex-wrap: wrap;
+		justify-content: flex-start;
 	}
 	.book-box-view {
 		height: auto;
@@ -281,7 +284,7 @@
 		border-radius: 20px;
 		display: flex;
 		flex-direction: column;
-		margin-left: 10px;
+		margin-right: 10px;
 		margin-top: 10px;
 		overflow: hidden;
 	}
