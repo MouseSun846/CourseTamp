@@ -4,7 +4,7 @@
 		<content-popup></content-popup>
 		<view class="left-image">
 			<view class="image-content-2">
-				<image class="img-body-2" mode="heightFix" src="/static/分组 12.svg" :draggable="false"></image>
+				<image class="img-body-2" mode="heightFix" src="/static/分组12.svg" :draggable="false"></image>
 			</view>
 		</view>
 		<view class="content">
@@ -38,7 +38,7 @@
 
 		<view class="right-image">
 			<view class="right-image-content-1">
-				<image class="right-img-body-1" mode="heightFix" src="/static/分组 11.svg" :draggable="false"></image>
+				<image class="right-img-body-1" mode="heightFix" src="/static/分组11.svg" :draggable="false"></image>
 			</view>
 
 		</view>
@@ -231,11 +231,6 @@
 		flex-direction: row-reverse;
 		pointer-events: none;
 	}
-
-	.content {
-		height: 100%;
-
-	}
 	
 	.scroll-Y{
 		height: 100%;
@@ -261,7 +256,9 @@
 	.content {
 		width: 100%;
 		height: 100%;
-		background-color: #85b3f2c7;
+		opacity: 1;
+		background-blend-mode: color;
+		background: conic-gradient(from -14deg at 12% 31%, rgb(176 248 230 / 85%), rgb(224 255 237 / 67%) 34.72%, rgb(156 210 243 / 37%) 68.37%, rgb(129 251 210 / 42%));
 	}
 
 	.camp-menu-container{

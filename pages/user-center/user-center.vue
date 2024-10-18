@@ -351,4 +351,10 @@
 		flex-direction: row;
 		justify-content: center;
 	}
+
+	::v-deep .uni-dialog-title-text{
+		color: #000000;
+		font-weight: 500;
+		font-size: 18px;
+	}
 </style>
