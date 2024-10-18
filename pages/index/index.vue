@@ -258,7 +258,7 @@
 		height: 100%;
 		opacity: 1;
 		background-blend-mode: color;
-		background: conic-gradient(from -14deg at 12% 31%, rgb(176 248 230 / 85%), rgb(224 255 237 / 67%) 34.72%, rgb(156 210 243 / 37%) 68.37%, rgb(129 251 210 / 42%));
+		background: conic-gradient(from -20deg at 5% 31%, rgb(176 248 230 / 85%), rgb(224 255 237 / 67%) 34.72%, rgb(156 210 243 / 37%) 68.37%, rgb(129 251 210 / 42%));
 	}
 
 	.camp-menu-container{
