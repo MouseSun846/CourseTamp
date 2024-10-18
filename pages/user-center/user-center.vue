@@ -148,6 +148,7 @@
 				this.goalNumber = this.goalNumberValue
 			},
 			onBookNumberBind() {
+				this.goalNumberValue=''
 				this.bookList.push(this.bookNumberValue)
 			},
 		   getStepContentClass(isLocked) {
