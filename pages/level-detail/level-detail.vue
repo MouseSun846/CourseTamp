@@ -30,12 +30,13 @@
 			<view class="step-content" v-for="(level, index) in levelDetail.stepList" :key="level.stepId">
 				<view :class="getStepContentClass(level.isLocked)">
 					<svg v-html="getStepIcon(level.stepId, level.isLocked)"></svg>
-				<view class="level-card level-card-step">
-					<level-card :levelItem="level">
-					</level-card>
-				</view>
+					<view class="level-card level-card-step">
+						<level-card :levelItem="level">
+						</level-card>
+					</view>
 				</view>
 			</view>
+			<view class="blank-fill-pos"></view>
 		</scroll-view>	
 		</view>
 		
@@ -44,23 +45,24 @@
 
 <script>
 	import eventBus from '@/common/eventbus.js'
+	import { LevelDetailType } from '@/common/util.js'
 	export default {
 		data() {
 			return {
 				scrollTop: 0,
 				levelDetail: {
 					levelName: '第01关',
-					summary: {stepId:0, levelDetail: {content:'资料分析主讲', url:'https://www.baidu.com'}, isLocked: false},
+					summary: {stepId:0, levelDetail: {content:'资料分析主讲', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "http://localhost:9009/course.png"}}, isLocked: false},
 					stepList: [
 						// levelName 关卡名称
 						// levelDetail 关卡详情 content: 关卡内容 url: 关卡链接
 						// isLocked 是否锁定 					
-						{stepId:1, levelDetail: {content:'知识考点', url:'https://www.baidu.com'}, isLocked: true},
-						{stepId:2, levelDetail: {content:'特训练习', url:'https://www.baidu.com'}, isLocked: false},
-						{stepId:3, levelDetail: {content:'老师点评', url:'https://www.baidu.com'}, isLocked: true},
-						{stepId:4, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: false},
-						{stepId:5, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
-						{stepId:6, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true}
+						{stepId:1, levelDetail: {content:'知识考点', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "http://localhost:9009/course.png"}}, isLocked: true},
+						{stepId:2, levelDetail: {content:'特训练习', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "http://localhost:9009/course.png"}}, isLocked: false},
+						{stepId:3, levelDetail: {content:'老师点评', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "http://localhost:9009/course.png"}}, isLocked: true},
+						{stepId:4, levelDetail: {content:'可配置', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "http://localhost:9009/course.png"}}, isLocked: false},
+						{stepId:5, levelDetail: {content:'可配置', url:'https://www.baidu.com', data:{ type: LevelDetailType.PROGRESS, progress: 80}}, isLocked: true},
+						{stepId:6, levelDetail: {content:'可配置', url:'https://www.baidu.com', data:{ type: LevelDetailType.MINDMAP, mindMapUrl: "https://www.processon.com/embed/64cbb7957e49b32094c237a9?cid=64cbb7957e49b32094c237a"}}, isLocked: true}
 					]
 				},
 			};
@@ -139,9 +141,8 @@
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		height: 240px;
+		min-height: 240px;
 		margin-top: 20px;
-		position: relative;
 	}
 	
 	.step-content-body {
@@ -173,6 +174,8 @@
 		display: flex;
 		width: 100%;
 		height: 100%;
+		margin-top: -110px;
+		margin-bottom: 10px;
 		justify-content: center;
 	}
 	.first-level-card {
@@ -181,5 +184,9 @@
 	.level-card-step {
 		position: relative;
 		top: -45%;
+	}
+
+	.blank-fill-pos{
+		height: 100px;
 	}
 </style>

@@ -32,7 +32,22 @@ const LevelStatus = {
 	LEARNING: 2,
 	FINISH: 3
 }
+
+
+// 关卡详情类型
+const LevelDetailType = {
+	// 图片类型
+	PICTURE: 0,
+
+    // 进度条类型
+    PROGRESS: 1,
+
+    // 思维导图类型
+    MINDMAP: 2,
+};
+
 export {
     LevelType,
-    LevelStatus
+    LevelStatus,
+    LevelDetailType
 };

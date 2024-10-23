@@ -5,7 +5,20 @@
 	</view>
 	<view class="level-card-body"> 
 		<view class="icon-box">
-			<svg v-html="getLevelBodyIcon(levelItem.stepId)" class="icon-box-svg"></svg>
+			<view class="box-wrap" v-if="isPictureType(levelItem.levelDetail.data?.type)">
+				<image 
+					class="box-picture"
+					mode="aspectFit" 
+					:src="levelItem.levelDetail.data?.picUrl" 
+					:draggable="false">
+				</image>
+			</view>
+			<view class="box-wrap" v-if="isProgressType(levelItem.levelDetail.data?.type)">
+				<dprogress :percentage="levelItem.levelDetail.data.progress" ptype="circle" />
+			</view>
+			<view class="box-wrap" v-if="isMindMapType(levelItem.levelDetail.data?.type)">
+				<iframe frameborder="0" width="75%"  height="400px" style="border:1px solid;" :src="levelItem.levelDetail.data?.mindMapUrl"></iframe>
+			</view>
 		</view>
 		<image 
 			class="lock-bg" 
@@ -20,6 +33,8 @@
 </template>
 
 <script>
+	import { LevelDetailType } from '@/common/util.js'
+
 export default {
   data() {
     return {
@@ -30,10 +45,19 @@ export default {
 	levelItem: {
 		type: Object,
 		required: true,
-		default: () => ({stepId:0, levelDetail: {content:'', url:''}, isLocked: true}) 
+		default: () => ({stepId:0, levelDetail: {content:'', url:'', data:{}}, isLocked: true}) 
 	}
   },
   methods: {
+	isPictureType(type) {
+		return type === LevelDetailType.PICTURE;
+	},
+	isProgressType(type) {
+		return type === LevelDetailType.PROGRESS;
+	},
+	isMindMapType(type) {
+		return type === LevelDetailType.MINDMAP;
+	},
 	getLevelBodyIcon(stepId) {
 		if(stepId === 0) {
 			return `<svg t="1728782309379" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3346" width="32" height="32"><path d="M540.032 88c4.352 0 7.936 3.584 7.936 8v64h356.032a32 32 0 0 1 32 32v520a32 32 0 0 1-32 32H547.968v32.32l164.48 107.776a8 8 0 0 1 2.24 11.008l-30.272 47.168a8 8 0 0 1-11.136 2.432L512 838.912 350.72 944.64a8.064 8.064 0 0 1-11.136-2.304v-0.128l-30.272-47.168a7.936 7.936 0 0 1 2.304-11.008l164.8-108.096v-32H120a32 32 0 0 1-32-32V192a32 32 0 0 1 32-32h356.032v-64c0-4.416 3.584-8 8-8z m160.768 213.312L516.992 485.312 430.912 399.104a8 8 0 0 0-11.328 0L275.328 543.36a8 8 0 0 0 0 11.264l36.8 36.8a8 8 0 0 0 11.264 0l101.76-101.76L511.36 575.872a8 8 0 0 0 11.328 0l226.304-226.496a8 8 0 0 0 0-11.264l-36.8-36.8a8 8 0 0 0-11.328 0z" fill="#8968FF" p-id="3347"></path></svg>`
@@ -64,7 +88,7 @@ export default {
 <style lang="scss" scoped>
 	.level-card-container {
 		width: 95%;
-		height: 75%;
+		min-height: 200px;
 		background:radial-gradient(at 96.49283077073736% 42.87202481763821%, hsla(211.03448275862067, 56.862745098039284%, 90%, 1) 0%, hsla(211.03448275862067, 56.862745098039284%, 90%, 0) 100%), radial-gradient(at 21.072147853117418% 8.332825325753301%, hsla(251.99999999999994, 38.46153846153849%, 94.90196078431372%, 1) 0%, hsla(251.99999999999994, 38.46153846153849%, 94.90196078431372%, 0) 100%), radial-gradient(at 78.47940016751653% 87.55551599150111%, hsla(211.03448275862067, 56.862745098039284%, 90%, 1) 0%, hsla(211.03448275862067, 56.862745098039284%, 90%, 0) 100%), radial-gradient(at 66.39976667942473% 94.72660681024504%, hsla(251.99999999999994, 38.46153846153849%, 94.90196078431372%, 1) 0%, hsla(251.99999999999994, 38.46153846153849%, 94.90196078431372%, 0) 100%);
 		border-radius: 15px;
 		display: flex;
@@ -86,20 +110,32 @@ export default {
 	}
 	.level-card-body {
 		width: 100%;
-		height: 70%;
+		height: 85%;
 		display: flex;
 		flex-direction: row;
 		align-items: flex-start;
+		position: relative;
+		min-height: 200px;
 	}
 	.icon-box {
 		height: 100%;
 		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 	}
 	.icon-box-svg {
 		width: 40px;
 		height: 40px;
 	}
+	.box-wrap{
+		height: 100%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		
+	}
+	.box-picture {
+		height: 100%;
+		padding-bottom: 10px;
+	}
+
 </style>
