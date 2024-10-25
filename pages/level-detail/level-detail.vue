@@ -52,15 +52,15 @@
 				scrollTop: 0,
 				levelDetail: {
 					levelName: '第01关',
-					summary: {stepId:0, levelDetail: {content:'资料分析主讲', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "http://localhost:9009/course.png"}}, isLocked: false},
+					summary: {stepId:0, levelDetail: {content:'资料分析主讲', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "/static/course.png"}}, isLocked: false},
 					stepList: [
 						// levelName 关卡名称
 						// levelDetail 关卡详情 content: 关卡内容 url: 关卡链接
 						// isLocked 是否锁定 					
-						{stepId:1, levelDetail: {content:'知识考点', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "http://localhost:9009/course.png"}}, isLocked: true},
-						{stepId:2, levelDetail: {content:'特训练习', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "http://localhost:9009/course.png"}}, isLocked: false},
-						{stepId:3, levelDetail: {content:'老师点评', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "http://localhost:9009/course.png"}}, isLocked: true},
-						{stepId:4, levelDetail: {content:'可配置', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "http://localhost:9009/course.png"}}, isLocked: false},
+						{stepId:1, levelDetail: {content:'知识考点', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "/static/course.png"}}, isLocked: false},
+						{stepId:2, levelDetail: {content:'特训练习', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "/static/course.png"}}, isLocked: false},
+						{stepId:3, levelDetail: {content:'老师点评', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "/static/course.png"}}, isLocked: true},
+						{stepId:4, levelDetail: {content:'可配置', url:'https://www.baidu.com', data:{type: LevelDetailType.PICTURE, picUrl: "/static/course.png"}}, isLocked: true},
 						{stepId:5, levelDetail: {content:'可配置', url:'https://www.baidu.com', data:{ type: LevelDetailType.PROGRESS, progress: 80}}, isLocked: true},
 						{stepId:6, levelDetail: {content:'可配置', url:'https://www.baidu.com', data:{ type: LevelDetailType.MINDMAP, mindMapUrl: "https://www.processon.com/embed/64cbb7957e49b32094c237a9?cid=64cbb7957e49b32094c237a"}}, isLocked: true}
 					]
