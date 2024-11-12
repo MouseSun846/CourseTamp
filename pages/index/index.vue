@@ -28,7 +28,7 @@
 				<image class="camp-menu-bg" mode="scaleToFill" src="/static/menu.svg" :draggable="false"></image>
 				<view class="camp-menu">
 					<image class="camp-menu-icon" mode="scaleToFill" src="/static/course.svg" :draggable="false" @click="showCourseDialog"></image>
-					<image class="camp-menu-icon" mode="scaleToFill" src="/static/sign.svg" :draggable="false"></image>
+					<image class="camp-menu-icon" mode="scaleToFill" src="/static/sign.svg" :draggable="false" @click="goToSignPage"></image>
 					<image class="camp-menu-icon" mode="scaleToFill" src="/static/content.svg" :draggable="false"  @click="showContentDialog"></image>
 					<image class="camp-menu-icon" mode="scaleToFill" src="/static/user.svg" :draggable="false" @click="goToUserCenterPage"></image>
 				</view>
@@ -42,7 +42,14 @@
 			</view>
 
 		</view>
+		<!-- 提示信息弹窗 -->
+		<uni-popup ref="message" type="message">
+			<uni-popup-message :type="tip.msgType" :message="tip.messageText" :duration="2000"></uni-popup-message>
+		</uni-popup>
 
+		<uni-popup ref="alertDialog" type="dialog">
+				<uni-popup-dialog type="warn" :showClose="false" confirmText="确定" title="提示" content="训练营不存在！" @confirm="dialogConfirm" @close="dialogConfirm"></uni-popup-dialog>
+		</uni-popup>
 	</view>
 
 </template>
@@ -50,6 +57,7 @@
 <script>
 	import {LevelType, LevelStatus} from "@/common/util.js";
 	import eventBus from "@/common/eventbus.js";
+	import { getTrainSessionList, getDailyCheckInfo} from "@/common/api.js";
 	export default {
 		data() {
 			return {
@@ -118,17 +126,84 @@
 					{ id: 25, type: LevelType.EMPTY, status: LevelStatus.LOCK, name: "名称24", levelNumber: 1},
 
 					]
-				}
+				},
+				tip: {
+						msgType: 'success',
+						messageText: ''
+					},
+				trainSessionList:[],
+				// 打卡链接
+				dailyCheckUrl:''
 			}
 		},
 		mounted() {
+			// 获取训练营id
+			const currentUrl = new URL(window.location.href);
+			const urlParams = new URLSearchParams(currentUrl.search);
+			// 获取trainId
+			const trainId = urlParams.get('trainId');
+			if(!trainId) {
+				this.$refs.alertDialog.open()
+				uni.setStorageSync('trainId', trainId);
+			}
 			this.goToTodayGoal()
 
+			// tip消息提示
+			eventBus.on("show-tip", (e) => {
+				this.tip.msgType = e.msgType
+				 this.tip.messageText = e.message
+				this.$refs.message.open()
+			})
+			
+			// 训练营不存在
+			eventBus.on("no-train-id", (e) => {
+				this.$refs.alertDialog.open()
+			})
 
+			getTrainSessionList(
+				{ trainId: trainId, size: '10', page: '1' },
+				(res) => {
+					console.log('成功回调：', res.data);
+					if(res.data.code === 0) {
+						this.trainSessionList = res.data.data
+						console.log(this.trainSessionList)
+						// 保存trainSessionId
+						uni.setStorageSync('trainSessionId', ''+this.trainSessionList[0]?.trainSessionId);
+					}
+				},
+				(err) => {
+					console.error('失败回调：', err);
+				});
 		},
 		methods: {
+			goToSignPage: function(e) {
+				const trainId = uni.getStorageSync('trainId');
+				if(!trainId) {
+					return
+				}
+				const trainSessionId = uni.getStorageSync('trainSessionId');
+				if(!trainSessionId) {
+					return
+				}
+				// 打卡信息查询
+				getDailyCheckInfo({ trainId: trainId, trainSessionId: trainSessionId},
+					(res) => {
+						console.log('打卡信息查询成功：', res.data);
+						if(res.data.code === 0) {
+							// 打开打卡链接
+							window.location.href = res.data.data
+						}
+					},
+					(err) => {
+						console.error('打卡信息查询失败：', err);
+					}
+				)				
+			},
+			dialogConfirm: function() {
+				window.location.href = 'https://feiniaoyunketang.h5.ixunke.com/pages/wepage/index?id=9'
+			},
 			showCourseDialog: function(e) {
-				eventBus.emit("show-course-popup", true)
+				eventBus.emit("show-course-popup", this.trainSessionList)
 			},
 			showContentDialog: function(e) {
 				eventBus.emit("show-content-popup", true)

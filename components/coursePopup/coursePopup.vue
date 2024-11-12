@@ -25,7 +25,7 @@
 										@click="onItemClick(item, index)"
 										:class="{ 'selected': selectedIndex === index }"
 										:clickable="true">
-											<text class="slot-box slot-text">{{item}}</text>
+											<text class="slot-box slot-text">{{item.trainSessionName}}</text>
 											<view class="item-choosing-box">
 												<image class="item-choosing" mode="heightFix" src="/static/choosing.svg" :draggable="false" v-if="selectedIndex === index"></image>
 											</view>
@@ -40,32 +40,25 @@
 
 
 			</view>
+			<view>
+		</view>
 	</uni-popup>
 </template>
 
 <script>
 	import eventBus from "@/common/eventbus.js";
+	import { getTrainSessionList} from "@/common/api.js";
 	export default {
 		data() {
 			return {
 					scrollTop: 0,
-					selectedIndex: null, 
-					courseList:[
-						'列表文字列表文字112345678987456321字1列表文字列表文字',
-						'列表文字2',
-						'列表文字3',
-						'列表文字4',
-						'列表文字5',
-						'列表文字1',
-						'列表文字2',
-						'列表文字3',
-						'列表文字4',
-						'列表文字5'
-					]
+					selectedIndex: 0, 
+					courseList:[]
 			}
 		},
 		mounted() {
 			eventBus.on("show-course-popup", (e) => {
+				this.courseList = e
 				this.showCourseDialog()
 			})
 		},
@@ -84,6 +77,7 @@
 			// 列表点击事件
 			onItemClick: function(item, index) {
 				this.selectedIndex = index
+				uni.setStorageSync('trainSessionId', ''+this.courseList[index]?.trainSessionId);
 			}
 		}
 	}
