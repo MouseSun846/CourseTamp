@@ -47,7 +47,6 @@
 
 <script>
 	import eventBus from "@/common/eventbus.js";
-	import { getTrainSessionList} from "@/common/api.js";
 	export default {
 		data() {
 			return {

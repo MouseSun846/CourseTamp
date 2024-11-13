@@ -12,6 +12,13 @@ export default defineConfig({
 						return path.replace(/^\/course-camp/, '')
 					}
 				},
+				'/doc-system': {
+					target: 'http://localhost:8088/doc-system',
+					changeOrigin: true,
+					rewrite: path => {
+						return path.replace(/^\/doc-system/, '')
+					}
+				},
 				
 			}
 		}

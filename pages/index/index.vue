@@ -48,7 +48,7 @@
 		</uni-popup>
 
 		<uni-popup ref="alertDialog" type="dialog">
-				<uni-popup-dialog type="warn" :showClose="false" confirmText="确定" title="提示" content="训练营不存在！" @confirm="dialogConfirm" @close="dialogConfirm"></uni-popup-dialog>
+				<uni-popup-dialog type="warn" :showClose="false" confirmText="确定" title="提示" :content="tipMsg" @confirm="dialogConfirm" @close="dialogConfirm"></uni-popup-dialog>
 		</uni-popup>
 	</view>
 
@@ -57,7 +57,7 @@
 <script>
 	import {LevelType, LevelStatus} from "@/common/util.js";
 	import eventBus from "@/common/eventbus.js";
-	import { getTrainSessionList, getDailyCheckInfo} from "@/common/api.js";
+	import {codeToToken, getTrainSessionList, getDailyCheckInfo} from "@/common/api.ts";
 	export default {
 		data() {
 			return {
@@ -133,20 +133,26 @@
 					},
 				trainSessionList:[],
 				// 打卡链接
-				dailyCheckUrl:''
+				dailyCheckUrl:'',
+				tipMsg: ''
 			}
 		},
 		mounted() {
-			// 获取训练营id
 			const currentUrl = new URL(window.location.href);
 			const urlParams = new URLSearchParams(currentUrl.search);
+			// 获取code
+			const code = urlParams.get('code');
+			if(!code) {
+				this.tipMsg = "请求无效！"
+				this.$refs.alertDialog.open()
+			}
 			// 获取trainId
 			const trainId = urlParams.get('trainId');
 			if(!trainId) {
+				this.tipMsg = "训练营不存在！"
 				this.$refs.alertDialog.open()
-				uni.setStorageSync('trainId', trainId);
 			}
-			this.goToTodayGoal()
+			uni.setStorageSync('trainId', trainId);
 
 			// tip消息提示
 			eventBus.on("show-tip", (e) => {
@@ -157,23 +163,28 @@
 			
 			// 训练营不存在
 			eventBus.on("no-train-id", (e) => {
+				this.tipMsg = "训练营不存在！"
 				this.$refs.alertDialog.open()
 			})
 
-			getTrainSessionList(
-				{ trainId: trainId, size: '10', page: '1' },
-				(res) => {
-					console.log('成功回调：', res.data);
-					if(res.data.code === 0) {
-						this.trainSessionList = res.data.data
-						console.log(this.trainSessionList)
-						// 保存trainSessionId
-						uni.setStorageSync('trainSessionId', ''+this.trainSessionList[0]?.trainSessionId);
+			// code 换token
+			codeToToken({ code: code}).then(res => {
+				if(res.code === 0) {
+						uni.setStorageSync('userId', ''+res.data.userId);
+						uni.setStorageSync('token', ''+res.data.token);
+						
+						getTrainSessionList({ trainId: trainId, size: '10', page: '1' }).then(res_session => {
+							if(res_session.code === 0) {
+									this.trainSessionList = res_session.data
+									// 保存trainSessionId
+									uni.setStorageSync('trainSessionId', ''+this.trainSessionList[0]?.trainSessionId);
+							}
+						})
 					}
-				},
-				(err) => {
-					console.error('失败回调：', err);
-				});
+			})
+
+
+			this.goToTodayGoal()
 		},
 		methods: {
 			goToSignPage: function(e) {
