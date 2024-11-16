@@ -17,7 +17,7 @@
 				@scrolltolower="lower" 
 				@scroll="scroll">
 			
-				<view v-for="(group, groupIndex) in chunkArray(campInfo.levelItem, 4)" class="scroll-view-item">
+				<view v-for="(group, groupIndex) in chunkArray(campInfoList, 4)" class="scroll-view-item">
 					<level :levelItem="group"></level>
 				</view>
 			</scroll-view>				
@@ -57,7 +57,10 @@
 <script>
 	import {LevelType, LevelStatus} from "@/common/util.js";
 	import eventBus from "@/common/eventbus.js";
-	import {codeToToken, getTrainSessionList, getDailyCheckInfo} from "@/common/api.ts";
+	import {codeToToken, 
+		getTrainSessionList, 
+		getDailyCheckInfo,
+		getLevelList} from "@/common/api.ts";
 	export default {
 		data() {
 			return {
@@ -65,68 +68,7 @@
 				scrollHeight: 0,
 				scrollWidth: 0,
 				popStyle: '',
-				campInfo: {
-					// campId 训练营Id
-					// sessionId 训练营 期数
-					campId: 1,
-					sessionId: 1,
-					levelItem: [
-				    // id 为主键
-					// type 关卡类型
-					// status 关卡状态
-					// name 关卡名称
-					// levelNumber 关卡号
-					{ id: 1, type: LevelType.END_EXAM, status: LevelStatus.EMPTY, name: "名称25", levelNumber: 1},
-					{ id: 4, type: LevelType.END_EXAM_LEVEL, status: LevelStatus.FINISH, name: "名称3", levelNumber: 4},
-					
-					{ id: 2, type: LevelType.END_EXAM_LEVEL, status: LevelStatus.LOCK, name: "名称1", levelNumber: 2},
-					{ id: 3, type: LevelType.END_EXAM_LEVEL, status: LevelStatus.LEARNING, name: "名称2", levelNumber: 3},		
-					
-
-					{ id: 5, type: LevelType.EXAM_LEVEL, status: LevelStatus.FINISH, name: "名称4", levelNumber: 5},
-					{ id: 6, type: LevelType.EXAM_LEVEL, status: LevelStatus.LEARNING, name: "名称5", levelNumber: 6},
-					{ id: 7, type: LevelType.EXAM_LEVEL, status: LevelStatus.LOCK, name: "名称6", levelNumber: 7},
-
-					{ id: 8, type: LevelType.REVIEW_LEVEL, status: LevelStatus.FINISH, name: "名称7", levelNumber: 6},
-					{ id: 9, type: LevelType.REVIEW_LEVEL, status: LevelStatus.LEARNING, name: "名称8", levelNumber: 6},
-					{ id: 10, type: LevelType.REVIEW_LEVEL, status: LevelStatus.LOCK, name: "名称9", levelNumber: 6},
-
-					{ id: 11, type: LevelType.HOT_GOAL_LEVEL, status: LevelStatus.FINISH, name: "名称10", levelNumber: 5},
-					{ id: 12, type: LevelType.HOT_GOAL_LEVEL, status: LevelStatus.LEARNING, name: "名称11", levelNumber: 5},
-					{ id: 13, type: LevelType.HOT_GOAL_LEVEL, status: LevelStatus.LOCK, name: "名称12", levelNumber: 5},
-
-					
-					{ id: 14, type: LevelType.HOT_LEVEL, status: LevelStatus.FINISH, name: "名称13", levelNumber: 4},
-					{ id: 15, type: LevelType.HOT_LEVEL, status: LevelStatus.LEARNING, name: "名称14", levelNumber: 4},
-					{ id: 16, type: LevelType.HOT_LEVEL, status: LevelStatus.LOCK, name: "名称15", levelNumber: 4},
-
-					{ id: 17, type: LevelType.GOAL_LEVEL, status: LevelStatus.FINISH, name: "名称16", levelNumber: 3},
-					{ id: 18, type: LevelType.GOAL_LEVEL, status: LevelStatus.LEARNING, name: "名称17", levelNumber: 3},
-					{ id: 19, type: LevelType.GOAL_LEVEL, status: LevelStatus.LOCK, name: "名称18", levelNumber: 3},
-
-					{ id: 10, type: LevelType.GENERAL_LEVEL, status: LevelStatus.FINISH, name: "名称19", levelNumber: 2},
-					{ id: 21, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LEARNING, name: "名称20", levelNumber: 2},
-					{ id: 22, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LOCK, name: "名称21", levelNumber: 2},
-
-					
-					{ id: 10, type: LevelType.GENERAL_LEVEL, status: LevelStatus.FINISH, name: "名称19", levelNumber: 2},
-					{ id: 21, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LEARNING, name: "名称20", levelNumber: 2},
-					{ id: 22, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LOCK, name: "名称21", levelNumber: 2},
-
-					{ id: 10, type: LevelType.GENERAL_LEVEL, status: LevelStatus.FINISH, name: "名称19", levelNumber: 2},
-					{ id: 21, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LEARNING, name: "名称20", levelNumber: 2},
-					{ id: 22, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LOCK, name: "名称21", levelNumber: 2},
-					{ id: 22, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LOCK, name: "名称21", levelNumber: 2},
-					{ id: 22, type: LevelType.GENERAL_LEVEL, status: LevelStatus.LOCK, name: "名称21", levelNumber: 2},
-					
-
-					{ id: 23, type: LevelType.CAMP_LEVEL, status: LevelStatus.FINISH, name: "名称22", levelNumber: 1},
-					{ id: 24, type: LevelType.CAMP_LEVEL, status: LevelStatus.LEARNING, name: "名称23", levelNumber: 1},
-					{ id: 25, type: LevelType.CAMP_LEVEL, status: LevelStatus.LOCK, name: "名称24", levelNumber: 1},
-					{ id: 25, type: LevelType.EMPTY, status: LevelStatus.LOCK, name: "名称24", levelNumber: 1},
-
-					]
-				},
+				campInfoList: [],
 				tip: {
 						msgType: 'success',
 						messageText: ''
@@ -167,17 +109,26 @@
 				this.$refs.alertDialog.open()
 			})
 
+			// 训练期数变化
+			eventBus.on("train-session-change", (e) => {
+				console.log('训练期数变化', e)
+				// 更新关卡列表
+				this.getLevelInfoList()
+
+			})
+
 			// code 换token
 			codeToToken({ code: code}).then(res => {
 				if(res.code === 0) {
 						uni.setStorageSync('userId', ''+res.data.userId);
 						uni.setStorageSync('token', ''+res.data.token);
 						
-						getTrainSessionList({ trainId: trainId, size: '10', page: '1' }).then(res_session => {
+						getTrainSessionList({ trainId: trainId}).then(res_session => {
 							if(res_session.code === 0) {
 									this.trainSessionList = res_session.data
 									// 保存trainSessionId
 									uni.setStorageSync('trainSessionId', ''+this.trainSessionList[0]?.trainSessionId);
+									this.initData()
 							}
 						})
 					}
@@ -185,30 +136,41 @@
 
 
 			this.goToTodayGoal()
+
 		},
 		methods: {
-			goToSignPage: function(e) {
+
+			initData: function() {
 				const trainId = uni.getStorageSync('trainId');
-				if(!trainId) {
-					return
-				}
-				const trainSessionId = uni.getStorageSync('trainSessionId');
-				if(!trainSessionId) {
-					return
-				}
+				const trainSessionId = uni.getStorageSync('trainSessionId');				
 				// 打卡信息查询
-				getDailyCheckInfo({ trainId: trainId, trainSessionId: trainSessionId},
+				getDailyCheckInfo({ trainId: trainId, trainSessionId: trainSessionId}).then(
 					(res) => {
-						console.log('打卡信息查询成功：', res.data);
-						if(res.data.code === 0) {
-							// 打开打卡链接
-							window.location.href = res.data.data
+						if(res.code === 0) {
+							this.dailyCheckUrl = res.data
 						}
-					},
-					(err) => {
-						console.error('打卡信息查询失败：', err);
+					})	
+				this.getLevelInfoList()					
+			},
+			// 获取关卡列表
+			getLevelInfoList: function() {
+				const trainId = uni.getStorageSync('trainId');
+				const trainSessionId = uni.getStorageSync('trainSessionId');
+				const userId = uni.getStorageSync('userId');
+				getLevelList({ trainId: trainId, trainSessionId: trainSessionId, userId: userId}).then(res => {
+					if(res.code === 0) {
+						// 根据关卡 levelNumber 排序
+						res.data.sort((a, b) => {
+							return b.levelNumber - a.levelNumber
+						})
+						this.campInfoList = res.data
 					}
-				)				
+				})
+			},
+
+			// 用户打卡
+			goToSignPage: function(e) {
+				window.location.href = this.dailyCheckUrl
 			},
 			dialogConfirm: function() {
 				window.location.href = 'https://feiniaoyunketang.h5.ixunke.com/pages/wepage/index?id=9'
@@ -241,7 +203,7 @@
 				let result = [];
 				let remain = arr.length > 0 ? arr.length%4 === 0 ? 0 : 4 - arr.length%4 : 0;
 				for(let i = 0; i < remain; i++) {
-					 arr.unshift({ id: -1, type: LevelType.EMPTY, name: "" });
+					 arr.unshift({ id: -1, levelType: LevelType.EMPTY, name: "" });
 				}
 				for (let i = 0; i < arr.length; i += chunkSize) {
 				  result.push(arr.slice(i, i + chunkSize));
@@ -251,14 +213,14 @@
 			},
 		  getPageInfo: function() {
 			  let index = 0;
-			  let remain = this.campInfo.levelItem.filter((item) => {return item.type !== LevelType.EMPTY}).length;
-			  for (let i = 0; i < this.campInfo.levelItem.length; i ++) {
+			  let remain = this.campInfoList.filter((item) => {return item.levelType !== LevelType.EMPTY}).length;
+			  for (let i = 0; i < this.campInfoList.length; i ++) {
 				  index++;
-			    if(this.campInfo.levelItem[i].type === LevelType.END_EXAM_LEVEL) {
+			    if(this.campInfoList[i].levelType === LevelType.END_EXAM_LEVEL) {
 					break;
 				}
 			  }
-			  return {currentPage: index%4===0?index/4:(index-index%4)/4+1, remain: (this.campInfo.levelItem.length-remain)/4};
+			  return {currentPage: index%4===0?index/4:(index-index%4)/4+1, remain: (this.campInfoList.length-remain)/4};
 		  },
 		  // 跳转到用户中心
 		  goToUserCenterPage() {

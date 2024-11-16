@@ -19,9 +19,9 @@ const LevelType = {
     // 结营模考关卡
     END_EXAM_LEVEL: 8,	
 	// 结营
-	END_EXAM: 25,
+	END_EXAM: 9,
     // 当前关卡游标
-    LEVEL_CURSOR: 26
+    LEVEL_CURSOR: 10
     
 };
 

@@ -27,3 +27,11 @@ export function getTrainSessionList(data, success, fail) {
     })
   }
   
+
+export function getLevelList(data, success, fail) {
+    return http<string[]>({
+      url: '/course-camp/level/info',
+      method: 'GET',
+      data: data,
+    })
+  }

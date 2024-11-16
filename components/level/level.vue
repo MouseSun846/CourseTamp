@@ -60,11 +60,11 @@
 				// 显示关卡名称
 				let items = [];
 				this.levelItem.map((item, index)=> {
-					if( item.type === LevelType.GENERAL_LEVEL || 
-					item.type === LevelType.GOAL_LEVEL || 
-					item.type === LevelType.HOT_LEVEL ||
-					 item.type === LevelType.HOT_GOAL_LEVEL) {
-						items.push(getLevelTipIcon({x: item.x-100, y:item.y+10},  item.name.length < 7 ? item.name : item.name.slice(0, 7) + '...')) 
+					if( item.levelType === LevelType.GENERAL_LEVEL || 
+					item.levelType === LevelType.GOAL_LEVEL || 
+					item.levelType === LevelType.HOT_LEVEL ||
+					 item.levelType === LevelType.HOT_GOAL_LEVEL) {
+						items.push(getLevelTipIcon({x: item.x-100, y:item.y+10},  item.levelName.length < 7 ? item.levelName : item.levelName.slice(0, 7) + '...')) 
 					}
 				});
 				return items;
@@ -72,110 +72,110 @@
 			Levels() {
 				let items = [];
 				this.levelItem.map((item, index)=> {
-					if( item.type !== LevelType.EMPTY) {
+					if( item.levelType !== LevelType.EMPTY) {
 						items.push(item) 
 					}
 				});
 				return items.map((item, index) => {
-				  if(item.type === LevelType.CAMP_LEVEL) {
-					if(item.status === LevelStatus.LEARNING) {
+				  if(item.levelType === LevelType.CAMP_LEVEL) {
+					if(item.levelStatus === LevelStatus.LEARNING) {
 						return {icon:getCampLevelLearningIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.LOCK) {
+					if(item.levelStatus === LevelStatus.LOCK) {
 						return {icon:getCampLevelLockIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.FINISH) {
+					if(item.levelStatus === LevelStatus.FINISH) {
 						return {icon:getCampLevelFinishIcon(item), item: item}
 					}
 				  }
 
-				  if(item.type === LevelType.GENERAL_LEVEL) {
-					if(item.status === LevelStatus.LEARNING) {
+				  if(item.levelType === LevelType.GENERAL_LEVEL) {
+					if(item.levelStatus === LevelStatus.LEARNING) {
 						return {icon:getGeneralLevelLearningIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.LOCK) {
+					if(item.levelStatus === LevelStatus.LOCK) {
 						return {icon:getGeneralLevelLockIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.FINISH) {
+					if(item.levelStatus === LevelStatus.FINISH) {
 						return {icon:getGeneralLevelFinishIcon(item), item: item}
 					}
 				  }
 			
-				  if(item.type === LevelType.GOAL_LEVEL) {
-					if(item.status === LevelStatus.LEARNING) {
+				  if(item.levelType === LevelType.GOAL_LEVEL) {
+					if(item.levelStatus === LevelStatus.LEARNING) {
 						return {icon:getGoalLevelLearningIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.LOCK) {
+					if(item.levelStatus === LevelStatus.LOCK) {
 						return {icon:getGoalLevelLockIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.FINISH) {
+					if(item.levelStatus === LevelStatus.FINISH) {
 						return {icon:getGoalLevelFinishIcon(item), item: item}
 					}
 				  }
 				  
 				  
-				  if(item.type === LevelType.HOT_LEVEL) {
-					if(item.status === LevelStatus.LEARNING) {
+				  if(item.levelType === LevelType.HOT_LEVEL) {
+					if(item.levelStatus === LevelStatus.LEARNING) {
 						return {icon:getHotLevelLearningIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.LOCK) {
+					if(item.levelStatus === LevelStatus.LOCK) {
 						return {icon:getHotLevelLockIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.FINISH) {
+					if(item.levelStatus === LevelStatus.FINISH) {
 						return {icon:getHotLevelFinishIcon(item), item: item}
 					}
 				  }
 
-				  if(item.type === LevelType.HOT_GOAL_LEVEL) {
-					if(item.status === LevelStatus.LEARNING) {
+				  if(item.levelType === LevelType.HOT_GOAL_LEVEL) {
+					if(item.levelStatus === LevelStatus.LEARNING) {
 						return {icon:getGoalHotLevelLearningIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.LOCK) {
+					if(item.levelStatus === LevelStatus.LOCK) {
 						return {icon:getGoalHotLevelLockIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.FINISH) {
+					if(item.levelStatus === LevelStatus.FINISH) {
 						return {icon:getGoalHotLevelFinishIcon(item), item: item}
 					}
 				  }
 
-				  if(item.type === LevelType.REVIEW_LEVEL) {
-					if(item.status === LevelStatus.LEARNING) {
+				  if(item.levelType === LevelType.REVIEW_LEVEL) {
+					if(item.levelStatus === LevelStatus.LEARNING) {
 						return {icon:getReviewLevelLearningIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.LOCK) {
+					if(item.levelStatus === LevelStatus.LOCK) {
 						return {icon:getReviewLevelLockIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.FINISH) {
+					if(item.levelStatus === LevelStatus.FINISH) {
 						return {icon:getReviewLevelFinishIcon(item), item: item}
 					}
 				  }
 
-				  if(item.type === LevelType.EXAM_LEVEL) {
-					if(item.status === LevelStatus.LEARNING) {
+				  if(item.levelType === LevelType.EXAM_LEVEL) {
+					if(item.levelStatus === LevelStatus.LEARNING) {
 						return {icon:getExamLevelLearningIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.LOCK) {
+					if(item.levelStatus === LevelStatus.LOCK) {
 						return {icon:getExamLevelLockIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.FINISH) {
+					if(item.levelStatus === LevelStatus.FINISH) {
 						return {icon:getExamLevelFinishIcon(item), item: item}
 					}
 				  }
 
-				  if(item.type === LevelType.END_EXAM_LEVEL) {
-					if(item.status === LevelStatus.LOCK) {
+				  if(item.levelType === LevelType.END_EXAM_LEVEL) {
+					if(item.levelStatus === LevelStatus.LOCK) {
 						return {icon:getEndExamLevelLockIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.LEARNING) {
+					if(item.levelStatus === LevelStatus.LEARNING) {
 						return {icon:getEndExamLevelLearningIcon(item), item: item}
 					}
-					if(item.status === LevelStatus.FINISH) {
+					if(item.levelStatus === LevelStatus.FINISH) {
 						return {icon:getEndExamLevelFinishIcon(item), item: item}
 					}
 					
 				  }
 				  
-				  if(item.type === LevelType.END_EXAM) {
+				  if(item.levelType === LevelType.END_EXAM) {
 					return {icon:getEndExamLevelIcon(item), item: item}
 				  }
 														  
@@ -197,7 +197,7 @@
 				this.cursorSvg.isShowCursor = false
 				this.cursorSvg.content = '';
 				for(let index = 0;index<this.levelItem.length;index++) {
-					const point = path.getPointAtLength(pathLength-index * pathLength/this.levelItem.length - pathLength/(this.levelItem.length*2));
+					const point = path.getPointAtLength(pathLength-index * pathLength/this.levelItem.length);
 					this.levelItem[index].x = point.x+100;
 					this.levelItem[index].y = point.y;
 					// 判断今日目标

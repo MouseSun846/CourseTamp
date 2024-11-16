@@ -77,6 +77,10 @@
 			onItemClick: function(item, index) {
 				this.selectedIndex = index
 				uni.setStorageSync('trainSessionId', ''+this.courseList[index]?.trainSessionId);
+				this.closeCoursePopup()
+
+				// 提交事件
+				eventBus.emit("train-session-change", item)
 			}
 		}
 	}
