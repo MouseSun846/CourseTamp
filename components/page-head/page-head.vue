@@ -15,6 +15,7 @@
 		},
 		mounted() {
 			eventBus.on("titleUpdate", (e) => {
+				console.log("titleUpdate:", e)
 				this.title = e.title
 			})
 		},

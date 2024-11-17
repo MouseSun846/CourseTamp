@@ -55,6 +55,11 @@
 		mounted(){
 			this.updatePos()
 		},
+		watch: {
+			levelItem: function(newVal, oldVal) {
+				this.updatePos()
+			}
+		},
 		computed: {
 			LevelContents() {
 				// 显示关卡名称
@@ -197,7 +202,7 @@
 				this.cursorSvg.isShowCursor = false
 				this.cursorSvg.content = '';
 				for(let index = 0;index<this.levelItem.length;index++) {
-					const point = path.getPointAtLength(pathLength-index * pathLength/this.levelItem.length);
+					const point = path.getPointAtLength(pathLength-index * pathLength/(this.levelItem.length)-pathLength/(this.levelItem.length*8));
 					this.levelItem[index].x = point.x+100;
 					this.levelItem[index].y = point.y;
 					// 判断今日目标

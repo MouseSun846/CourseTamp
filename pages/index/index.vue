@@ -340,9 +340,15 @@
 		height: 60px;
 	}
 	.camp-menu-icon{
-		width: 30px;
+		height: 45px;
 		z-index: 1;
 		cursor: pointer;
+		&:first-child{
+			margin-left: 20px;
+		}
+		&:last-child{
+			margin-right: 20px;
+		}
 	}
 	
 </style>

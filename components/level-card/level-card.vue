@@ -1,7 +1,7 @@
 <template>
   <view class="level-card-container">
 	<view class="title-box">
-		<uni-title type="h2" :title="levelItem.levelDetail.content" style="margin-left: 20px;"></uni-title>	
+		<uni-title type="h2" :title="levelItem.stepTitle" style="margin-left: 20px;"></uni-title>	
 	</view>
 	<view class="level-card-body"> 
 		<view class="icon-box">
@@ -17,11 +17,10 @@
 				<dprogress :percentage="levelItem.levelDetail.data.progress" ptype="circle" />
 			</view>
 			<view class="box-wrap" v-if="isMindMapType(levelItem)">
-				<iframe frameborder="0" width="90%"  height="400px" style="border:1px solid;" :src="levelItem.levelDetail.data?.mindMapUrl"></iframe>
+				<iframe frameborder="0" width="90%"  height="400px" style="border:1px solid;" :src="levelItem.stepUrl"></iframe>
 			</view>
-			<view class="box-wrap" v-if="levelItem.isLocked">
+			<view class="box-wrap" v-if="levelItem.stepStatus">
 				<view class="box-wrap-body-icon">
-					
 					<svg v-html="getLevelBodyIcon(levelItem.stepId)" class="body-icon"></svg>
 					
 				</view>
@@ -30,7 +29,7 @@
 		<image 
 			class="lock-bg" 
 			mode="aspectFit" 
-			v-if="levelItem.isLocked" 
+			v-if="levelItem.stepStatus" 
 			src="/static/lock.svg" 
 			:draggable="false">
 		</image>
@@ -51,19 +50,18 @@ export default {
   props: {
 	levelItem: {
 		type: Object,
-		required: true,
-		default: () => ({stepId:0, levelDetail: {content:'', url:'', data:{}}, isLocked: true}) 
+		required: true
 	}
   },
   methods: {
 	isPictureType() {
-		return this.levelItem.levelDetail.data?.type === LevelDetailType.PICTURE && !this.levelItem.isLocked;
+		return this.levelItem.stepType === LevelDetailType.PICTURE && !this.levelItem.stepStatus;
 	},
 	isProgressType() {
-		return this.levelItem.levelDetail.data?.type === LevelDetailType.PROGRESS && !this.levelItem.isLocked;
+		return this.levelItem.stepType === LevelDetailType.PROGRESS && !this.levelItem.stepStatus;
 	},
 	isMindMapType() {
-		return this.levelItem.levelDetail.data?.type === LevelDetailType.MINDMAP && !this.levelItem.isLocked;
+		return this.levelItem.stepType === LevelDetailType.MINDMAP && !this.levelItem.stepStatus;
 	},
 	getLevelBodyIcon(stepId) {
 		if(stepId === 0) {
