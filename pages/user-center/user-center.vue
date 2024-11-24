@@ -34,7 +34,7 @@
 									</view>
 									<view class="book-box-body-title-container">
 										<view class="book-box-body-title">
-											{{ item }}
+											{{ item.bookId }}
 										</view>
 									</view>
 								</view>
@@ -101,40 +101,27 @@
 </template>
 
 <script>
+	import {bindBookInfo, getBookInfoList, unbindBookInfo} from '@/common/api.ts'
 	import eventBus from '@/common/eventbus.js'
 	export default {
 		data() {
 			return {
 				scrollTop: 0,
-				levelDetail: {
-					levelName: '第01关',
-					summary: {stepId:0, levelDetail: {content:'资料分析主讲', url:'https://www.baidu.com'}, isLocked: false},
-					stepList: [
-						// levelName 关卡名称
-						// levelDetail 关卡详情 content: 关卡内容 url: 关卡链接
-						// isLocked 是否锁定 					
-						{stepId:1, levelDetail: {content:'知识考点', url:'https://www.baidu.com'}, isLocked: true},
-						{stepId:2, levelDetail: {content:'特训练习', url:'https://www.baidu.com'}, isLocked: false},
-						{stepId:3, levelDetail: {content:'老师点评', url:'https://www.baidu.com'}, isLocked: true},
-						{stepId:4, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: false},
-						{stepId:5, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true},
-						{stepId:6, levelDetail: {content:'可配置', url:'https://www.baidu.com'}, isLocked: true}
-					]
-				},
 				goalInfo: {
 						number: 3,
 						predictGoal: 30
 					},
-					bookList: ["No.123456"],
-					bookItem: '',
-					bookNumberValue: '',
-					goalNumber: 0,
-					goalNumberValue: 0,
-					finishTime: ''
+				bookList: [],
+				bookItem: '',
+				bookNumberValue: '',
+				goalNumber: 0,
+				goalNumberValue: 0,
+				finishTime: ''
 			};
 		},
 		mounted() {
 			eventBus.emit("titleUpdate", {title: "个人中心"})
+			this.queryBookInfoList()
 		},
 		methods: {
 			onGoalNumberChange(e) {
@@ -147,10 +134,34 @@
 				console.log(this.goalNumberValue)
 				this.goalNumber = this.goalNumberValue
 			},
+			queryBookInfoList() {
+				const userId = uni.getStorageSync('userId')
+				getBookInfoList({ userId: userId }).then((res) => {
+								if(res.code === 0) {
+									this.bookList = res.data
+								}
+							})
+			},
 			onBookNumberBind() {
+				const userId = uni.getStorageSync('userId')
 				if(this.bookNumberValue) {
-					this.bookList.push(this.bookNumberValue)
-					this.bookNumberValue=''
+					bindBookInfo({userId: userId, bookId: this.bookNumberValue}).then((res) => {	
+						if(res.code === 0) {
+							this.bookNumberValue=''
+							this.queryBookInfoList()
+							uni.showToast({
+								title: '绑定成功',
+								icon: 'none'
+							})
+						} else {
+							uni.showToast({
+								title: res.msg,
+								icon: 'none'
+							})
+						}
+					})
+
+					
 				}
 			},
 		   getStepContentClass(isLocked) {
@@ -169,8 +180,22 @@
 			},
 			bookOperateDialogConfirm() {
 				console.log('confirm unbind book')
-				// 从列表中删除this.bookItem
-				this.bookList.splice(this.bookList.indexOf(this.bookItem), 1)
+				const userId = uni.getStorageSync('userId')
+				unbindBookInfo({userId: userId, bookId: this.bookItem.bookId}).then(
+				(res) => {
+					if(res.code === 0) {
+						this.queryBookInfoList()
+						uni.showToast({
+							title: '解绑成功',
+							icon: 'none'
+						})
+					} else {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none'
+						})
+					}
+				})
 			}
 		}
 	}

@@ -62,3 +62,30 @@ import { http } from '@/common/http.ts'
         data: data,
       })
     }
+
+    // 书籍绑定
+    export function bindBookInfo(data, success, fail) {
+      return http<string[]>({
+        url: '/course-camp/book/info',
+        method: 'POST',
+        data: data,
+      })
+    }
+
+    // 查询书籍绑定列表
+    export function getBookInfoList(data, success, fail) {
+      return http<string[]>({
+        url: '/course-camp/book/info',
+        method: 'GET',
+        data: data,
+      })
+    }
+
+    // 解除书籍绑定
+    export function unbindBookInfo(data, success, fail) {
+      return http<string[]>({
+        url: '/course-camp/book/info?userId=' + data.userId + '&bookId=' + data.bookId,
+        method: 'DELETE',
+        data: data,
+      })
+    }
