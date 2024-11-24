@@ -217,15 +217,7 @@
 			},
 			onLevelItemClick(index, levelItem) {
 				uni.navigateTo({
-					url: '/pages/level-detail/level-detail',
-					success: function(res) {
-						// 通过eventChannel向被打开页面传送数据
-						res.eventChannel.emit('onLevelItemClickEvent', { data: levelItem })
-					},
-					fail: function(err) {
-						console.log(err)
-					}
-				});
+					url: '/pages/level-detail/level-detail?userLevelId='+levelItem.id+'&levelName='+levelItem.levelName+'&levelId='+levelItem.levelId+'&levelDetailId='+levelItem.levelDetailId});
 			}
 		}
 	}

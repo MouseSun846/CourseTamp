@@ -44,3 +44,12 @@ import { http } from '@/common/http.ts'
       data: data,
     })
   }
+
+    // 更新关卡详情
+    export function updateLevelDetail(data, success, fail) {
+      return http<string[]>({
+        url: '/course-camp/level-detail/info',
+        method: 'PUT',
+        data: data,
+      })
+    }

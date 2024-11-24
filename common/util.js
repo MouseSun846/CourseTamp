@@ -44,6 +44,9 @@ const LevelDetailType = {
 
     // 思维导图类型
     MINDMAP: 2,
+
+    // 文字类型
+    TEXT: 3
 };
 
 export {

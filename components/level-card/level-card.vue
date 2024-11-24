@@ -5,21 +5,27 @@
 	</view>
 	<view class="level-card-body"> 
 		<view class="icon-box">
-			<view class="box-wrap" v-if="isPictureType(levelItem)">
+			<view class="box-wrap" v-if="isPictureType()" @click="goToCourse">
 				<image 
 					class="box-picture"
 					mode="aspectFit" 
-					:src="levelItem.levelDetail.data?.picUrl" 
+					:src="levelItem.stepUrl" 
 					:draggable="false">
 				</image>
 			</view>
-			<view class="box-wrap" v-if="isProgressType(levelItem)">
-				<dprogress :percentage="levelItem.levelDetail.data.progress" ptype="circle" />
+			<view class="box-wrap" v-if="isProgressType()" @click="goToCourse">
+				<view class="box-wrap-body-text">去背诵
+					<uni-icons type="right" size="18" color="#067bef"></uni-icons>
+				</view>
+				<dprogress :percentage="levelItem.stepProgress" ptype="circle" />
 			</view>
-			<view class="box-wrap" v-if="isMindMapType(levelItem)">
+			<view class="box-wrap" v-if="isMindMapType()" @click="goToCourse">
 				<iframe frameborder="0" width="90%"  height="400px" style="border:1px solid;" :src="levelItem.stepUrl"></iframe>
 			</view>
-			<view class="box-wrap" v-if="levelItem.stepStatus">
+			<view class="box-wrap" v-if="isTextType()" @click="goToCourse">
+				{{ levelItem.stepContent }}
+			</view>
+			<view class="box-wrap" v-if="levelItem.stepStatus" @click="goToCourse">
 				<view class="box-wrap-body-icon">
 					<svg v-html="getLevelBodyIcon(levelItem.stepId)" class="body-icon"></svg>
 					
@@ -40,6 +46,7 @@
 
 <script>
 	import { LevelDetailType } from '@/common/util.js'
+	import { updateLevelDetail } from '@/common/api.ts'
 
 export default {
   data() {
@@ -51,9 +58,51 @@ export default {
 	levelItem: {
 		type: Object,
 		required: true
+	},
+	levelDetailId: {
+		type: String,
+		required: true
+	},
+	levelId: {
+		type: String,
+		required: true
+	},
+	userLevelId: {
+		type: String,
+		required: true
 	}
   },
   methods: {
+	goToCourse() {
+		if(this.levelItem.stepStatus) {
+			uni.showToast({
+				title:  '关卡未解锁',
+				icon: 'none',
+			})			
+			return
+		}
+		console.log(this.levelItem)
+		const userId = uni.getStorageSync('userId')
+		const trainId = uni.getStorageSync('trainId')
+		const trainSessionId = uni.getStorageSync('trainSessionId')
+		// 解锁关卡状态
+		updateLevelDetail({
+			stepId: this.levelItem.nextStepId,
+			levelId: this.levelId,
+			levelDetailId: this.levelDetailId,
+			userId: userId,
+			// 用户关卡id主键
+			userLevelId: this.userLevelId,
+			stepStatus: 0}).then(
+				(res) => {
+					// 或者最后一关 关卡详情不存在  {"code":50001,"msg":"关卡详情不存在","data":null}
+					if(res.code === 0 || res.code === 50001) {
+						location.href = this.levelItem.courseUrl
+					}
+				}
+			)
+
+	},
 	isPictureType() {
 		return this.levelItem.stepType === LevelDetailType.PICTURE && !this.levelItem.stepStatus;
 	},
@@ -61,7 +110,10 @@ export default {
 		return this.levelItem.stepType === LevelDetailType.PROGRESS && !this.levelItem.stepStatus;
 	},
 	isMindMapType() {
-		return this.levelItem.stepType === LevelDetailType.MINDMAP && !this.levelItem.stepStatus;
+		return this.levelItem.stepType === LevelDetailType.MINDMAP && !this.levelItem.stepStatus && false;
+	},
+	isTextType() {
+		return this.levelItem.stepType === LevelDetailType.TEXT && !this.levelItem.stepStatus;
 	},
 	getLevelBodyIcon(stepId) {
 		if(stepId === 0) {
@@ -136,11 +188,19 @@ export default {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		cursor: pointer;
 		
+	}
+	.box-wrap-body-text{
+		position: absolute;
+		right: 0px;
+		color: #067bef;
+		font-weight: bolder;
 	}
 	.body-icon {
 		width: 50px;
 		height: 50px;
+		opacity: 0.3; 
 	}
 	.box-wrap-body-icon {
 		width: 100%;

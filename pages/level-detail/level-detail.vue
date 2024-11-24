@@ -17,7 +17,7 @@
 						<uni-title type="h1" title="概要总结" ></uni-title>
 					</view>
 					<view class="level-card first-level-card">
-						<level-card :levelItem="levelDetail.summary">
+						<level-card :levelItem="levelDetail.summary" :levelDetailId="levelDetail.levelDetailId" :levelId="levelDetail.levelId" :userLevelId="levelDetail.userLevelId">
 						</level-card>
 					</view>
 						
@@ -31,7 +31,7 @@
 				<view :class="getStepContentClass(level.isLocked)">
 					<svg v-html="getStepIcon(level.stepId, level.isLocked)"></svg>
 					<view class="level-card level-card-step">
-						<level-card :levelItem="level">
+						<level-card :levelItem="level" :levelDetailId="levelDetail.levelDetailId" :levelId="levelDetail.levelId" :userLevelId="levelDetail.userLevelId">
 						</level-card>
 					</view>
 				</view>
@@ -52,33 +52,36 @@
 			return {
 				scrollTop: 0,
 				levelDetail: {
+					// 关卡主键
+					userLevelId: 0,
 					levelName: '第01关',
+					levelDetailId: "",
+					levelId: 0,
 					summary: {},
 					stepList: []
 				},
 			};
 		},
 		onLoad: function(option) {
-			const eventChannel = this.getOpenerEventChannel();
-			// 监听levelItem事件，获取上一页面通过eventChannel传送到当前页面的数据
-			var that = this;
-			eventChannel.on('onLevelItemClickEvent', function(data) {
-				that.levelDetail.levelName = data.data.levelName
-				eventBus.emit("titleUpdate", {title: data.data.levelName})
-				const userId = uni.getStorageSync('userId')
-				// 查询关卡详情数据
-				getLevelDetail({levelId: data.data.levelId, levelDetailId: data.data.levelDetailId, userId}).then(
-					(res) => {
-						if(res.code === 0) {
-							console.log(res.data)
-							// res.data 找到stepId 等于0 
-							const summary = res.data.find(item => item.stepId === 0)
-							that.levelDetail.summary = summary?summary:{}
-							// 删除 stepId 等于0
-							const stepList = res.data.filter(item => item.stepId !== 0)
-							that.levelDetail.stepList = stepList?stepList:[]
-						}
-					})
+			this.levelDetail.levelName = option.levelName
+			eventBus.emit("titleUpdate", {title: option.levelName})
+			const userId = uni.getStorageSync('userId')
+			this.levelDetail.levelDetailId = option.levelDetailId
+			this.levelDetail.levelId = option.levelId
+			this.levelDetail.userLevelId = option.userLevelId
+
+			// 查询关卡详情数据
+			getLevelDetail({levelId: option.levelId, levelDetailId: option.levelDetailId, userId}).then(
+				(res) => {
+					if(res.code === 0) {
+						console.log(res.data)
+						// res.data 找到stepId 等于0 
+						const summary = res.data.find(item => item.stepId === 0)
+						this.levelDetail.summary = summary?summary:{}
+						// 删除 stepId 等于0
+						const stepList = res.data.filter(item => item.stepId !== 0)
+						this.levelDetail.stepList = stepList?stepList:[]
+					}
 				})
 		},
 		methods: {
