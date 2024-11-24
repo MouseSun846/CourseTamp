@@ -93,6 +93,8 @@ export default {
 			userId: userId,
 			// 用户关卡id主键
 			userLevelId: this.userLevelId,
+			trainId: trainId,
+			trainSessionId: trainSessionId,
 			stepStatus: 0}).then(
 				(res) => {
 					// 或者最后一关 关卡详情不存在  {"code":50001,"msg":"关卡详情不存在","data":null}
