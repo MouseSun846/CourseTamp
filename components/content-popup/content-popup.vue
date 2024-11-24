@@ -30,12 +30,12 @@
 											<template v-slot:title>
 												<view class="content-title-box"> 
 													<svg t="1728784136346" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13259" width="25" height="25"><path d="M998.817433 472.690256l-171.015748 173.005626c-7.33412 7.33412-12.223533 19.500798-9.778826 29.222771l41.503157 248.564112c7.390973 34.112184-7.277266 65.779661-34.169038 85.28046a88.236849 88.236849 0 0 1-48.89413 14.611385c-12.166679 0-26.834918-2.444707-39.05845-9.721972L524.885493 896.590994a22.229773 22.229773 0 0 0-24.447065 0L287.976377 1013.709491a87.384044 87.384044 0 0 1-87.952581-4.889413c-29.279624-19.500798-41.503157-51.168276-36.613744-85.280459l41.503157-246.119406c2.444707-12.166679 0-21.888651-7.334119-29.222771L24.175489 472.690256A93.183115 93.183115 0 0 1 4.504129 382.634091c9.778826-29.279624 34.169037-51.168276 65.950222-56.057688L307.477175 289.962659c9.778826 0 17.056092-7.33412 21.945505-17.056092L434.488206 48.732666A82.039802 82.039802 0 0 1 510.274108 0.009097c31.781185 0 61.060809 19.500798 75.729047 48.723569l107.453379 224.173901a31.042087 31.042087 0 0 0 22.002359 17.056092l236.96597 36.55689c29.336478 2.444707 56.22825 24.333358 65.950222 56.057689 12.223533 31.667477 2.444707 65.779661-19.500798 90.113018z" fill="#FFC83C" p-id="13260"></path></svg>
-												<text class="text">{{ contentItem.title }}</text>
+												<text class="text">{{ contentItem.tocName }}</text>
 												</view>
 											</template>
 											<view class="content-text-box">
 												<view class="content-text"
-													v-for="(levelItem, levelIndex) in contentItem.levelInfoList"
+													v-for="(levelItem, levelIndex) in contentItem.levelList"
 													:key="levelIndex"
 													:class="{ 'selected': selectedIndex === levelItem.levelNumber }"
 													@click="onItemClick(levelItem, levelItem.levelNumber)">
@@ -45,7 +45,7 @@
 																	<text class="level-number-text">{{ levelItem.levelNumber }}</text>
 																</view>
 															</view>
-															<text class="content-text-wrapper">{{ levelItem.levelTitle }}</text>
+															<text class="content-text-wrapper">{{ levelItem.levelName }}</text>
 														</view>
 														<view class="item-choosing-box">
 															<image class="item-choosing" mode="heightFix" src="/static/choosing.svg" :draggable="false" v-if="selectedIndex === levelItem.levelNumber"></image>
@@ -72,6 +72,8 @@
 </template>
 
 <script>
+	import {getLevelCatalog} from "@/common/api.ts";
+	import {LevelType} from "@/common/util.js";
 	import eventBus from "@/common/eventbus.js";
 	export default {
 		data() {
@@ -80,45 +82,8 @@
 					selectedIndex: null, 
 					contentList:[],
 					contents:{
-						commonLevel :[
-						{
-							title: "文件领学1：辅导员的定义与工作职责",
-							levelInfoList:[ 
-								{levelNumber: 1, levelTitle: "43号令_《普通高等学校辅导员队伍建设规定》"},
-								{levelNumber: 2, levelTitle: "2号令_《高等学校辅导员队伍建设规定》"},
-								{levelNumber: 3, levelTitle: "3号令_《高等学校辅导员队伍建设规定》"},
-							]
-						},
-						{
-							title: "文件领学2：思想理论教育和价值引领",
-							levelInfoList:[ 
-								{levelNumber: 4, levelTitle: "16号令_《关于进一步加强和改进大学生思想政治教育的意见》"},
-								{levelNumber: 5, levelTitle: "《习近平总书记在全国高校思想政治工作会议上的讲话》"},
-								{levelNumber: 6, levelTitle: "31号令_《关于加强和改进新形势下高校思想政治工作的意见》"},
-								{levelNumber:7, levelTitle: "62号令_《高校思想政治工作质量提升工程实施纲要》"},
-								{levelNumber:8, levelTitle: "63号令"}
-							]
-						}
-					],
-					hotLevel: [
-							{
-								title: "文件领学1：辅导员的定义与工作职责",
-								levelInfoList:[ 
-									{levelNumber: 1, levelTitle: "43号令_《普通高等学校辅导员队伍建设规定》"},
-									{levelNumber: 2, levelTitle: "2号令_《高等学校辅导员队伍建设规定》"},
-									{levelNumber: 3, levelTitle: "3号令_《高等学校辅导员队伍建设规定》"},
-								]
-							},
-							{
-								title: "文件领学2：思想理论教育和价值引领",
-								levelInfoList:[ 
-									{levelNumber: 4, levelTitle: "16号令_《关于进一步加强和改进大学生思想政治教育的意见》"},
-									{levelNumber: 5, levelTitle: "《习近平总书记在全国高校思想政治工作会议上的讲话》"},
-									{levelNumber: 6, levelTitle: "31号令_《关于加强和改进新形势下高校思想政治工作的意见》"},
-									{levelNumber:7, levelTitle: "62号令_《高校思想政治工作质量提升工程实施纲要》"}
-								]
-							},
-						]
+						commonLevel :[],
+						hotLevel: []
 					},
 					activeIndex: 0,
 					tabs: ['普通关卡', '热点关卡'] // Tab内容数组
@@ -128,13 +93,22 @@
 			eventBus.on("show-content-popup", (e) => {
 				this.showContentDialog()
 			})
-			// 初始化目录列表书籍显示
-			this.onTabClick(0)
 		},
 		methods: {
 			// 显示目录popup 
 			showContentDialog: function() {
 				this.$refs.contentPopup.open()
+				const trainId = uni.getStorageSync('trainId')
+				const trainSessionId = uni.getStorageSync('trainSessionId')				
+				const userId = uni.getStorageSync('userId')				
+				getLevelCatalog({ trainSessionId: trainSessionId, trainId: trainId, userId: userId}).then((res) => {
+					if(res.code === 0) {
+						this.contents.commonLevel = res.data[LevelType.GENERAL_LEVEL]?res.data[LevelType.GENERAL_LEVEL]:[]
+						this.contents.hotLevel = res.data[LevelType.HOT_LEVEL]?res.data[LevelType.HOT_LEVEL]:[]
+						// 初始化目录列表书籍显示
+						this.onTabClick(0)						
+					}
+				})
 			},
 			// 关闭目录popup
 			closeContentPopup: function() {
@@ -144,8 +118,10 @@
 				this.scrollTop = e.detail.scrollTop
 			},
 			// 列表点击事件
-			onItemClick: function(item, index) {
+			onItemClick: function(levelItem, index) {
 				this.selectedIndex = index
+				uni.navigateTo({
+					url: '/pages/level-detail/level-detail?userLevelId='+levelItem.id+'&levelName='+levelItem.levelName+'&levelId='+levelItem.levelId+'&levelDetailId='+levelItem.levelDetailId});
 			},
 			
 			onTabClick(index) {
@@ -302,6 +278,7 @@
 	}
 	.collapse-content {
 		margin-top: 20px;
+		cursor: pointer;
 	}
 	.content-title-box {
 		display: flex;

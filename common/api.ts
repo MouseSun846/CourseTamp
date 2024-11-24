@@ -53,3 +53,12 @@ import { http } from '@/common/http.ts'
         data: data,
       })
     }
+
+    // 获取关卡目录
+    export function getLevelCatalog(data, success, fail) {
+      return http<string[]>({
+        url: '/course-camp/toc/info',
+        method: 'GET',
+        data: data,
+      })
+    }
