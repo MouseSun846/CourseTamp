@@ -60,7 +60,8 @@
 	import {codeToToken, 
 		getTrainSessionList, 
 		getDailyCheckInfo,
-		getLevelList} from "@/common/api.ts";
+		getLevelList,
+		getGoalInfo} from "@/common/api.ts";
 	export default {
 		data() {
 			return {
@@ -150,7 +151,7 @@
 							this.dailyCheckUrl = res.data
 						}
 					})	
-				this.getLevelInfoList()					
+				this.getLevelInfoList()			
 			},
 			// 获取关卡列表
 			getLevelInfoList: function() {
@@ -164,8 +165,41 @@
 							return b.levelNumber - a.levelNumber
 						})
 						this.campInfoList = res.data
+						getGoalInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId}).then((res) => {
+							if(res.code === 0) {
+								let goalNumber = res.data.goalNumber
+								console.log('goalNumber', goalNumber)
+								for (let i = 0; i < this.campInfoList.length; i ++) {
+									// 判断关卡状态是否是学习中
+									if(this.campInfoList[i].levelStatus === LevelStatus.LEARNING) {
+										// 判断关卡类型,并寻找目标关卡
+										if(this.campInfoList[i].levelType === LevelType.GENERAL_LEVEL || this.campInfoList[i].levelType === LevelType.HOT_LEVEL) {
+											let j = i
+											while(j > 0 && goalNumber > 0) {
+												if(this.campInfoList[j].levelType === LevelType.GENERAL_LEVEL) {
+													goalNumber--
+												} else if(this.campInfoList[j].levelType === LevelType.HOT_LEVEL) {
+													goalNumber--
+												}
+												j--
+											}
+											if(goalNumber == 0) {
+												// 找到今日目标关卡，设置类型
+												if(this.campInfoList[j].levelType === LevelType.GENERAL_LEVEL) {
+													this.campInfoList[j].levelType = LevelType.GOAL_LEVEL;
+												} else if(this.campInfoList[j].levelType === LevelType.HOT_LEVEL) {
+													this.campInfoList[j].levelType = LevelType.HOT_GOAL_LEVEL;
+												}
+											}	
+										}
+										break;
+									}
+								}
+							}
+						})						
 					}
 				})
+
 			},
 
 			// 用户打卡
@@ -216,7 +250,8 @@
 			  let remain = this.campInfoList.filter((item) => {return item.levelType !== LevelType.EMPTY}).length;
 			  for (let i = 0; i < this.campInfoList.length; i ++) {
 				  index++;
-			    if(this.campInfoList[i].levelType === LevelType.END_EXAM_LEVEL) {
+				  // 结营
+			    if(this.campInfoList[i].levelType === LevelType.END_EXAM) {
 					break;
 				}
 			  }
