@@ -89,3 +89,21 @@ import { http } from '@/common/http.ts'
         data: data,
       })
     }
+
+    // 目标查询
+    export function getGoalInfo(data, success, fail) {
+      return http<string[]>({
+        url: '/course-camp/goal/info',
+        method: 'GET',
+        data: data,
+      })
+    }
+
+    // 目标设置
+    export function setGoalInfo(data, success, fail) {
+      return http<string[]>({
+        url: '/course-camp/goal/info',
+        method: 'PUT',
+        data: data,
+      })
+    }

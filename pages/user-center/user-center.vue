@@ -68,7 +68,7 @@
 										<text class="book-text">{{ goalNumber||'未设置' }}</text>
 									</view>
 								<view class="book-box">
-									<uni-easyinput  class="book-input" trim="all" v-model="goalNumberValue" placeholder="请输入书籍编码" @input="onGoalNumberChange"></uni-easyinput>
+									<uni-easyinput  class="book-input" trim="all" v-model="goalNumberValue" placeholder="请输入关卡目标数量" @input="onGoalNumberChange"></uni-easyinput>
 									<view class="book-btn" @click="onGoalSetting">
 										<button type="primary" style="font-size: 13px;">确定</button>
 									</view>
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-	import {bindBookInfo, getBookInfoList, unbindBookInfo} from '@/common/api.ts'
+	import {bindBookInfo, getBookInfoList, unbindBookInfo, setGoalInfo, getGoalInfo} from '@/common/api.ts'
 	import eventBus from '@/common/eventbus.js'
 	export default {
 		data() {
@@ -122,17 +122,54 @@
 		mounted() {
 			eventBus.emit("titleUpdate", {title: "个人中心"})
 			this.queryBookInfoList()
+			this.queryGoalInfo()
 		},
 		methods: {
+			queryGoalInfo() {
+				const userId = uni.getStorageSync('userId')
+				const trainId = uni.getStorageSync('trainId')
+				const trainSessionId = uni.getStorageSync('trainSessionId')
+				getGoalInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId}).then((res) => {
+					if(res.code === 0) {
+						this.goalNumber = res.data.goalNumber
+						this.finishTime = res.data.goalDate
+					}
+				})
+			},
 			onGoalNumberChange(e) {
 				this.goalNumberValue = e
 			},
 			onFinishTimeClick(e){
-				console.log('maskClick事件:', e);
+				const userId = uni.getStorageSync('userId')
+				const trainId = uni.getStorageSync('trainId')
+				const trainSessionId = uni.getStorageSync('trainSessionId')
+				setGoalInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId, goalDate: e}).then((res) => {
+					if(res.code === 0) {
+						this.queryGoalInfo()
+					} else {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none'
+						})
+					}
+				})
 			},
 			onGoalSetting() {
 				console.log(this.goalNumberValue)
 				this.goalNumber = this.goalNumberValue
+				const userId = uni.getStorageSync('userId')
+				const trainId = uni.getStorageSync('trainId')
+				const trainSessionId = uni.getStorageSync('trainSessionId')
+				setGoalInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId, goalNumber: this.goalNumberValue}).then((res) => {
+					if(res.code === 0) {
+						this.queryGoalInfo()
+					} else {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none'
+						})
+					}
+				})				
 			},
 			queryBookInfoList() {
 				const userId = uni.getStorageSync('userId')
