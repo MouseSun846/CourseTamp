@@ -61,7 +61,7 @@
 		getTrainSessionList, 
 		getDailyCheckInfo,
 		getLevelList,
-		getGoalInfo} from "@/common/api.ts";
+		getUserSettingInfo} from "@/common/api.ts";
 	export default {
 		data() {
 			return {
@@ -165,10 +165,9 @@
 							return b.levelNumber - a.levelNumber
 						})
 						this.campInfoList = res.data
-						getGoalInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId}).then((res) => {
+						getUserSettingInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId}).then((res) => {
 							if(res.code === 0) {
 								let goalNumber = res.data.goalNumber
-								console.log('goalNumber', goalNumber)
 								for (let i = 0; i < this.campInfoList.length; i ++) {
 									// 判断关卡状态是否是学习中
 									if(this.campInfoList[i].levelStatus === LevelStatus.LEARNING) {

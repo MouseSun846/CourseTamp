@@ -91,18 +91,18 @@ import { http } from '@/common/http.ts'
     }
 
     // 目标查询
-    export function getGoalInfo(data, success, fail) {
+    export function getUserSettingInfo(data, success, fail) {
       return http<string[]>({
-        url: '/course-camp/goal/info',
+        url: '/course-camp/user/setting/info',
         method: 'GET',
         data: data,
       })
     }
 
     // 目标设置
-    export function setGoalInfo(data, success, fail) {
+    export function setUserSettingInfo(data, success, fail) {
       return http<string[]>({
-        url: '/course-camp/goal/info',
+        url: '/course-camp/user/setting/info',
         method: 'PUT',
         data: data,
       })

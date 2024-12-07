@@ -58,7 +58,7 @@
 					<view class="level-card">
 						<uni-section title="目标设置" type="line" padding :titleFontSize="'18px'">
 							<uni-section title="预计完成时间" type="square" padding>
-								<view class="book-box book-box-view">
+								<view class="book-box book-box-view goal-input">
 									<uni-datetime-picker type="date" :clear-icon="false" v-model="finishTime" @change="onFinishTimeClick" return-type="timestamp" />
 								</view>
 							</uni-section>
@@ -67,7 +67,7 @@
 										<svg t="1729001256170" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4755" width="32" height="32" style="margin-left: 10px; margin-right: 20px;"><path d="M85.930667 590.762667H78.762667a78.762667 78.762667 0 1 1 0-157.525334h7.168a433.664 433.664 0 0 1 347.306666-347.306666V78.762667a78.762667 78.762667 0 1 1 157.525334 0v7.168a433.664 433.664 0 0 1 347.306666 347.306666h7.168a78.762667 78.762667 0 1 1 0 157.525334h-7.168a433.664 433.664 0 0 1-347.306666 347.306666v7.168a78.762667 78.762667 0 1 1-157.525334 0v-7.168a433.664 433.664 0 0 1-347.306666-347.306666zM512 748.373333a236.373333 236.373333 0 1 0 0-472.576 236.373333 236.373333 0 0 0 0 472.576z m0-78.762666a157.525333 157.525333 0 1 1 0-315.050667 157.525333 157.525333 0 0 1 0 315.050667z" fill="#8492A6" p-id="4756"></path></svg>
 										<text class="book-text">{{ goalNumber||'未设置' }}</text>
 									</view>
-								<view class="book-box">
+								<view class="book-box goal-input">
 									<uni-easyinput  class="book-input" trim="all" v-model="goalNumberValue" placeholder="请输入关卡目标数量" @input="onGoalNumberChange"></uni-easyinput>
 									<view class="book-btn" @click="onGoalSetting">
 										<button type="primary" style="font-size: 13px;">确定</button>
@@ -82,6 +82,28 @@
 				</view>	
 			</view>
 
+			<view class="step-content">
+				<view class="step-content-body step-content-body-unlock">
+					<view class="level-card">
+						<uni-section title="关卡设置" type="line" padding :titleFontSize="'18px'">
+							<uni-section title="复习模式设置" type="square" padding>
+								<view class="book-box book-box-view goal-input">
+									<uni-data-checkbox v-model="reviewMode" :localdata="reviewModeInfo" @change="handleReviewModeChange"></uni-data-checkbox>
+								</view>
+							</uni-section>
+							<uni-section title="学习顺序设置" type="square" padding>
+								<view class="book-box book-box-view goal-input">
+									<uni-data-checkbox v-model="learnOrder" :localdata="learnOrderInfo" @change="handlelearnOrderChange"></uni-data-checkbox>
+								</view>
+								
+							</uni-section>
+						</uni-section>
+
+
+					</view>
+				</view>	
+			</view>
+			
 			<view style="width: 100%;height: 100px;">
 
 			</view>
@@ -101,7 +123,7 @@
 </template>
 
 <script>
-	import {bindBookInfo, getBookInfoList, unbindBookInfo, setGoalInfo, getGoalInfo} from '@/common/api.ts'
+	import {bindBookInfo, getBookInfoList, unbindBookInfo, setUserSettingInfo, getUserSettingInfo} from '@/common/api.ts'
 	import eventBus from '@/common/eventbus.js'
 	export default {
 		data() {
@@ -116,23 +138,77 @@
 				bookNumberValue: '',
 				goalNumber: 0,
 				goalNumberValue: 0,
-				finishTime: ''
+				finishTime: '',
+				reviewMode: 0,
+				reviewModeInfo: [
+					{
+						text: '不复习',
+						value: 0
+					},
+					{
+						text: '强制复习',
+						value: 1
+					}
+				],
+				learnOrder: 0,
+				learnOrderInfo:[
+					{
+						text: '随机学习',
+						value: 0
+					},
+					{
+						text: '顺序学习',
+						value: 1
+					}
+				]
 			};
 		},
 		mounted() {
 			eventBus.emit("titleUpdate", {title: "个人中心"})
 			this.queryBookInfoList()
-			this.queryGoalInfo()
+			this.queryUserSettingInfo()
 		},
 		methods: {
-			queryGoalInfo() {
+			handleReviewModeChange(e) {
 				const userId = uni.getStorageSync('userId')
 				const trainId = uni.getStorageSync('trainId')
 				const trainSessionId = uni.getStorageSync('trainSessionId')
-				getGoalInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId}).then((res) => {
+				setUserSettingInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId, reviewMode: e.detail.value}).then((res) => {
+					if(res.code === 0) {
+						this.queryUserSettingInfo()
+					} else {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none'
+						})
+					}
+				})						
+			},
+			handlelearnOrderChange(e) {
+				const userId = uni.getStorageSync('userId')
+				const trainId = uni.getStorageSync('trainId')
+				const trainSessionId = uni.getStorageSync('trainSessionId')
+				setUserSettingInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId, learnOrder: e.detail.value}).then((res) => {
+					if(res.code === 0) {
+						this.queryUserSettingInfo()
+					} else {
+						uni.showToast({
+							title: res.msg,
+							icon: 'none'
+						})
+					}
+				})					
+			},
+			queryUserSettingInfo() {
+				const userId = uni.getStorageSync('userId')
+				const trainId = uni.getStorageSync('trainId')
+				const trainSessionId = uni.getStorageSync('trainSessionId')
+				getUserSettingInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId}).then((res) => {
 					if(res.code === 0) {
 						this.goalNumber = res.data.goalNumber
 						this.finishTime = res.data.goalDate
+						this.learnOrder = res.data.learnOrder
+						this.reviewMode = res.data.reviewMode
 					}
 				})
 			},
@@ -143,9 +219,9 @@
 				const userId = uni.getStorageSync('userId')
 				const trainId = uni.getStorageSync('trainId')
 				const trainSessionId = uni.getStorageSync('trainSessionId')
-				setGoalInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId, goalDate: e}).then((res) => {
+				setUserSettingInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId, goalDate: e}).then((res) => {
 					if(res.code === 0) {
-						this.queryGoalInfo()
+						this.queryUserSettingInfo()
 					} else {
 						uni.showToast({
 							title: res.msg,
@@ -155,14 +231,13 @@
 				})
 			},
 			onGoalSetting() {
-				console.log(this.goalNumberValue)
 				this.goalNumber = this.goalNumberValue
 				const userId = uni.getStorageSync('userId')
 				const trainId = uni.getStorageSync('trainId')
 				const trainSessionId = uni.getStorageSync('trainSessionId')
-				setGoalInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId, goalNumber: this.goalNumberValue}).then((res) => {
+				setUserSettingInfo({userId: userId, trainId: trainId, trainSessionId: trainSessionId, goalNumber: this.goalNumberValue}).then((res) => {
 					if(res.code === 0) {
-						this.queryGoalInfo()
+						this.queryUserSettingInfo()
 					} else {
 						uni.showToast({
 							title: res.msg,
@@ -412,6 +487,10 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
+	}
+	
+	.goal-input{
+		width: 400px;
 	}
 
 	::v-deep .uni-dialog-title-text{
